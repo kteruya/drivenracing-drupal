@@ -1,0 +1,66 @@
+langcode: en
+status: true
+dependencies: {  }
+id: breakpoint960_template
+label: 'Breakpoint960 Template'
+description: ''
+breakpoint: true
+swiper_options:
+  grid:
+    enabled: false
+    rows: 1
+    fill: column
+  autoplay:
+    enabled: false
+    delay: 4000
+    disableOnInteraction: false
+    pauseOnMouseEnter: false
+    reverseDirection: false
+    stopOnLastSlide: false
+    waitForTransition: false
+  navigation:
+    enabled: true
+    hideOnClick: false
+  pagination:
+    enabled: true
+    type: bullets
+    dynamicBullets: true
+    clickable: true
+  scrollbar:
+    enabled: false
+    draggable: false
+    dragSize: auto
+    hide: false
+    snapOnRelease: false
+  breakpoints:
+    -
+      weight: 0
+  lazy:
+    enabled: false
+    checkInView: false
+    loadOnTransitionStart: false
+    loadPrevNext: false
+    loadPrevNextAmount: 1
+    scrollingElement: window
+  source: remote
+  breakpointsBase: window
+  autoHeight: 0
+  width: null
+  height: null
+  observer: true
+  updateOnWindowResize: true
+  resizeObserver: true
+  direction: horizontal
+  effect: slide
+  loop: 0
+  rewind: 0
+  centeredSlides: 0
+  speed: 300
+  slidesPerView: 2
+  spaceBetween: 40
+  slidesPerGroup: 1
+  loopedSlides: 1
+  noSwipingSelector: '.no-swipe, button, input'
+  mousewheel: 0
+  grabCursor: 0
+  cssMode: 0

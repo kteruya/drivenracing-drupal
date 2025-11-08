@@ -1,0 +1,26 @@
+id: uc7_sanity
+label: 'Sanity check (embedded data)'
+status: true
+migration_group: uc7
+migration_tags:
+  - sanity
+dependencies:
+  enforced:
+    module:
+      - taxonomy
+      - migrate_plus
+source:
+  plugin: embedded_data
+  data_rows:
+    - id: 1
+      title: 'hello'
+  ids:
+    id:
+      type: integer
+process:
+  vid:
+    plugin: machine_name
+    source: title
+  name: title
+destination:
+  plugin: 'entity:taxonomy_vocabulary'

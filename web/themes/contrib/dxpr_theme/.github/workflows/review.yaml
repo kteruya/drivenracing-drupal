@@ -1,0 +1,64 @@
+name: Review
+
+on: [pull_request]
+
+env:
+  TARGET_DRUPAL_CORE_VERSION: 11
+
+jobs:
+
+  drupal-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Lint Drupal
+      run: |
+        TARGET_DRUPAL_CORE_VERSION=$TARGET_DRUPAL_CORE_VERSION docker compose run --rm drupal-lint
+
+  eslint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Lint with eslint
+      run: |
+        REPORT_ENABLED=true docker compose run --rm eslint
+
+    - name: Archive eslint html report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: eslint-report
+        path: out/eslint-report.html
+
+  stylelint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint with stylelint
+        run: |
+          REPORT_ENABLED=true docker compose run --rm stylelint
+      - name: Archive stylelint html report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stylelint-report
+          path: out/stylelint-report.html
+
+  # review by commenting on code (experimental)
+  # eslint-review:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+
+  #   - name: Comment on file changes with eslint check
+  #     uses: reviewdog/action-eslint@v1.2.0
+  #     with:
+  #       github_token: ${{ secrets.github_token }}
+  #       reporter: github-pr-review # Change reporter.
+  #       eslint_flags: 'js'

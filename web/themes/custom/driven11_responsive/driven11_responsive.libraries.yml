@@ -1,0 +1,11 @@
+global:
+  css:
+    theme:
+      css/stability-base.css: {}
+      css/stability-components.css: {}
+      css/stability-responsive.css: {}
+  js:
+    js/stability-core.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

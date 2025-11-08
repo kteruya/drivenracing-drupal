@@ -1,0 +1,9 @@
+swiper
+swipers
+endcode
+autoresize
+behaviour
+Coverflow
+coverflow
+reinitialised
+routable

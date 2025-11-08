@@ -1,0 +1,31 @@
+{# Source: /home/drupal11.drivenracing.com/d7_themes/driven/templates/page--home--one-page.tpl.php #}
+{# Auto-generated from D7 page*.tpl.php. #}
+<header class="header-wrapper">
+  <div class="header-top">{{ page.header_top }}</div>
+  <div class="header main-header">
+    <div class="branding">
+      {% if logo %}<a href="{{ path('<front>') }}" class="site-logo" rel="home"><img src="{{ logo }}" alt="{{ site_name }}" /></a>{% endif %}
+      {% if site_name %}<span class="site-name">{{ site_name }}</span>{% endif %}
+    </div>
+    <nav class="primary-nav">{{ page.primary_menu }}</nav>
+  </div>
+</header>
+
+{% if page.highlighted %}
+  <section class="highlighted">{{ page.highlighted }}</section>
+{% endif %}
+
+<div class="main-container {{ page.sidebar_first ? 'has-sidebar-first' : '' }} {{ page.sidebar_second ? 'has-sidebar-second' : '' }}">
+  <main role="main" class="content-wrapper">
+    {{ page.breadcrumb }}
+    {{ page.content }}
+  </main>
+  {% if page.sidebar_first %}<aside class="sidebar-first">{{ page.sidebar_first }}</aside>{% endif %}
+  {% if page.sidebar_second %}<aside class="sidebar-second">{{ page.sidebar_second }}</aside>{% endif %}
+</div>
+
+<footer class="footer-wrapper">
+  <div class="footer-top">{{ page.footer_top }}</div>
+  <div class="footer">{{ page.footer }}</div>
+  <div class="footer-bottom">{{ page.footer_bottom }}</div>
+</footer>

@@ -1,0 +1,8 @@
+{# Source: /home/drupal11.drivenracing.com/d7_themes/driven/templates/node--forum.tpl.php #}
+{# Auto-generated from D7 node*.tpl.php. #}
+<article{{ attributes.addClass('node', 'node--type-' ~ node.bundle|clean_class) }}>
+  {% if label and not page %}<h2{{ title_attributes }}><a href="{{ url }}">{{ label }}</a></h2>{% endif %}
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content }}
+  </div>
+</article>

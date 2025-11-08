@@ -1,0 +1,73 @@
+<?php
+
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+
+/**
+ * Install: add field_fits_motorcycles to commerce_product_variation.
+ */
+function driven_variation_fit_install() {
+  $entityType = 'commerce_product_variation';
+  $fieldName  = 'field_fits_motorcycles';
+
+  // 1) Field storage (entity reference to driven_motorcycle)
+  $storage = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+  if (!$storage->load("$entityType.$fieldName")) {
+    $storage->create([
+      'field_name'  => $fieldName,
+      'entity_type' => $entityType,
+      'type'        => 'entity_reference',
+      'cardinality' => -1,
+      'settings'    => [
+        'target_type' => 'driven_motorcycle',
+      ],
+      'translatable' => FALSE,
+    ])->save();
+  }
+
+  // 2) Attach to ALL variation bundles
+  $bundleInfo = \Drupal::service('entity_type.bundle.info')->getBundleInfo($entityType);
+  $fieldConfStorage = \Drupal::entityTypeManager()->getStorage('field_config');
+
+  foreach (array_keys($bundleInfo) as $bundle) {
+    if (!$fieldConfStorage->load("$entityType.$bundle.$fieldName")) {
+      $fieldConfStorage->create([
+        'field_name'  => $fieldName,
+        'entity_type' => $entityType,
+        'bundle'      => $bundle,
+        'label'       => 'Fits Motorcycles',
+        'required'    => FALSE,
+        'settings'    => [
+          'handler' => 'default:driven_motorcycle',
+          'handler_settings' => [
+            'target_bundles' => NULL,
+            'auto_create' => FALSE,
+          ],
+        ],
+      ])->save();
+    }
+
+    // 3) Put it on the default form display
+    $formDisp = EntityFormDisplay::load("$entityType.$bundle.default")
+      ?: EntityFormDisplay::create(['targetEntityType' => $entityType, 'bundle' => $bundle, 'mode' => 'default', 'status' => TRUE]);
+    $formDisp->setComponent($fieldName, [
+      'type' => 'entity_reference_autocomplete',
+      'weight' => 98,
+      'settings' => [
+        'match_operator' => 'CONTAINS',
+        'size' => 60,
+        'placeholder' => '',
+      ],
+    ])->save();
+
+    // 4) Put it on the default view display
+    $viewDisp = EntityViewDisplay::load("$entityType.$bundle.default")
+      ?: EntityViewDisplay::create(['targetEntityType' => $entityType, 'bundle' => $bundle, 'mode' => 'default', 'status' => TRUE]);
+    $viewDisp->setComponent($fieldName, [
+      'type' => 'entity_reference_label',
+      'weight' => 98,
+      'label' => 'above',
+      'settings' => ['link' => TRUE],
+    ])->save();
+  }
+}

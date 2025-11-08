@@ -1,0 +1,7 @@
+name: 'DRD Variation Fitment Panel'
+type: module
+description: 'Clean panel to manage Fits Motorcycles on product variations; hides native widget.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:commerce_product

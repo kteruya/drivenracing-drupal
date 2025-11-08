@@ -1,0 +1,21 @@
+services:
+  swiper_formatter.base:
+    class: Drupal\swiper_formatter\Service\Swiper
+    arguments: [
+      '@entity_field.manager',
+      '@entity_type.manager',
+      '@entity_display.repository',
+      '@logger.factory',
+      '@current_user',
+      '@token',
+      '@redirect.destination',
+      '@messenger',
+      '@module_handler'
+    ]
+  swiper_formatter.dialog:
+    class: Drupal\swiper_formatter\Service\SwiperDialog
+    arguments: [
+      '@entity_display.repository',
+      '@current_user',
+      '@token',
+    ]

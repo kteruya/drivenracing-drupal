@@ -1,0 +1,562 @@
+@charset "UTF-8";
+/* Driven CSS */
+#my-motorcycle {
+ 	position: relative;
+    padding: 20px 0 15px;  
+}
+.my-bike-name h3,
+#my-motorcycle h3 {
+	margin-bottom: 0;   
+}
+.my-bike-name h3 a, 
+#my-motorcycle h3 a {
+	color: #FFF;   
+}
+.my-bike-name .expand-bike-details,
+.my-bike-name .change-bike,
+#my-motorcycle .note {
+	font-size: 11px; 
+    display: inline-block;  
+}
+.my-bike-name .expand-bike-details a,
+.my-bike-name .change-bike a,
+#my-motorcycle .note {
+	color: #CCC;   
+}
+.my-bike-details {
+    background: none repeat scroll 0 0 #FFF;
+    border: 5px solid #d6d6d6;
+    box-shadow: 0 10px 10px #666;
+    margin-bottom: 15px;
+    max-width: 350px;
+    min-width: 400px;
+    padding: 5px 0 10px;
+    position: absolute;
+    z-index: 400;
+    left: 225px;
+    top: 10px;
+}
+.my-bike-details table > tbody > tr > td {
+ 	padding: 2px 14px;  
+}
+.not-avail-moto {
+    background: none repeat scroll 0 0 #f0f0f0;
+    float: left;
+    margin: 20px 0 0 250px;
+    padding: 30px;
+}
+.not-avail-moto h3 {
+	color: #AE3B3B;
+}
+.not-avail-moto h3 {
+}
+.motorcycle-selector-tool {
+    height: 35px;
+}
+.motorcycle-selector-tool select {
+    font-size: 16px;
+}
+.selector-year {
+    clear: left;
+}
+.selector-year, .selector-make, .selector-model, .selector-buttons {
+    float: left;
+    line-height: 20px;
+    padding: 5px;
+}
+#select-year {
+    width: 80px;
+}
+#select-make, 
+#select_make_chosen {
+    width: 200px !important;
+}
+#select-model,
+#select_model_chosen {
+    width: 250px;
+    min-width: 250px !important;
+}
+.chosen-results li {
+    color: #333 !important;
+}
+.chosen-results li:hover {
+    color: #fff !important;
+}
+#block-driven-motorcycle-selector {
+    margin: 20px 50px 0;
+}
+#block-driven-my-motorcycle,
+#block-driven-motorcycle-selector {
+ 	float: left; 
+}
+.product-image {
+  clear: left;
+  float: left;
+  margin: 0 15px 0 0;
+  padding-left: 0;
+  padding-top: 0;
+  text-align: center;
+}
+.selector-buttons a {
+    background-image: linear-gradient(to bottom, #3498db 0%, #258cd1 100%);
+    background-repeat: repeat-x;
+    border-color: #258cd1;
+    border-radius: 4px;
+    box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.06) inset;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Oswald",sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin: 0 10px 0 0;
+    padding: 3px 15px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;	  
+}
+.selector-buttons a:hover {
+ 	color: #FFF;  
+}
+.selector-buttons a#vehicle-selected {
+   
+}
+.selector-buttons a#clear-motorcycle {
+	background-image: linear-gradient(to bottom, #969696 0%, #636363 100%);
+}
+.view-id-dealers .views-exposed-widgets {
+    background: none repeat scroll 0 0 #f5f5f5;
+    border: 1px solid #d6d6d6;
+    padding: 20px; 
+    min-width: 240px;
+}
+
+.view-id-dealers .view-filters input,
+.view-id-dealers .view-filters .chosen {
+  max-width: 100px;
+}
+.view-id-dealers label[for="edit-distance"] {
+}
+.view-id-dealers label[for="edit-distance-search-distance"] {
+   height: 20px;
+}
+.view-id-dealers .form-item-distance-search-distance {
+   float: left;
+   clear: left;
+   width: 75px;
+padding-left: 5px;
+padding-right: 5px;
+}
+.view-id-dealers .form-item-distance-search-units {
+   float: left;
+   clear: right;
+   margin-top: 25px;
+}
+
+
+/**.view-dealers .form-item-distance-search-distance, .view-dealers .form-item-distance-search-units, .view-dealers #edit-postal-code-wrapper, .view-dealers #edit-country-wrapper {
+   display:none;
+} **/
+
+.view-id-dealers .dealers-list {
+   padding: 10px; 
+   border: 1px solid #D6D6D6; 
+}
+.view-id-dealers .dealer {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #DBDBDB;   
+}
+.view-id-dealers .dealer span.field-content a {
+  font-weight: bold;
+  font-size: 18px;  
+  font-family: "Oswald",sans-serif;
+  text-transform: uppercase;
+}
+.view-id-dealers .dealer div.field-content {
+   line-height: 1.5em;
+}
+.view-id-dealers .dealer span.field-content,
+.view-id-dealers .dealer .views-label-distance {
+  font-weight: bold;
+  font-size: 12px; 
+}
+.view-id-dealers .col-md-9 .view-display-id-attachment_1 {
+   border: 5px solid #d6d6d6;  
+}
+.feature a {
+    text-align: center;
+    text-transform: uppercase;
+}
+.feature div {
+ 	text-align: center;  
+}
+
+.feature img {
+   border: 3px solid #a7a9a7;
+   width: 100%;
+}
+.header-landing-image > img {
+  width: 100%;
+}
+.view-uc-catalog-terms .col-md-4 {
+  text-align: center;
+  position: relative;  
+  margin: 5px 0;
+}
+.view-uc-catalog-terms .col-md-4 img {
+	width: 100%;   
+}
+.view-uc-catalog-terms .col-md-4 span.field-content {
+    background: none repeat scroll 0 0 #000;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    margin: 0 18px 3px;
+}
+.view-uc-catalog-terms .col-md-4 div.field-content {
+   border: 3px solid #a7a9a7; 
+}
+.view-uc-catalog-terms .col-md-4 span.field-content a,
+#block-views-embrace-driven-carousel .embrace-carousel-item span.field-content a,
+#views-new_products-news_block .new-products-carousel-item span.field-content a  {
+   text-transform: uppercase;
+   font-size: 20px;
+   color: #fff;
+   font-family: "Oswald",sans-serif;
+}
+#block-views-embrace-driven-carousel .embrace-carousel-item,
+#views-new_products-news_block .new-products-carousel-item {
+ 	position: relative;  
+}
+#block-views-embrace-driven-carousel .embrace-carousel-item span.field-content {
+    background: none repeat scroll 0 0 #000;
+    font-family: "Oswald",sans-serif;
+    bottom: -10px;
+    left: 0;
+    margin: 0 12px;
+    padding: 8px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+#block-views-embrace-driven-carousel .field-content img,
+#block-views-new-products-news-block .field-content img {
+    border: 7px solid #D9D9D9;
+}
+#block-views-embrace-driven-carousel .carousel-indicators,
+#block-views-new-products-news-block .carousel-indicators {
+    bottom: -25px;
+}
+#views-new_products-news_block .new-products-carousel-item:hover span.field-content {
+	opacity: 1;   
+}
+#views-new_products-news_block .new-products-carousel-item span.field-content {
+    background: none repeat scroll 0 0 #000;
+    bottom: 5px;
+    font-family: "Oswald",sans-serif;
+    left: 0;
+    margin: 0 12px;
+    opacity: 0;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+#views-new_products-news_block .new-products-carousel-item span.field-content a {
+ 	font-size: 15px;  
+}
+
+#block-2 img {
+ 	width: 100%; 
+    height: auto; 
+}
+.view-uc-catalog-terms .view-header.catalog-headers img,
+.view-embrace-driven .view-catalog-header img {
+    width: 100%;
+    height: auto;	   
+}
+.view-uc-catalog-terms .view-header.catalog-headers h1,
+.view-embrace-driven .view-catalog-header h1,
+h1.about-page {
+    color: #fff;
+    font-size: 80px;
+    margin: -120px auto 50px 30px;
+    text-shadow: 5px 5px 5px #000;
+}
+.embrace-carousel-item {
+    float: left;
+    padding: 10px 13px 0;
+    text-align: center;
+}
+.new-products-carousel-item {
+    float: left;
+    padding: 10px 13px;
+    text-align: center;
+}
+.view-id-embrace_driven .carousel-inner {
+    height: 288px;
+    overflow: hidden;
+}
+.view-id-new_products .carousel-inner {
+    height: 288px;
+    overflow: hidden;
+}
+#block-menu-menu-footer-products ul.menu {
+ 	padding: 0;
+    margin: 0;  
+}
+#block-menu-menu-footer-products .leaf.first {
+    clear: left;
+}
+#block-menu-menu-footer-products .leaf.last {
+ 	clear: right;  
+}
+#block-menu-menu-footer-products .leaf {
+    float: left;
+    list-style: outside none none;
+    margin: 0;
+    padding: 8px 0 0;
+    width: 170px;
+}
+.cart_link {
+    background-image: linear-gradient(to bottom, #3498db 0%, #258cd1 100%);
+    background-repeat: repeat-x;
+    border-color: #258cd1;
+    box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.06) inset;
+    font-family: "Oswald",sans-serif;
+    text-transform: uppercase; 
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 13px 24px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap; 
+    border-radius: 4px;
+    cursor: pointer;          
+ 	color: #FFF;
+    text-decoration: none;  
+}
+.cart_link:hover, .cart_link:focus {
+    background: none repeat scroll 0 0 #258cd1 !important;
+    border-color: #258cd1;
+    color: #FFF;
+    text-decoration: none;
+}
+.add-to-cart-link {
+	float: left;
+    clear: right;
+    margin-left: 15px; 
+}
+.quantity.cart-link {
+ 	margin: 0;
+    float: left;
+    clear: left;  
+}
+#download-pdf-catalog {
+ 	text-align: center;  
+}
+#download-pdf-catalog img {
+ 	width: 100%;
+    max-width: 1040px;  
+}
+
+@media (max-width: 400px) {
+    #block-views-embrace-driven-carousel .carousel-inner img,
+    #block-views-new-products-news-block .carousel-inner img,
+    .header-landing-image-about img {    
+     	width: 100%;  
+      	height: auto;
+    }
+	.view-uc-catalog-terms .view-header.catalog-headers h1, 
+    .view-embrace-driven .view-catalog-header h1 {
+        color: #fff;
+        font-size: 40px;
+        margin: -60px auto 20px 10px;
+        text-shadow: 4px 4px 0 #000;     	  
+    }
+    #block-driven-motorcycle-selector {
+        margin: 0 0 20px;
+    }    
+    
+    #block-views-embrace-driven-carousel .carousel-inner,
+    #block-views-new-products-news-block .carousel-inner {    
+        height: 219px;
+        margin-bottom: 15px;
+    }   
+    footer .widget-title {
+     	margin: 0 !important;  
+    }
+    footer .widget {
+        text-align: center;
+    }  
+    footer .widget h3 {
+     	margin-bottom: 15px !important;
+        font-size: 22px !important;
+    }
+    #block-menu-menu-footer-products .leaf {
+     	float: none;
+      	width: auto;  
+    }
+    #block-menu-menu-footer-quick-links ul.menu {
+     	margin: 0;
+        padding: 0;  
+    }
+    #block-menu-menu-footer-quick-links ul.menu li {
+       list-style: none;
+    }
+    #block-stability-cms-contact-us .info-item {
+     	text-align: left;  
+    }
+    .my-bike-details {
+      background: none repeat scroll 0 0 #fff;
+      border: 5px solid #d6d6d6;
+      bottom: -194px;
+      box-shadow: 0 10px 10px #666;
+      font-size: 11px;
+      left: 0;
+      margin-bottom: 15px;
+      max-width: 255px;
+      min-width: 255px;
+      padding: 5px 0 10px;
+      position: absolute;
+      z-index: 400;
+    }    
+    
+}
+
+#block-block-3 {
+    /* embrace block */
+    text-align: center;
+    padding-top: 20px;
+   
+}
+
+.nd-region.home-closeouts h3,
+.nd-region.new-products h3,
+.nd-region.home-middle-area h3 {
+	color: #FFF;
+    text-shadow: 2px 2px 0 #000;    
+}
+.nd-region.home-closeouts img {
+ 	width: 100%;  
+}
+.nd-region.home-closeouts {
+   background: #000;
+	/*background: url("/sites/default/files/bg-roll01.gif") repeat scroll center center rgba(0, 0, 0, 0);*/   
+}
+.nd-region.home-middle-area {
+	background: url("/sites/default/files/bg-roll01.gif") repeat scroll center center rgba(0, 0, 0, 0);
+    box-shadow: inset 0 15px 10px rgba(0, 0, 0, 0.5);   
+}
+.nd-region.new-products {
+	background: url("/sites/default/files/bg-roll03.jpg") repeat scroll center center rgba(0, 0, 0, 0); 
+    box-shadow: inset 0 15px 10px rgba(27, 0, 0, 0.5);  
+}
+.nd-region.home-middle-area .carousel-control, 
+.nd-region.new-products .carousel-control {
+   width: 5% !important;
+}
+footer.nd-region {
+   box-shadow: inset 0 10px 15px rgba(0, 0, 0, 0.5); 
+   padding-top: 40px;
+}
+.view-id-embrace_driven #views-bootstrap-grid-1 span.field-content a {
+    font-size: 20px;
+    color: #2f2f2f;
+    font-family: "Oswald",sans-serif;
+    text-transform: uppercase;   
+}
+#block-menu-menu-footer-quick-links ul.menu {
+   margin-left: 0;
+   padding-left: 15px;
+}
+.tb-megamenu-submenu.dropdown-menu {
+ 	box-shadow: #10px 10px 10px #000;  
+}
+.tb-megamenu-submenu.dropdown-menu .tb-megamenu-block ul.catalog.menu a {
+    font-family: "Oswald",sans-serif;
+    text-transform: uppercase;
+    font-size: 16px;  
+    padding: 5px 2px; 	  
+}
+.tb-megamenu-submenu.dropdown-menu .tb-megamenu-block ul.catalog.menu li.expanded {
+    
+}
+.tb-megamenu-submenu.dropdown-menu .tb-megamenu-block ul.catalog.menu li.expanded ul.menu {
+ 	padding-left: 20px;  
+}
+.tb-megamenu-submenu.dropdown-menu .tb-megamenu-block ul.catalog.menu li.expanded ul.menu li { 
+    list-style: square; 
+    line-height: 1.9em;
+}
+.tb-megamenu-submenu.dropdown-menu .tb-megamenu-block ul.catalog.menu li.expanded ul.menu li a {
+	font-size: 12px;
+    font-weight: normal;
+    color: #000;
+    padding: 2px;
+}
+.dropdown-menu {
+ 	z-index: 1000000;  
+}
+ .breadcrumb {
+  background-color: transparent;
+  border-radius: 0;
+  list-style: outside none none;
+  margin-bottom: 20px;
+  padding: 8px 15px 8px 0;
+}
+#edit-submitted-business-details-ca-resale-form-ajax-wrapper {
+  clear: both;
+  float: none;
+}
+.header-landing-image-about {
+    background: none repeat scroll 0 0 #000;
+    text-align: center;
+} 
+body.page-node-9071 .nd-region .container #Content #content.col-md-12 {
+	background: url("../images/faqs.jpg") no-repeat scroll center top / cover  rgba(0, 0, 0, 0);
+}
+body.page-node-9071 .nd-region .container #Content #content.col-md-12 strong {
+ 	color: #000;  
+}
+.more-product-images img {
+ 	border: 2px solid #d6d6d6;
+    margin: 0 3px;  
+}
+
+/ * Added by Eric */
+#billing-pane {
+	display: none;
+}
+
+body.page-node-12362 div.site-wrapper > div > section.page-title > div > div:nth-child(2) > div > h1 {
+ 	color: #fff;  
+}
+.gif-img {
+  float: left;
+  left: -185px;
+  padding-top: 26px;
+  position: absolute;
+  width: 170px;
+}
+
+.col-lg-3 {
+   width: 100% !important;
+   padding:2%;
+}
+
+.col-lg-3 img {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+}

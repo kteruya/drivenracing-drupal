@@ -1,0 +1,17 @@
+{# Source: /home/drupal11.drivenracing.com/d7_themes/driven/templates/views-view-unformatted--blog--page-4.tpl.php #}
+{# Auto-generated from D7 views*.tpl.php. #}
+{# Common variants: views-view, views-view-unformatted, views-view-fields, views-view-grid, views-view-table #}
+<div class="view {{ id }} view-display-id-{{ display_id }}">
+  {% if header %}<div class="view-header">{{ header }}</div>{% endif %}
+  {% if exposed %}<div class="view-filters">{{ exposed }}</div>{% endif %}
+  {% if attachment_before %}<div class="attachment attachment-before">{{ attachment_before }}</div>{% endif %}
+  {% if rows %}
+    <div class="view-content">{{ rows }}</div>
+  {% elseif empty %}
+    <div class="view-empty">{{ empty }}</div>
+  {% endif %}
+  {% if pager %}{{ pager }}{% endif %}
+  {% if attachment_after %}<div class="attachment attachment-after">{{ attachment_after }}</div>{% endif %}
+  {% if more %}{{ more }}{% endif %}
+  {% if footer %}<div class="view-footer">{{ footer }}</div>{% endif %}
+</div>

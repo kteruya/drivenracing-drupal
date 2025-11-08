@@ -1,0 +1,21 @@
+source:
+  plugin: d7_taxonomy_term
+  key: migrate
+  bundle:
+    - YOUR_D7_CATALOG_MACHINE_NAME   # set this from your D7 DB
+process:
+  vid:
+    plugin: default_value
+    default_value: catalog           # force destination vocabulary
+  name: name
+  description/value: description
+  description/format:
+    plugin: default_value
+    default_value: basic_html
+  weight: weight
+  parent:
+    plugin: migration_lookup
+    migration: uc7_taxonomy_term
+    source: parent
+    no_stub: true
+    ignore_missing: true

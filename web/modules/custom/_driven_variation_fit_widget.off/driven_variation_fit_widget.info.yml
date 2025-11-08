@@ -1,0 +1,8 @@
+name: Driven Variation Fit Widget
+type: module
+description: A drag-and-drop list widget to manage selected motorcycles on product variations.
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:driven_motorcycles
+  - drupal:commerce_product

@@ -1,0 +1,26 @@
+process:
+  # Look up the Commerce PRODUCT id created from this D7 nid.
+  _product:
+    plugin: migration_lookup
+    source: nid
+    migration: uc7_product
+
+  # If no product was found for the nid, skip the whole row.
+  _skip_if_no_product:
+    plugin: skip_on_empty
+    method: row
+    source: '@_product'
+
+  # Tell the destination which entity to update (existing product id).
+  id: '@_product'
+
+  # Attach existing term (these were created by uc7_catalog_terms).
+  field_catalog:
+    plugin: migration_lookup
+    source: tid
+    migration: uc7_catalog_terms
+    
+destination:
+  plugin: 'entity:commerce_product'
+    overwrite_properties:
+    - field_catalog

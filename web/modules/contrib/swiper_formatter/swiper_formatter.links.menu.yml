@@ -1,0 +1,5 @@
+entity.swiper_formatter.overview:
+  title: Swipers
+  parent: system.admin_config_content
+  description: 'List of Swiper formatter templates'
+  route_name: entity.swiper_formatter.collection

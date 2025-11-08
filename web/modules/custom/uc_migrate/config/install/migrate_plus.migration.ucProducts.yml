@@ -1,0 +1,28 @@
+id: ucProducts
+label: 'Migrate Ubercart Products from D7 to D11'
+migration_group: uc_migrate
+source:
+  plugin: uc_products_source
+  key: migrate
+process:
+  field_product_images:
+    plugin: sub_process
+    source: uc_product_image   # array of { fid, alt?, title? } per product
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration:
+          - d7_file
+          - d7_file_private
+        source: fid
+      # If your source includes these, they’ll pass through. If not, they’ll be empty.
+
+
+  title: title
+  sku: model
+  price:
+    plugin: get
+    source: sell_price
+destination:
+  plugin: 'entity:commerce_product'
+migration_dependencies: {  }

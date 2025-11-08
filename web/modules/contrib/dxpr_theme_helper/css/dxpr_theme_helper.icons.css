@@ -1,0 +1,23 @@
+/**
+ * @file
+ * Styling for the user module icons.
+ */
+
+/**
+ * DXPR Studio tab icon.
+ */
+.toolbar-bar .toolbar-icon-dxpr-theme-helper-studio:before,
+.toolbar-bar .toolbar-icon-dxpr-theme-helper-studio:active:before{
+  background-image: url(../images/dxpr-logo-dark.svg);
+}
+.admin-toolbar__content .toolbar-button--icon--dxpr-builder-studio:before {
+  --icon: url(../images/dxpr-logo-dark.svg); /* Needed to remove "DX" letters */
+  mask-image: url(../images/dxpr-logo-dark.svg) !important; /* Needed because above relative path is not working */
+  mask-size: 110%;
+}
+.admin-toolbar {
+  z-index: 6000;
+}
+.admin-toolbar__content .js-tour-start-button .toolbar-button__label {
+  display: none;
+}

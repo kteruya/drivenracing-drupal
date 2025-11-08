@@ -1,0 +1,72 @@
+langcode: en
+status: true
+dependencies: {  }
+id: responsive_breakpoints
+label: 'Responsive breakpoints'
+description: "This template and three other referenced below as Breakpoints create an example for setting responsive logic according to Swiper's rules and mobile-first approach. Swiper's operator for breakpoints is >= therefore this, main template will apply for viewports that are 480px or less."
+breakpoint: false
+swiper_options:
+  grid:
+    enabled: false
+    rows: 1
+    fill: column
+  autoplay:
+    enabled: false
+    delay: 4000
+    disableOnInteraction: true
+    pauseOnMouseEnter: false
+    reverseDirection: false
+    stopOnLastSlide: false
+    waitForTransition: true
+  navigation:
+    enabled: false
+    hideOnClick: false
+  pagination:
+    enabled: false
+    type: fraction
+    dynamicBullets: false
+    clickable: false
+  scrollbar:
+    enabled: false
+    draggable: false
+    dragSize: auto
+    hide: true
+    snapOnRelease: false
+  breakpoints:
+    -
+      breakpoint: '960'
+      swiper_template: breakpoint960_template
+      weight: '0'
+    -
+      breakpoint: '480'
+      swiper_template: breakpoint480_template
+      weight: '1'
+  lazy:
+    enabled: false
+    checkInView: false
+    loadOnTransitionStart: false
+    loadPrevNext: false
+    loadPrevNextAmount: 1
+    scrollingElement: window
+  source: remote
+  breakpointsBase: window
+  autoHeight: true
+  width: null
+  height: null
+  observer: true
+  updateOnWindowResize: true
+  resizeObserver: true
+  direction: horizontal
+  effect: slide
+  loop: 0
+  rewind: 0
+  centeredSlides: 0
+  speed: 300
+  slidesPerView: 2
+  spaceBetween: '0'
+  slidesPerGroup: 1
+  loopedSlides: 1
+  noSwipingSelector: '.no-swipe, button, input'
+  mousewheel: 0
+  grabCursor: 0
+  cssMode: 0

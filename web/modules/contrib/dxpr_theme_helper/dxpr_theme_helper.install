@@ -1,0 +1,283 @@
+<?php
+
+/**
+ * @file
+ * Install, update, uninstall and schema functions for the module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\file\Entity\File;
+use Drupal\Core\Entity\ContentEntityInterface;
+
+/**
+ * Implements hook_install().
+ */
+function dxpr_theme_helper_install() {
+  // Update previous configs.Adds enforced config dependencies.
+  dxpr_theme_helper_update_8001();
+}
+
+/**
+ * Adds enforced config dependencies.
+ */
+function dxpr_theme_helper_update_8001() {
+  $config_list = [
+    "field.storage.node.field_dth_body_background",
+    "field.storage.node.field_dth_hide_regions",
+    "field.storage.node.field_dth_main_content_width",
+    "field.storage.node.field_dth_page_layout",
+    "field.storage.node.field_dth_page_title_backgrou",
+  ];
+
+  $config_factory = Drupal::configFactory();
+  $list_all = $config_factory->listAll();
+  $module_name = 'dxpr_theme_helper';
+
+  foreach ($config_list as $config_name) {
+    if (!in_array($config_name, $list_all)) {
+      continue;
+    }
+    $config = $config_factory->getEditable($config_name);
+    if ($config->isNew()) {
+      continue;
+    }
+    $dependencies = $config->get('dependencies');
+
+    if (!isset($dependencies['enforced']['module'])
+      || !is_array($dependencies['enforced']['module'])
+      || !in_array($module_name, $dependencies['enforced']['module'])) {
+      $dependencies['enforced']['module'][] = $module_name;
+      $config->set('dependencies', $dependencies)
+        ->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function dxpr_theme_helper_update_8002() {
+  $fields = [
+    'field_dth_page_title_backgrou', 'field_dth_body_background',
+  ];
+
+  foreach ($fields as $value) {
+    dxpr_theme_helper_migrate_to_media('node', $value);
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function dxpr_theme_helper_update_8003() {
+  // Get the module handler service.
+  $module_handler = \Drupal::service('module_handler');
+  // Check if the module is enabled.
+  if (!$module_handler->moduleExists('media_library_form_element')) {
+    // The module is enabled.
+    // Get the module installer service.
+    $module_installer = \Drupal::service('module_installer');
+
+    // Enable the module.
+    $module_installer->install(['media_library_form_element']);
+  }
+
+  if (empty(theme_get_setting('background_image', 'dxpr_theme'))) {
+    $path = theme_get_setting('background_image_path', 'dxpr_theme');
+    dxpr_theme_helper_migrate_theme_setting_image_to_media($path, 'background_image');
+  }
+
+  if (empty(theme_get_setting('page_title_image', 'dxpr_theme'))) {
+    $path = theme_get_setting('page_title_image_path', 'dxpr_theme');
+    dxpr_theme_helper_migrate_theme_setting_image_to_media($path, 'page_title_image');
+  }
+}
+
+/**
+ * Migrate image field data to media entities.
+ *
+ * @param string $entitiesTypeID
+ *   The entity type ID (e.g., 'node', 'custom_entity').
+ * @param string $image_media_field_name
+ *   The field name where media reference will be stored.
+ */
+function dxpr_theme_helper_migrate_to_media($entitiesTypeID, $image_media_field_name) {
+  // Connect with database.
+  $database = \Drupal::database();
+
+  // Get the module handler service.
+  $module_handler = \Drupal::service('module_handler');
+
+  // Check if the module is enabled.
+  if (!$module_handler->moduleExists('media_library')) {
+    // The module is enabled.
+    // Get the module installer service.
+    $module_installer = \Drupal::service('module_installer');
+
+    // Enable the module.
+    $module_installer->install(['media', 'media_library']);
+  }
+  // Store the existing values.
+  $querydata = $database->select('node_field_data', 't')
+    ->fields('t', ['nid']);
+  // Perform the JOIN operation to fetch the field_target_id.
+  $querydata->join('node__' . $image_media_field_name, 'f', 'f.entity_id = t.nid');
+  $querydata->fields('f', [$image_media_field_name . '_target_id']);
+  $images_reference = $querydata->execute()->fetchAllKeyed();
+
+  // Delete old field.
+  $oldimagefield = \Drupal::entityTypeManager()->getStorage('field_storage_config')->loadByProperties([
+    'field_name' => $image_media_field_name,
+    'entity_type' => $entitiesTypeID,
+  ]);
+
+  $oldimagefield = reset($oldimagefield);
+
+  // Skip this update if this field is already media.
+  if ($oldimagefield->getType() == 'entity_reference') {
+    return;
+  }
+
+  $contentTypes = $oldimagefield->getBundles();
+
+  // Content type with field labels.
+  foreach ($contentTypes as $bundle) {
+    $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions($entitiesTypeID, $bundle);
+    $fieldLabel = $definitions[$image_media_field_name]->getLabel();
+    $contentTypes[$bundle] = $fieldLabel;
+  }
+
+  // Remove old field.
+  $oldimagefield->delete();
+
+  // Define the field storage.
+  $field_storage = FieldStorageConfig::create([
+    'field_name' => $image_media_field_name,
+    'entity_type' => $entitiesTypeID,
+    'type' => 'entity_reference',
+    'settings' => [
+      'target_type' => 'media',
+    ],
+    'locked' => FALSE,
+  ]);
+
+  $field_storage->save();
+
+  // Define the field config (attach to a content type).
+  foreach ($contentTypes as $bundle => $label) {
+
+    $field_config = FieldConfig::create([
+      'field_name' => $image_media_field_name,
+      'bundle' => $bundle,
+      'label' => $label,
+      'entity_type' => $entitiesTypeID,
+      'cardinality' => 1,
+      'settings' => [
+        'handler' => 'default:media',
+        'handler_settings' => [
+          'target_bundles' => [
+            'image' => 'image',
+          ],
+        ],
+      ],
+    ]);
+    $field_config->save();
+
+    \Drupal::entityTypeManager()
+      ->getStorage('entity_form_display')
+      ->load($entitiesTypeID . '.' . $bundle . '.default')
+      ->setComponent($image_media_field_name, [
+        'type' => 'media_library_widget',
+        'weight' => 99,
+      ])
+      ->save();
+  }
+  // Save image reference field.
+  foreach ($images_reference as $nid => $fid) {
+    $node = \Drupal::entityTypeManager()->getStorage($entitiesTypeID)->load($nid);
+    $image = \Drupal::entityTypeManager()->getStorage('file')->load($fid);
+    if (!$node || !$image || !($node instanceof ContentEntityInterface)) {
+      continue;
+    }
+    // Remove file usage.
+    $file_usage = Drupal::service('file.usage');
+    $file_usage->delete($image, 'file', $entitiesTypeID, $node->id());
+    // Create media.
+    $media = \Drupal::entityTypeManager()
+      ->getStorage('media')
+      ->create([
+        'bundle' => 'image',
+        'uid' => 1,
+      ]);
+    $media->set('name', $image->getFilename());
+    $media->set('field_media_image', $image);
+    $media->save();
+    $node->set($image_media_field_name, [$media]);
+    $node->save();
+  }
+}
+
+/**
+ * Migrates an image file reference from a path to a Media entity.
+ *
+ * This function takes a file path (URI) of an image and creates a Media entity
+ * of type 'image'. It then updates the configuration (specified by the
+ * `$field` parameter) with the ID of the created Media entity.
+ *
+ * @param string $path
+ *   The URI of the image file to migrate (e.g.,
+ *   public://images/example.jpg).
+ * @param string $field
+ *   The configuration field to update with the newly created media entity's
+ *   ID.
+ *
+ * @return void
+ *   This function does not return any value.
+ */
+function dxpr_theme_helper_migrate_theme_setting_image_to_media($path, $field) {
+  if (empty($path)) {
+    return;
+  }
+  try {
+    // Get the file system service.
+    $file_system = \Drupal::service('file_system');
+    // Get the absolute file path from the URI.
+    $real_file_path = $file_system->realpath($path);
+    // Check if the file exists on the server.
+    if (file_exists($real_file_path)) {
+
+      // Define the target URI where the file will be saved in Drupal.
+      $destination_uri = 'public://' . basename($real_file_path);
+
+      // Copy the file from the real file path to Drupal's managed file system.
+      $file_system->copy($real_file_path, \Drupal::service('file_system')->realpath($destination_uri));
+
+      // Create the file entity.
+      $file = File::create([
+      // The URI within Drupal's file system.
+        'uri' => $destination_uri,
+      ]);
+      $file->setPermanent();
+      // Save the file entity.
+      $file->save();
+      $media = \Drupal::entityTypeManager()
+        ->getStorage('media')
+        ->create([
+          'bundle' => 'image',
+          'uid' => 1,
+        ]);
+      $media->set('name', $file->getFilename());
+      $media->set('field_media_image', $file);
+      $media->save();
+
+      $mid = $media->id();
+      $config = \Drupal::configFactory()->getEditable('dxpr_theme.settings');
+      $config->set($field, $mid);
+      $config->save();
+    }
+  }
+  catch (\Throwable $th) {
+    \Drupal::logger('dxpr_theme_helper')->error($th->getMessage());
+  }
+}

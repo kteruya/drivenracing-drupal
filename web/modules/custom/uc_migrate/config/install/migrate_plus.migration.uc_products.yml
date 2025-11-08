@@ -1,0 +1,33 @@
+id: uc_products
+label: 'Migrate Ubercart Products'
+migration_group: uc_migrate
+source:
+  plugin: uc_products_source
+  key: migrate
+process:
+  title: title
+  sku: model
+  price:
+    plugin: get
+    source: sell_price
+  uid:
+    plugin: default_value
+    default_value: 1
+
+  field_images:
+    plugin: sub_process
+    source: uc_product_image
+    process:
+      target_id:
+        - plugin: migration_lookup
+          migration:
+            - d7_file
+            - d7_file_private
+          source: fid
+        - plugin: skip_on_empty
+          method: process
+      alt: alt
+destination:
+  plugin: 'entity:commerce_product'
+  default_bundle: default
+migration_dependencies: {}

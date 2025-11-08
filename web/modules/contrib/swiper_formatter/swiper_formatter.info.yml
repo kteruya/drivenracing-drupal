@@ -1,0 +1,12 @@
+name: Swiper formatter
+type: module
+description: 'Integration of Swiper as a configuration entity, with a couple of field formatters and views style.'
+package: 'Other'
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - drupal:token
+
+# Information added by Drupal.org packaging script on 2025-07-27
+version: '2.0.2'
+project: 'swiper_formatter'
+datestamp: 1753628921

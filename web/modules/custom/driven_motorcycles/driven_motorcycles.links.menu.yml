@@ -1,0 +1,6 @@
+driven_motorcycles.collection:
+  title: 'Driven Motorcycles'
+  description: 'Manage driven motorcycle records'
+  route_name: entity.driven_motorcycle.collection
+  parent: system.admin_content
+  weight: 20

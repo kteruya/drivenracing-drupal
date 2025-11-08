@@ -1,0 +1,650 @@
+<?php
+
+/**
+ * @file
+ * Theme header settings.
+ */
+
+/**
+ * Add header options to the theme settings form.
+ *
+ * @param array $form
+ *   Form array.
+ * @param string $theme
+ *   Theme machine name.
+ */
+function header_theme_settings(array &$form, $theme) {
+  $form['dxpr_theme_settings']['header'] = [
+    '#title' => t('Header & Main Menu'),
+    '#type' => 'details',
+    '#group' => 'dxpr_theme_settings',
+    '#weight' => 10,
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top'] = [
+    '#title' => t('Header Options'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['header_top_layout'] = [
+    '#type' => 'radios',
+    '#title' => t('Layout'),
+    '#description' => t('Different header layouts give a different view at your menu and logo.'),
+    '#default_value' => ((theme_get_setting('header_top_layout') !== NULL)) ? theme_get_setting('header_top_layout') : '0',
+    '#options' => [
+      '0' => t('Normal (Logo left, Menu Right)'),
+      'centered' => t('Centered (stacked)'),
+      'centered_inline' => t('Centered (inline)'),
+      'logo_left_menu_left' => t('Logo Left, Menu Left'),
+      'logo_center_menu_left' => t('Logo Center, Menu Left'),
+      'logo_center_menu_right' => t('Logo Center, Menu Right'),
+      'logo_right_menu_left' => t('Logo Right, Menu Left'),
+    ],
+  ];
+
+  // Normalize header_style value - treat deprecated values as 'normal'.
+  $header_style = theme_get_setting('header_style');
+  $valid_header_styles = ['normal', 'overlay'];
+  if (!in_array($header_style, $valid_header_styles, TRUE)) {
+    $header_style = 'normal';
+  }
+
+  $form['dxpr_theme_settings']['header']['header_top']['header_style'] = [
+    '#type' => 'radios',
+    '#title' => t('Header Style'),
+    '#description' => t('Create transparent headers and free floating navbars. Overlays the header over the page title and content.'),
+    '#default_value' => $header_style,
+    '#options' => [
+      'normal' => t('Normal'),
+      'overlay' => t('Overlay'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['header_top_bg_opacity'] = [
+    '#type' => 'range',
+    '#title' => t('Header Opacity'),
+    '#default_value' => ((theme_get_setting('header_top_bg_opacity') !== NULL)) ? theme_get_setting('header_top_bg_opacity') : 1,
+    '#min' => 0,
+    '#max' => 1,
+    '#step' => 0.01,
+    '#description' => t('Creates RGBa translucent background color. 0 is fully transparent and 1 is fully opaque.'),
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-top-bg-opacity-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['header_top_height'] = [
+    '#type' => 'range',
+    '#title' => t('Height'),
+    '#default_value' => ((theme_get_setting('header_top_height') !== NULL)) ? theme_get_setting('header_top_height') : 100,
+    '#min' => 10,
+    '#max' => 200,
+    '#step' => 1,
+    '#description' => t('Initial height of the header. 10px - 200px. Default is 100.'),
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-top-height-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['logo_height'] = [
+    '#type' => 'range',
+    '#title' => t('Logo Height'),
+    '#default_value' => theme_get_setting('logo_height') ?: 50,
+    '#min' => 10,
+    '#max' => 100,
+    '#step' => 1,
+    '#description' => t('Height of the logo within the header. 10% - 100%. Default is 50%.'),
+    '#attributes' => [
+      'class' => ['dxb-slider', 'logo-height-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['header_top_fixed'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Fixed Position'),
+    '#default_value' => ((theme_get_setting('header_top_fixed') !== NULL)) ? theme_get_setting('header_top_fixed') : FALSE,
+    '#description' => t('A Fixed header stays in the top of the browser when a user scrolls.'),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['header_top_sticky'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Sticky Header'),
+    '#default_value' => ((theme_get_setting('header_top_sticky') !== NULL)) ? theme_get_setting('header_top_sticky') : FALSE,
+    '#description' => t('A sticky can first be positioned at a distance from the top edge of the window and when the user scrolls past a certain point it will stick to the top of the window.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['second_header_sticky'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Sticky Second Header'),
+    '#default_value' => ((theme_get_setting('second_header_sticky') !== NULL)) ? theme_get_setting('second_header_sticky') : FALSE,
+    '#description' => t('A sticky can first be positioned at a distance from the top edge of the window and when the user scrolls past a certain point it will stick to the top of the window.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_style"]' => ['value' => 'overlay'],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['sticky'] = [
+    '#title' => t('Sticky Header Options'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['sticky']['header_top_sticky_show'] = [
+    '#type' => 'radios',
+    '#title' => t('Hide before Scrolling'),
+    '#default_value' => ((theme_get_setting('header_top_sticky_show') !== NULL)) ? theme_get_setting('header_top_sticky_show') : 'always',
+    '#options' => [
+      'always' => t('Always Show'),
+      'after_scroll' => t('Hide initially. Show after scroll offset'),
+    ],
+    '#description' => t('Hide menu before or after scrolling. Turn on "Overlay Mode" to prevent your menu creating an empty space at the top of your layout.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['sticky']['header_top_height_sticky_offset'] = [
+    '#type' => 'range',
+    '#title' => t('Scroll offset'),
+    '#default_value' => ((theme_get_setting('header_top_height_sticky_offset') !== NULL)) ? theme_get_setting('header_top_height_sticky_offset') : 60,
+    '#min' => 0,
+    '#max' => 2096,
+    '#step' => 10,
+    '#description' => t('Scroll distance before header jumps to its fixed position at the top of page. 0 - 2096px. Default is 60.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-top-height-sticky-offset-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['sticky']['header_top_height_scroll'] = [
+    '#type' => 'range',
+    '#title' => t('Height'),
+    '#default_value' => ((theme_get_setting('header_top_height_scroll') !== NULL)) ? theme_get_setting('header_top_height_scroll') : 50,
+    '#min' => 10,
+    '#max' => 200,
+    '#step' => 1,
+    '#description' => t('Header height after scrolling past scroll offset. Default is 50.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-top-height-scroll-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['sticky']['header_top_bg_opacity_scroll'] = [
+    '#type' => 'range',
+    '#title' => t('Background Opacity'),
+    '#default_value' => ((theme_get_setting('header_top_bg_opacity_scroll') !== NULL)) ? theme_get_setting('header_top_bg_opacity_scroll') : 1,
+    '#min' => 0,
+    '#max' => 1,
+    '#step' => 0.01,
+    '#description' => t('Creates RGBa translucent background color. 0 is fully transparent and 1 is fully opaque.'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-top-bg-opacity-scroll-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors'] = [
+    '#title' => t('Customize Navigation Colors'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['navbar_background'] = [
+    '#type' => 'select',
+    '#title' => t('Navbar Background'),
+    '#default_value' => theme_get_setting('navbar_background'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['navbar_background_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Navbar Background'),
+    '#default_value' => ((theme_get_setting('navbar_background_custom') !== NULL)) ? theme_get_setting('navbar_background_custom') : theme_get_setting('navbar_background_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="navbar_background"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['header_block_background'] = [
+    '#type' => 'select',
+    '#title' => t('Block Background'),
+    '#default_value' => theme_get_setting('header_block_background'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['header_block_background_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Block Background'),
+    '#default_value' => ((theme_get_setting('header_block_background_custom') !== NULL)) ? theme_get_setting('header_block_background_custom') : theme_get_setting('header_block_background_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_block_background"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['header_block_text_color'] = [
+    '#type' => 'select',
+    '#title' => t('Block Text'),
+    '#default_value' => theme_get_setting('header_block_text_color'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['header_block_text_color_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Block Text Color'),
+    '#default_value' => ((theme_get_setting('header_block_text_color_custom') !== NULL)) ? theme_get_setting('header_block_text_color_custom') : theme_get_setting('header_block_text_color_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="header_block_text_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_background'] = [
+    '#type' => 'select',
+    '#title' => t('Menu Background'),
+    '#default_value' => theme_get_setting('menu_background'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_background_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Menu Background'),
+    '#default_value' => ((theme_get_setting('menu_background_custom') !== NULL)) ? theme_get_setting('menu_background_custom') : theme_get_setting('menu_background_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="menu_background"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_text_color'] = [
+    '#type' => 'select',
+    '#title' => t('Menu Text'),
+    '#default_value' => theme_get_setting('menu_text_color'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_text_color_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Menu Text Color'),
+    '#default_value' => ((theme_get_setting('menu_text_color_custom') !== NULL)) ? theme_get_setting('menu_text_color_custom') : theme_get_setting('menu_text_color_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="menu_text_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_hover_background'] = [
+    '#type' => 'select',
+    '#title' => t('Menu Hover Background'),
+    '#default_value' => theme_get_setting('menu_hover_background'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_hover_background_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Menu Hover Background'),
+    '#default_value' => ((theme_get_setting('menu_hover_background_custom') !== NULL)) ? theme_get_setting('menu_hover_background_custom') : theme_get_setting('menu_hover_background_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="menu_hover_background"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_hover_text_color'] = [
+    '#type' => 'select',
+    '#title' => t('Menu Hover Text'),
+    '#default_value' => theme_get_setting('menu_hover_text_color'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['menu_hover_text_color_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Menu Hover Text Color'),
+    '#default_value' => ((theme_get_setting('menu_hover_text_color_custom') !== NULL)) ? theme_get_setting('menu_hover_text_color_custom') : theme_get_setting('menu_hover_text_color_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="menu_hover_text_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_background'] = [
+    '#type' => 'select',
+    '#title' => t('Dropdown Background'),
+    '#default_value' => theme_get_setting('dropdown_background'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_background_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Dropdown Background'),
+    '#default_value' => ((theme_get_setting('dropdown_background_custom') !== NULL)) ? theme_get_setting('dropdown_background_custom') : theme_get_setting('dropdown_background_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="dropdown_background"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_text_color'] = [
+    '#type' => 'select',
+    '#title' => t('Dropdown Text'),
+    '#default_value' => theme_get_setting('dropdown_text_color'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_text_color_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Dropdown Text Color'),
+    '#default_value' => ((theme_get_setting('dropdown_text_color_custom') !== NULL)) ? theme_get_setting('dropdown_text_color_custom') : theme_get_setting('dropdown_text_color_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="dropdown_text_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_hover_background'] = [
+    '#type' => 'select',
+    '#title' => t('Dropdown Hover Background'),
+    '#default_value' => theme_get_setting('dropdown_hover_background'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_hover_background_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Dropdown Hover Background'),
+    '#default_value' => ((theme_get_setting('dropdown_hover_background_custom') !== NULL)) ? theme_get_setting('dropdown_hover_background_custom') : theme_get_setting('dropdown_hover_background_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="dropdown_hover_background"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_hover_text_color'] = [
+    '#type' => 'select',
+    '#title' => t('Dropdown Hover Text'),
+    '#default_value' => theme_get_setting('dropdown_hover_text_color'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_top']['navcolors']['dropdown_hover_text_color_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Dropdown Hover Text Color'),
+    '#default_value' => ((theme_get_setting('dropdown_hover_text_color_custom') !== NULL)) ? theme_get_setting('dropdown_hover_text_color_custom') : theme_get_setting('dropdown_hover_text_color_custom'),
+    '#states' => [
+      'visible' => [
+        ':input[name="dropdown_hover_text_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_side'] = [
+    '#title' => t('Mobile Menu Options'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_side']['hamburger_menu'] = [
+    '#type' => 'radios',
+    '#title' => t('Hamburger Menu'),
+    '#description' => t('Hamburger menu.'),
+    '#default_value' => ((theme_get_setting('hamburger_menu') !== NULL)) ? theme_get_setting('hamburger_menu') : 'three-dash',
+    '#options' => [
+      'three-dash' => t('Three dash'),
+      'two-dash' => t('Two dash'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_side']['hamburger_animation'] = [
+    '#type' => 'radios',
+    '#title' => t('Hamburger Animation'),
+    '#description' => t('Hamburger Animation.'),
+    '#default_value' => ((theme_get_setting('hamburger_animation') !== NULL)) ? theme_get_setting('hamburger_animation') : 'cross',
+    '#options' => [
+      'none' => t('None'),
+      'cross' => t('Cross'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu'] = [
+    '#title' => t('Main Menu Links'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  // Deprecated: This setting is no longer used. Menu items with children are
+  // always marked with visual indicators (carets) for accessibility.
+
+  $form['dxpr_theme_settings']['header']['menu']['dropdown_width'] = [
+    '#type' => 'range',
+    '#title' => t('Dropdown width'),
+    '#default_value' => ((theme_get_setting('dropdown_width') !== NULL)) ? theme_get_setting('dropdown_width') : '160',
+    '#min' => 100,
+    '#max' => 500,
+    '#step' => 5,
+    '#attributes' => [
+      'class' => ['dxb-slider', 'dropdown-width-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_type'] = [
+    '#type' => 'radios',
+    '#title' => t('Font Style'),
+    '#default_value' => ((theme_get_setting('menu_type') !== NULL)) ? theme_get_setting('menu_type') : '',
+    '#options' => [
+      '' => t('Normal'),
+      'uppercase' => t('Uppercase'),
+      'bold' => t('Bold'),
+      'lead' => t('Lead text'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_hover'] = [
+    '#type' => 'radios',
+    '#title' => t('Hover Style'),
+    '#default_value' => ((theme_get_setting('menu_hover') !== NULL)) ? theme_get_setting('menu_hover') : 'opacity',
+    '#options' => [
+      'opacity' => t('Opacity'),
+      'background' => t('Colored Background'),
+      'text' => t('Colored text'),
+      'border' => t('Border'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border'] = [
+    '#title' => t('Customize Menu Border'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#states' => [
+      'visible' => [
+        ':input[name="menu_hover"]' => ['value' => 'border'],
+      ],
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_position'] = [
+    '#type' => 'radios',
+    '#title' => t('Hover Style'),
+    '#default_value' => ((theme_get_setting('menu_border_position') !== NULL)) ? theme_get_setting('menu_border_position') : 'bottom',
+    '#options' => [
+      'top' => t('Top'),
+      'bottom' => t('Bottom'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_animate'] = [
+    '#type' => 'radios',
+    '#title' => t('Animation'),
+    '#default_value' => ((theme_get_setting('menu_border_animate') !== NULL)) ? theme_get_setting('menu_border_animate') : 0,
+    '#options' => [
+      '' => t('No Animation'),
+      'ltr' => t('Left to Right'),
+      'rtl' => t('Right to Left'),
+      'middle' => t('Middle Out'),
+      'drop' => t('Fade in from Top'),
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_position_offset'] = [
+    '#type' => 'range',
+    '#title' => t('Position Offset'),
+    '#default_value' => ((theme_get_setting('menu_border_position_offset') !== NULL)) ? theme_get_setting('menu_border_position_offset') : '0',
+    '#min' => 0,
+    '#max' => 100,
+    '#step' => 1,
+    '#attributes' => [
+      'class' => ['dxb-slider', 'menu-border-position-offset-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_position_offset_sticky'] = [
+    '#type' => 'range',
+    '#title' => t('Position Offset for Sticky Header'),
+    '#default_value' => ((theme_get_setting('menu_border_position_offset_sticky') !== NULL)) ? theme_get_setting('menu_border_position_offset_sticky') : '0',
+    '#min' => 0,
+    '#max' => 100,
+    '#step' => 1,
+    '#states' => [
+      'visible' => [
+        ':input[name="header_top_fixed"]' => ['checked' => TRUE],
+        ':input[name="header_top_sticky"]' => ['checked' => TRUE],
+      ],
+    ],
+    '#attributes' => [
+      'class' => ['dxb-slider', 'menu-border-position-offset-sticky-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_size'] = [
+    '#type' => 'range',
+    '#title' => t('Border Thickness'),
+    '#default_value' => ((theme_get_setting('menu_border_size') !== NULL)) ? theme_get_setting('menu_border_size') : 2,
+    '#min' => 1,
+    '#max' => 20,
+    '#step' => 1,
+    '#attributes' => [
+      'class' => ['dxb-slider', 'menu-border-size-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_color'] = [
+    '#type' => 'select',
+    '#title' => t('Border Color'),
+    '#default_value' => theme_get_setting('menu_border_color'),
+    '#options' => _dxpr_theme_color_options($theme),
+  ];
+
+  $form['dxpr_theme_settings']['header']['menu']['menu_border']['menu_border_color_custom'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Value'),
+    '#default_value' => ((theme_get_setting('menu_border_color_custom') !== NULL)) ? theme_get_setting('menu_border_color_custom') : theme_get_setting('menu_border_color_custom'),
+    '#states' => [
+      'visible' => [
+        'select[name="menu_border_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  // Header in mobile mode.
+  $form['dxpr_theme_settings']['header']['header_mobile'] = [
+    '#title' => t('Mobile Header'),
+    '#type' => 'details',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_mobile']['header_mobile_breakpoint'] = [
+    '#type' => 'range',
+    '#title' => t('Mobile Breakpoint'),
+    '#default_value' => ((theme_get_setting('header_mobile_breakpoint') !== NULL)) ? theme_get_setting('header_mobile_breakpoint') : 1200,
+    '#min' => 480,
+    '#max' => 4100,
+    '#step' => 10,
+    '#description' => t('Point below where DXPR Theme switches to mobile header and navigation. If you set this to the maximum value (4100) the desktop style will never show. Default is 1200.'),
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-mobile-breakpoint-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_mobile']['header_mobile_height'] = [
+    '#type' => 'range',
+    '#title' => t('Height'),
+    '#default_value' => ((theme_get_setting('header_mobile_height') !== NULL)) ? theme_get_setting('header_mobile_height') : 60,
+    '#min' => 10,
+    '#max' => 200,
+    '#step' => 1,
+    '#description' => t('Height of header in mobile view. 10px - 200px. Default is 60.'),
+    '#attributes' => [
+      'class' => ['dxb-slider', 'header-mobile-height-range'],
+      'data-dxb-slider' => TRUE,
+    ],
+  ];
+
+  $form['dxpr_theme_settings']['header']['header_mobile']['header_mobile_fixed'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Fixed Position'),
+    '#default_value' => ((theme_get_setting('header_mobile_fixed') !== NULL)) ? theme_get_setting('header_mobile_fixed') : FALSE,
+    '#description' => t('A Fixed header stays in the top of the browser when a user scrolls.'),
+  ];
+}

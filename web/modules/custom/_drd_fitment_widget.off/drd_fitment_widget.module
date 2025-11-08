@@ -1,0 +1,31 @@
+<?php
+
+use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
+
+/**
+ * Field machine name override (optional).
+ * Export an env var before enabling to change it:
+ *   DRD_FITMENT_FIELD="my_field" drush en drd_fitment_widget -y
+ */
+if (!defined('DRD_FITMENT_FIELD')) {
+  define('DRD_FITMENT_FIELD', getenv('DRD_FITMENT_FIELD') ?: 'field_fits_motorcycles');
+}
+
+/**
+ * Auto-swap the widget on variation forms to our composite widget.
+ */
+function drd_fitment_widget_entity_form_display_alter(EntityFormDisplayInterface $form_display, array &$context) {
+  $definition = $form_display->getTargetEntityTypeId() ?? '';
+  if ($definition !== 'commerce_product_variation') {
+    return;
+  }
+  // If the target field exists on this bundle, replace its widget.
+  $components = $form_display->getComponents();
+  if (isset($components[DRD_FITMENT_FIELD])) {
+    $form_display->setComponent(DRD_FITMENT_FIELD, [
+      'type' => 'drd_fitment_widget',
+      'weight' => $components[DRD_FITMENT_FIELD]['weight'] ?? 90,
+      'settings' => [],
+    ]);
+  }
+}

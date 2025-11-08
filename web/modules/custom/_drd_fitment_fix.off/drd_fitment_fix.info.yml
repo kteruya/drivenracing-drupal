@@ -1,0 +1,7 @@
+name: 'DRD Fitment Fix'
+type: module
+description: 'Show only the parent product’s assigned motorcycles on variation forms.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:commerce_product

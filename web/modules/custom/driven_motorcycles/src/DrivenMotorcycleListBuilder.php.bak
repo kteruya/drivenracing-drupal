@@ -1,0 +1,36 @@
+<?php
+
+namespace Drupal\driven_motorcycles;
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityListBuilder;
+
+/**
+ * Admin list builder for Driven Motorcycle entities.
+ */
+class DrivenMotorcycleListBuilder extends EntityListBuilder {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildHeader() {
+    $header['title'] = $this->t('Motorcycle');
+    $header['year']  = $this->t('Year');
+    $header['make']  = $this->t('Make');
+    $header['model'] = $this->t('Model');
+    return $header + parent::buildHeader();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildRow(EntityInterface $entity) {
+    /** @var \Drupal\driven_motorcycles\Entity\DrivenMotorcycle $entity */
+    $row['title'] = $entity->label();
+    $row['year']  = $entity->get('year')->value;
+    $row['make']  = $entity->get('make')->value;
+    $row['model'] = $entity->get('model')->value;
+    return $row + parent::buildRow($entity);
+  }
+
+}

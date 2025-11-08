@@ -1,0 +1,5 @@
+services:
+  dxpr_theme_helper.commands:
+    class: \Drupal\dxpr_theme_helper\Commands\DxprThemeHelperCommands
+    tags:
+      - { name: drush.command }

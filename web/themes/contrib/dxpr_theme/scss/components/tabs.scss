@@ -1,0 +1,234 @@
+/**
+ * Tabs (Local tasks)
+ *
+ * This file contains styles for the tabbed navigation system used in the DXPR
+ * theme. It includes styles for both desktop and mobile views.
+ */
+
+@import "../includes/variables";
+
+//
+// Primary tabs wrapper.
+//
+@media (width > 768px) {
+  // Center aligned for full-width content.
+  .main-container.container .block-local-tasks-block {
+    left: 50%;
+    padding-right: 32px; // Make room for contextual links.
+    position: absolute;
+    transform: translate(-50%,-100%);
+    z-index: 10;
+  }
+}
+
+
+//
+// Primary tabs
+//
+.html .dxpr-theme-mini-tabs-wrapper {
+  display: block;
+  float: left;
+  margin-bottom: 10px;
+  pointer-events: none;
+
+  .tabs {
+    border: none;
+    box-shadow: 0 3px 10px 0 rgba(50 50 50 / 23%);
+
+    .tabs__tab {
+      border: none;
+      margin: 0;
+      padding: 0;
+
+      .tabs__link {
+        background-color: var(--dxt-color-header);
+        border: none;
+        color: var(--dxt-color-headertext);
+        font-size: 14px;
+        line-height: 1.4286;
+        margin: 0;
+        padding: 8px;
+        pointer-events: auto;
+
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+
+      &.active {
+        bottom: auto !important;
+
+        a {
+          border: none;
+          color: var(--dxt-color-base);
+        }
+      }
+    }
+  }
+
+  // Initially hide the mobile tabs trigger.
+  .tabs__trigger {
+    display: none;
+  }
+}
+
+//
+// Secondary tabs.
+//
+.html .tabs--secondary {
+  clear: both;
+  float: left;
+  margin: 10px 0;
+}
+
+//
+// Mobile layout.
+//
+@media (width <= 768px) {
+  .html .dxpr-theme-mini-tabs-wrapper {
+    float: none;
+    width: 100%;
+
+    --tab-height: 48px;
+
+    .tabs {
+      background: var(--dxt-color-graylighter);
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      margin: 0;
+      margin-inline-start: 0;
+      padding: 0;
+      width: 100%;
+
+      &.is-expanded .tabs__tab {
+        display: flex;
+      }
+
+      .tabs--secondary .tabs__tab {
+        display: block;
+      }
+
+      .tabs__tab {
+        display: none;
+        margin: 1px 0 0;
+        width: 100%;
+
+        &.active {
+          display: flex;
+          position: relative;
+
+          &::before {
+            border-left: 3px solid var(--dxt-color-link);
+            border-top-left-radius: 2px;
+            content: '';
+            display: block;
+            height: calc(100% + 2px);
+            left: -1px;
+            position: absolute;
+            top: -1px;
+            width: 3px;
+            z-index: 5;
+          }
+        }
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        .tabs__link {
+          align-items: center;
+          display: flex;
+          flex-grow: 1;
+          height: var(--tab-height);
+          line-height: 1;
+          padding: 0 16px;
+          text-decoration: none;
+
+          &.active {
+            font-weight: 600;
+          }
+
+          &:hover, &:focus {
+            background-color: var(--dxt-color-graylighter);
+            font-weight: 600;
+            text-decoration: none;
+          }
+
+          &:focus {
+            box-shadow: 0 0 0 2px var(--dxt-color-link);
+          }
+        }
+      }
+    }
+
+    .tabs__trigger {
+      align-items: center;
+      background-color: var(--dxt-color-header);
+      border: 0 none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      margin-block: 0;
+      margin-inline: 1px 0;
+      margin-left: 1px;
+      pointer-events: auto;
+      transition: all 0.15s ease-in-out;
+      width: var(--tab-height);
+
+      &:hover, &:focus {
+        background-color: var(--dxt-color-graylighter) !important;
+      }
+
+      &:focus, &:focus-within, &:focus-visible {
+        box-shadow: 0 0 0 2px var(--dxt-color-link);
+        outline: none !important;
+        z-index: 10;
+      }
+    }
+
+    .tabs__trigger-icon {
+      display: block;
+      height: 10px;
+      margin-block-start: -2px;
+      position: relative;
+      width: 16px;
+    }
+
+    .tabs__trigger-icon > span {
+      border-block-start: solid 2px var(--dxt-color-link);
+      display: block;
+      inset-inline-start: 0;
+      position: absolute;
+      transition: transform 0.2s, opacity 0.2s, top 0.2s;
+      width: 100%;
+    }
+
+    .tabs__trigger-icon > span:nth-child(1) {
+      inset-block-start: 0;
+    }
+
+    .tabs__trigger[aria-expanded="true"] :is(.tabs__trigger-icon > span:nth-child(1)) {
+      inset-block-start: calc(50% + 1px);
+      transform: rotate(45deg);
+    }
+
+    .tabs__trigger-icon > span:nth-child(2) {
+      inset-block-start: calc(50% + 1px);
+    }
+
+    .tabs__trigger[aria-expanded="true"] :is(.tabs__trigger-icon > span:nth-child(2)) {
+      opacity: 0;
+    }
+
+    .tabs__trigger-icon > span:nth-child(3) {
+      inset-block-start: calc(100% + 2px);
+    }
+
+    .tabs__trigger[aria-expanded="true"] :is(.tabs__trigger-icon > span:nth-child(3)) {
+      inset-block-start: calc(50% + 1px);
+      transform: rotate(-45deg);
+    }
+  }
+}

@@ -1,0 +1,137 @@
+<?php
+
+namespace Drupal\driven_motorcycles\Entity;
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityChangedTrait;
+
+/**
+ * Defines the Driven Motorcycle entity.
+ *
+ * @ContentEntityType(
+ *   id = "driven_motorcycle",
+ *   label = @Translation("Driven Motorcycle"),
+ *   label_collection = @Translation("Driven Motorcycles"),
+ *   handlers = {
+ *     "list_builder" = "Drupal\driven_motorcycles\DrivenMotorcycleListBuilder",
+ *     "form" = {
+ *       "add" = "Drupal\driven_motorcycles\Form\DrivenMotorcycleForm",
+ *       "edit" = "Drupal\driven_motorcycles\Form\DrivenMotorcycleForm",
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm"
+ *     },
+ *     "access" = "Drupal\Core\Entity\EntityAccessControlHandler",
+ *     "route_provider" = {
+ *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider"
+ *     }
+ *   },
+ *   base_table = "driven_motorcycle",
+ *   admin_permission = "administer driven motorcycles",
+ *   entity_keys = {
+ *     "id" = "id",
+ *     "uuid" = "uuid",
+ *     "label" = "title"
+ *   },
+ *   links = {
+ *     "canonical" = "/admin/content/driven-motorcycles/{driven_motorcycle}",
+ *     "add-form" = "/admin/content/driven-motorcycles/add",
+ *     "edit-form" = "/admin/content/driven-motorcycles/{driven_motorcycle}/edit",
+ *     "delete-form" = "/admin/content/driven-motorcycles/{driven_motorcycle}/delete",
+ *     "collection" = "/admin/content/driven-motorcycles"
+ *   }
+ * )
+ */
+class DrivenMotorcycle extends ContentEntityBase {
+  use EntityChangedTrait;
+
+  /**
+   * Base field definitions.
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
+    $fields = parent::baseFieldDefinitions($entity_type);
+
+    $fields['title'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle (Full Year Make Model)'))
+      ->setRequired(TRUE)
+      ->setSettings(['max_length' => 255])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => -10])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['year'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Motorcycle Year'))
+      ->setRequired(TRUE)
+      ->setSetting('unsigned', TRUE)
+      ->setDisplayOptions('form', ['type' => 'number', 'weight' => -9])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['make'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Make'))
+      ->setRequired(TRUE)
+      ->setSettings(['max_length' => 128])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => -8])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['model'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Model'))
+      ->setRequired(TRUE)
+      ->setSettings(['max_length' => 128])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => -7])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    // Optional/spec fields – keep flexible (strings allow mixed formats).
+    $fields['front_sprocket_pattern'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Front Sprocket Pattern'))
+      ->setSettings(['max_length' => 128])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => 0])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['front_teeth_stock'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Front Teeth Stock'))
+      ->setSettings(['max_length' => 64])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => 1])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['rear_sprocket_pattern'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Rear Sprocket Pattern'))
+      ->setSettings(['max_length' => 128])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => 2])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['rear_teeth_stock'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Rear Teeth Stock'))
+      ->setSettings(['max_length' => 64])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => 3])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['chain_length_stock'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Chain Length Stock'))
+      ->setSettings(['max_length' => 64])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => 4])
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['chain_pitch_stock'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Motorcycle Chain Pitch Stock'))
+      ->setSettings(['max_length' => 64])
+      ->setDisplayOptions('form', ['type' => 'string_textfield', 'weight' => 5])
+      ->setDisplayConfigurable('form', TRUE);
+
+    // Housekeeping.
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Authored by'))
+      ->setSetting('target_type', 'user')
+      ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId');
+
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Created'));
+
+    $fields['changed'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Changed'));
+
+    return $fields;
+  }
+}

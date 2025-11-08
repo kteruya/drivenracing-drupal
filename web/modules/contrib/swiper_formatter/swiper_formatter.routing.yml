@@ -1,0 +1,42 @@
+entity.swiper_formatter.collection:
+  path: '/admin/config/content/swiper-formatter'
+  defaults:
+    _entity_list: 'swiper_formatter'
+    _title: 'Swiper templates'
+  requirements:
+    _permission: 'administer swiper_formatter'
+
+entity.swiper_formatter.add_form:
+  path: '/admin/config/content/swiper_formatter/add'
+  defaults:
+    _entity_form: 'swiper_formatter.add'
+    _title: 'Add Swiper'
+  requirements:
+    _permission: 'administer swiper_formatter'
+
+entity.swiper_formatter.edit_form:
+  path: '/admin/config/content/swiper-formatter/{swiper_formatter}'
+  defaults:
+    _entity_form: 'swiper_formatter.edit'
+    _title: 'Edit Swiper template'
+  requirements:
+    _permission: 'administer swiper_formatter'
+
+entity.swiper_formatter.delete_form:
+  path: '/admin/config/content/swiper-formatter/{swiper_formatter}/delete'
+  defaults:
+    _entity_form: 'swiper_formatter.delete'
+    _title: 'Delete Swiper'
+  requirements:
+    _permission: 'administer swiper_formatter'
+
+swiper_formatter.dialog:
+  path: /swiper-formatter/{entity_type}/{entity_id}/{view_mode}/{field}/{delta}/{field_item}
+  defaults:
+    _controller: '\Drupal\swiper_formatter\Controller\Dialog::dialog'
+    _title_callback: '\Drupal\swiper_formatter\Controller\Dialog::title'
+    field: 'none'
+    delta: '0'
+    field_item: 0
+  requirements:
+    _permission: 'access content'

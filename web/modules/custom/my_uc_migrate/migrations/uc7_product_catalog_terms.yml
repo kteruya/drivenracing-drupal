@@ -1,0 +1,47 @@
+# web/modules/custom/my_uc_migrate/config/install/migrate_plus.migration.uc7_product_catalog_terms.yml
+id: uc7_product_catalog_terms
+label: "UC7 → product catalog terms (via DB view)"
+migration_group: default
+migration_tags: [Drupal 7, Ubercart]
+
+source:
+  plugin: table
+  key: migrate
+  table_name: view_uc_product_catalog
+  fields:
+    - nid
+    - delta
+    - tid
+  id_fields:
+    nid:
+      type: integer
+    delta:
+      type: integer
+
+process:
+  _variation:
+    plugin: migration_lookup
+    source: nid
+    migration: uc7_product_variation
+
+  _product:
+    plugin: entity_lookup
+    entity_type: commerce_product
+    value_key: variations
+    source: '@_variation'
+
+  # If your terms were migrated by core, leave this as-is.
+  # If you used a custom term migration, set that migration ID here instead.
+  field_catalog:
+    plugin: migration_lookup
+    source: tid
+    migration: "d7_taxonomy_term:catalog"
+
+destination:
+  plugin: 'entity:commerce_product'
+  overwrite_properties: [ field_catalog ]
+
+migration_dependencies:
+  required:
+    - uc7_product
+    - "d7_taxonomy_term:catalog"   # change if you used a custom term migration

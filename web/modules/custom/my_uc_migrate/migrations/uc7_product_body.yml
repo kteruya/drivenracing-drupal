@@ -1,0 +1,37 @@
+id: uc7_product_body
+label: "UC7 → product body"
+migration_group: default
+source:
+  plugin: sql
+  key: migrate
+  query: >
+    SELECT n.nid, n.title,
+           b.body_value AS body, b.body_summary AS summary
+    FROM node n
+      INNER JOIN field_data_body b ON b.entity_id = n.nid AND b.deleted = 0
+    WHERE n.type = 'product'
+  ids:
+    nid: { type: integer }
+process:
+  # look up product by linking D7 nid → variation → product
+  _variation:
+    plugin: migration_lookup
+    source: nid
+    migration: uc7_product_variation
+  _product:
+    plugin: entity_lookup
+    entity_type: commerce_product
+    value_key: variations
+    source: '@_variation'
+
+  title: title
+  body/value: body
+  body/summary: summary
+  body/format:
+    plugin: default_value
+    default_value: 'basic_html'
+destination:
+  plugin: 'entity:commerce_product'
+  overwrite_properties: [ title, body ]
+migration_dependencies:
+  required: [ uc7_product ]

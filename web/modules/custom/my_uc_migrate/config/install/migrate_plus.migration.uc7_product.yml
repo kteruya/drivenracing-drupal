@@ -1,0 +1,22 @@
+id: uc7_product
+label: 'UC7 → Commerce: Products'
+migration_group: default
+migration_tags: [Drupal 7, Ubercart]
+source:
+  plugin: uc7_product
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: default      # product type machine name (change if needed)
+  title: title
+  status: status
+  variations:
+    plugin: migration_lookup
+    source: nid
+    migration: uc7_product_variation
+destination:
+  plugin: 'entity:commerce_product'
+  default_bundle: default
+migration_dependencies:
+  required: [uc7_product_variation]

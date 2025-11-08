@@ -1,0 +1,31 @@
+id: uc7_variation_anodized_color
+label: "UC7 → variation field_anodized_color"
+migration_group: default
+source:
+  plugin: sql
+  key: migrate
+  query: >
+    SELECT n.nid, up.model AS sku, f.delta,
+           f.field_anodized_color_value AS anodized
+    FROM node n
+      INNER JOIN uc_products up ON up.nid = n.nid
+      INNER JOIN field_data_field_anodized_color f ON f.entity_id = n.nid AND f.deleted = 0
+    WHERE n.type = 'product'
+  ids:
+    nid: { type: integer }
+process:
+  _target:
+    plugin: entity_lookup
+    entity_type: commerce_product_variation
+    value_key: sku
+    source: sku
+  field_anodized_color:
+    plugin: sub_process        # supports multi-value via delta
+    source: [ anodized ]
+    process:
+      value: '@current'
+destination:
+  plugin: 'entity:commerce_product_variation'
+  overwrite_properties: [ field_anodized_color ]
+migration_dependencies:
+  required: [ uc7_product_variation ]

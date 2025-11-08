@@ -1,0 +1,281 @@
+// DXPR Theme Header Mobile layout
+@import "../includes/variables";
+
+html.html--dxpr-theme-nav-mobile--open {
+  height: 100%;
+  overflow: hidden; // let's hope this new fix stop the body and menu toggle from scrolling without breaking stuff elsewehere
+  // Add z-index property for prevent error in toggle mobile menu.
+  .dxpr-theme-main-menu.menu--open {
+    z-index: 4060;
+  }
+
+  .dxpr-theme-header #dxpr-theme-menu-toggle {
+    z-index: 4100;
+  }
+}
+
+.body--dxpr-theme-nav-mobile {
+  &.body--dxpr-theme-header-fixed.body--dxpr-theme-header-not-overlay {
+    padding-top: 0;
+  }
+
+  .page-title-full-width-container {
+    padding-top: 0;
+  }
+
+  #logo {
+    display: inline;
+    height: var(--dxt-setting-logo-height);
+    max-height: 100%;
+  }
+
+  .dxpr-theme-header {
+    position: static;
+
+    li {
+      clear: both;
+    }
+
+    .navbar-container {
+      display: block;
+      float: none;
+      height: 100%;
+
+      .navbar-header {
+        display: flex;
+        flex-wrap: nowrap;
+        height: 100%;
+
+        .region-navigation {
+          flex-grow: 1;
+        }
+
+        .logo {
+          align-items: center;
+          display: flex;
+          height: 100%;
+        }
+      }
+    }
+
+    .dxpr-theme-main-menu {
+      background: var(--dxt-setting-dropdown-background);
+      box-shadow: 0 5px 5px rgb(0 0 0 / 2%);
+      left: 0;
+      padding-left: calc(var(--dxt-setting-gutter-vertical-mobile, 0) / 2);
+      padding-right: calc(var(--dxt-setting-gutter-vertical-mobile, 0) / 2);
+      position: absolute;
+      width: 100%;
+      z-index: 100;
+
+      .nav-link {
+        font-size: var(--dxt-setting-nav-mobile-font-size);
+      }
+
+      ul, li {
+        width: 100%;
+      }
+
+      ul.navbar-nav {
+        width: 100%;
+      }
+
+      ul.dropdown-menu {
+        position: static;
+
+        .dropdown-item,
+        .bs-dropdown-item-wrapper > .dropdown-item {
+          background-color: var(--dxt-setting-dropdown-background) !important;
+          font-size: var(--dxt-setting-nav-mobile-font-size);
+
+          --bs-dropdown-indent-step: calc(var(--dxt-setting-nav-font-size) / 2);
+
+          &:hover, &:focus {
+            background-color: var(--dxt-setting-dropdown-hover-background) !important;
+          }
+        }
+      }
+    }
+
+    .navbar-toggle {
+      height: var(--dxt-setting-header-mobile-height);
+    }
+
+    .block-dxpr-theme-helper {
+      height: var(--dxt-setting-header-mobile-height);
+      line-height: var(--dxt-setting-header-mobile-height);
+    }
+
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+
+    .wrap-toggle {
+      align-content: center;
+      flex: 1 1 auto;
+    }
+
+    #dxpr-theme-menu-toggle {
+      border: 0 none;
+      cursor: pointer;
+      float: right;
+      margin: 3px 0 0;
+      outline: none;
+      padding: 10px 32px 16px 0;
+      position: relative;
+      z-index: 410;
+
+      span,
+      span::before,
+      span::after {
+        backface-visibility: hidden;
+        background: dxpr-color('base');
+        border-radius: 1px;
+        content: '';
+        cursor: pointer;
+        display: block;
+        height: 4px;
+        position: absolute;
+        width: 100%;
+
+        @supports (animation-name: test) {
+          transition: all 0.3s;
+        }
+      }
+
+      span::before {
+        top: -8px;
+      }
+
+      span::after {
+        bottom: -8px;
+        }
+
+      &.two-dash {
+        span {
+          background-color: transparent;
+        }
+
+        span::before,
+        span::after {
+          @supports (animation-name: test) {
+            transition: transform .18s cubic-bezier(0.04, 0.04, 0.12, 0.96),
+            top .1s cubic-bezier(0.52, 0.16, 0.52, 0.84) .16s,
+            bottom .1s cubic-bezier(0.52, 0.16, 0.52, 0.84) .16s;
+          }
+        }
+
+        span::before {
+          top: -5px;
+        }
+
+        span::after {
+          bottom: -5px;
+        }
+
+        &.navbar-toggle--active {
+          span::before,
+          span::after {
+            bottom: 0;
+            top: 0;
+
+            @supports (animation-name: test) {
+              transition: transform .18s cubic-bezier(0.04, 0.04, 0.12, 0.96) .08s,
+              top .1s cubic-bezier(0.52, 0.16, 0.52, 0.84),
+              bottom .1s cubic-bezier(0.52, 0.16, 0.52, 0.84);
+            }
+          }
+        }
+      }
+
+      &.navbar-toggle--active span {
+        background-color: transparent;
+
+        &::before {
+          top: 0;
+          transform: rotate(45deg);
+        }
+
+        &::after {
+          top: 0;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+
+    .navbar-collapse {
+        border-top: none;
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 10%);
+        clear: both;
+    }
+
+    .navbar-fixed-top {
+      border-width: 0 0 1px;
+      top: 0;
+    }
+
+    .navbar-collapse.collapse {
+      display: none!important;
+    }
+
+    .menu__level--current {
+      span {
+        padding: 7px 20px;
+      }
+    }
+
+    .nav {
+      float: none!important;
+      margin-bottom: 7.5px;
+      margin-top: 7.5px;
+    }
+
+    .nav > li {
+      float: none;
+    }
+
+    .nav > li > a {
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+
+    .collapse.in {
+      display: block !important;
+    }
+  }
+
+  #navbar.header-mobile-fixed {
+    box-sizing: border-box;
+    left: 0;
+    position: fixed;
+    right: 0;
+  }
+
+  // Add spacing only when site name is present to avoid gaps when it's disabled
+  .wrap-branding:has(.name.navbar-brand) {
+   padding-bottom: 50px;
+  }
+}
+
+// Mobile-Small styles
+@media screen and (width <= 768px) {
+  .action--open,
+  .action--close {
+    display: block;
+  }
+
+  #dxpr-theme-main-menu,
+  #dxpr-theme-main-menu .menu__breadcrumbs,
+  #dxpr-theme-main-menu .menu__level {
+    text-align: left;
+    width: 100% !important;
+  }
+}
+
+
+#toolbar-bar.header-mobile-fixed {
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 406;
+}

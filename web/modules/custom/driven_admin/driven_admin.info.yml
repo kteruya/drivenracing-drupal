@@ -1,0 +1,5 @@
+name: Driven Admin
+type: module
+description: Site-specific admin section and dashboard (Driven).
+core_version_requirement: ^11
+package: Custom

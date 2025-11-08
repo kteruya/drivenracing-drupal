@@ -1,0 +1,166 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+
+if (!defined('DRD_FITMENT_FIELD')) {
+  define('DRD_FITMENT_FIELD', 'field_fits_motorcycles');
+}
+
+/**
+ * Fallback: hide the original widget anywhere + try to attach panel.
+ */
+function drd_variation_fitment_panel_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  _drd_vf_hide_field_recursive($form, DRD_FITMENT_FIELD);
+  _drd_vf_try_attach($form, $form_state, "form_alter:$form_id");
+}
+
+/**
+ * Base form alter (preferred).
+ * Called when base form id is commerce_product_variation_form.
+ */
+function drd_variation_fitment_panel_form_BASE_FORM_ID_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  _drd_vf_attach_clean_panel($form, $form_state, "BASE_FORM_ID");
+}
+
+/** Specific add form alter (defensive). */
+function drd_variation_fitment_panel_form_commerce_product_variation_add_form_alter(array &$form, FormStateInterface $form_state) {
+  _drd_vf_attach_clean_panel($form, $form_state, "ADD_FORM");
+}
+
+/** Specific edit form alter (defensive). */
+function drd_variation_fitment_panel_form_commerce_product_variation_edit_form_alter(array &$form, FormStateInterface $form_state) {
+  _drd_vf_attach_clean_panel($form, $form_state, "EDIT_FORM");
+}
+
+/** Try attach panel only when entity is a variation and field exists. */
+function _drd_vf_try_attach(array &$form, FormStateInterface $form_state, string $via): void {
+  $fo = $form_state->getFormObject();
+  if ($fo && method_exists($fo, 'getEntity')) {
+    $ent = $fo->getEntity();
+    if ($ent && $ent->getEntityTypeId() === 'commerce_product_variation' && $ent->hasField(DRD_FITMENT_FIELD)) {
+      _drd_vf_attach_clean_panel($form, $form_state, $via);
+    }
+  }
+}
+
+/** Recursively hide a field widget if present. */
+function _drd_vf_hide_field_recursive(array &$element, string $field_name): void {
+  foreach ($element as $key => &$child) {
+    if (!is_array($child)) continue;
+    if ($key === $field_name && isset($child['#type'])) {
+      $child['#access'] = FALSE;
+    }
+    if (isset($child[$field_name]) && is_array($child[$field_name])) {
+      $child[$field_name]['#access'] = FALSE;
+    }
+    _drd_vf_hide_field_recursive($child, $field_name);
+  }
+}
+
+/** Build the clean management panel. */
+function _drd_vf_attach_clean_panel(array &$form, FormStateInterface $form_state, string $via = ''): void {
+  $fo = $form_state->getFormObject();
+  if (!$fo || !method_exists($fo, 'getEntity')) return;
+
+  /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
+  $variation = $fo->getEntity();
+  if (!$variation || !$variation->hasField(DRD_FITMENT_FIELD)) return;
+
+  // Current values.
+  $options = [];
+  $items = [];
+  if (!$variation->get(DRD_FITMENT_FIELD)->isEmpty()) {
+    foreach ($variation->get(DRD_FITMENT_FIELD)->referencedEntities() as $e) {
+      $options[$e->id()] = $e->label();
+      $items[] = $e->hasLinkTemplate('canonical')
+        ? $e->toLink($e->label())->toRenderable()
+        : ['#markup' => $e->label()];
+    }
+  }
+
+  $list = $items ? ['#theme' => 'item_list', '#items' => $items]
+                 : ['#markup' => t('No motorcycles are assigned yet.')];
+
+  $form['drd_fitment'] = [
+    '#type'   => 'details',
+    '#title'  => t('Fits Motorcycles'),
+    '#open'   => TRUE,
+    '#weight' => 90,
+    '#tree'   => TRUE,
+    '#group'  => isset($form['advanced']) ? 'advanced' : NULL,
+  ];
+
+  // Tiny debug line so we can always confirm the panel is present.
+  $form['drd_fitment']['_dbg'] = [
+    '#markup' => '<em>DRD Fitment Panel active ('.$via.')</em>',
+  ];
+
+  $form['drd_fitment']['current'] = [
+    '#type' => 'container',
+    'list'  => $list,
+  ];
+
+  if ($options) {
+    $form['drd_fitment']['remove_ids'] = [
+      '#type' => 'checkboxes',
+      '#title' => t('Remove selected'),
+      '#options' => $options,
+      '#description' => t('Tick motorcycles to remove, then click Save.'),
+    ];
+  }
+
+  $form['drd_fitment']['add_motorcycle'] = [
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Add motorcycle'),
+    '#target_type' => 'driven_motorcycle',
+    '#description' => t('Pick one and click Save to add it.'),
+    '#tags' => FALSE,
+  ];
+
+  // Ensure entity is updated before it is saved.
+  $form['#entity_builders'][] = 'drd_variation_fitment_panel_entity_builder';
+}
+
+/** Save add/remove selections to the variation entity before save. */
+function drd_variation_fitment_panel_entity_builder($entity_type, EntityInterface $entity, array &$form, FormStateInterface $form_state): void {
+  if ($entity_type !== 'commerce_product_variation' || !$entity->hasField(DRD_FITMENT_FIELD)) {
+    return;
+  }
+
+  // Current IDs.
+  $current = [];
+  if (!$entity->get(DRD_FITMENT_FIELD)->isEmpty()) {
+    foreach ($entity->get(DRD_FITMENT_FIELD)->getValue() as $item) {
+      if (!empty($item['target_id'])) {
+        $current[] = (int) $item['target_id'];
+      }
+    }
+  }
+
+  $vf = (array) $form_state->getValue('drd_fitment', []);
+
+  // Removals.
+  $remove = [];
+  if (!empty($vf['remove_ids']) && is_array($vf['remove_ids'])) {
+    $remove = array_map('intval', array_keys(array_filter($vf['remove_ids'])));
+  }
+  $new = array_values(array_diff($current, $remove));
+
+  // Addition (single).
+  $add_tid = NULL;
+  if (!empty($vf['add_motorcycle'])) {
+    if (is_array($vf['add_motorcycle']) && isset($vf['add_motorcycle']['target_id'])) {
+      $add_tid = (int) $vf['add_motorcycle']['target_id'];
+    }
+    elseif (is_scalar($vf['add_motorcycle'])) {
+      $add_tid = (int) $vf['add_motorcycle'];
+    }
+  }
+  if ($add_tid && !in_array($add_tid, $new, TRUE)) {
+    $new[] = $add_tid;
+  }
+
+  $entity->set(DRD_FITMENT_FIELD, array_map(static fn($id) => ['target_id' => $id], $new));
+}

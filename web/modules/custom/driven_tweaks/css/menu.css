@@ -1,0 +1,96 @@
+/* ==== Olivero + Superfish menu hard overrides ==== */
+
+/* Bar & dropdown backgrounds to white */
+.site-header,
+.site-header__inner,
+.region-primary-menu,
+.primary-nav,
+.primary-nav__menu,
+.block-superfish .sf-menu,
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Base link look (desktop) */
+.primary-nav .primary-nav__menu .primary-nav__menu-link,
+.primary-nav__menu-link,
+.region-primary-menu .menu--main a,
+.block-superfish .sf-menu > li > a,
+.block-superfish .sf-menu li a {
+  font-family: "Oswald", sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  padding: 10px 12px !important;
+  background: transparent !important;
+  color: #555 !important;
+  text-decoration: none !important;
+}
+
+/* Hover/active */
+.primary-nav__menu-link:hover,
+.primary-nav__menu-item--active-trail > .primary-nav__menu-link,
+.primary-nav__menu-link.is-active,
+.block-superfish .sfHover > a,
+.block-superfish .sf-menu li a:hover {
+  background: transparent !important;
+  color: #000 !important;
+}
+
+/* Hide Olivero chevron/indicator on items with children */
+.primary-nav__menu-item--has-children > .primary-nav__menu-link::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Hide Superfish arrow indicators if present */
+.block-superfish .sf-arrows .sf-with-ul:after,
+.block-superfish .sf-with-ul:after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Make dropdown panel look clean */
+.block-superfish .sf-menu ul {
+  border: 1px solid #ddd !important;
+}
+
+/* Dropdown link spacing */
+.block-superfish .sf-menu ul li a {
+  padding: 6px 12px !important;
+  color: #555 !important;
+}
+
+/* Accessible focus ring (neutral color) */
+.primary-nav__menu-link:focus,
+.block-superfish .sf-menu li a:focus {
+  outline: 2px solid #777 !important;
+  outline-offset: 2px !important;
+}
+
+.block-superfish .sf-arrows .sf-with-ul:after,
+.block-superfish .sf-with-ul:after { content:none !important; display:none !important; }
+/* Give Superfish chevrons some space from the text */
+.block-superfish .sf-arrows .sf-with-ul {
+  padding-right: 18px !important;   /* room for the chevron */
+}
+.block-superfish .sf-arrows .sf-with-ul:after {
+  margin-left: 8px !important;      /* gap between text and chevron */
+  position: relative;                /* nudge if your skin needs it */
+  top: 1px;                          /* subtle vertical align */
+  right: 0;                          /* don’t crowd text */
+  line-height: 1;
+}
+
+
+/* Move the Superfish sub-indicator right by 7px */
+.block-superfish .sf-sub-indicator,
+.sf-menu .sf-sub-indicator {
+  /*position: absolute !important; */
+  right: -7px !important;   /* negative 'right' moves it to the right */
+}
+
+/* Give the anchor extra room so the indicator doesn't overlap text */
+.block-superfish .sf-with-ul {
+  padding-right: 22px !important; /* adjust if needed */
+}

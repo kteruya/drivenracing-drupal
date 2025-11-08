@@ -1,0 +1,55 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter(): variation edit.
+ */
+function drd_fitment_fix_form_commerce_product_variation_edit_form_alter(array &$form, FormStateInterface $form_state) {
+  _drd_fitment_fix_variation_form($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter(): variation add.
+ */
+function drd_fitment_fix_form_commerce_product_variation_add_form_alter(array &$form, FormStateInterface $form_state) {
+  _drd_fitment_fix_variation_form($form, $form_state);
+}
+
+/**
+ * Hide the full motorcycle selector and show a read-only list
+ * of motorcycles already assigned on THIS variation.
+ */
+function _drd_fitment_fix_variation_form(array &$form, FormStateInterface $form_state) {
+  $variation = $form_state->getFormObject()->getEntity();
+
+  // Hide the noisy full list widget if present.
+  $field_name = 'field_fits_motorcycles';
+  if (isset($form[$field_name])) {
+    // If you prefer to keep it but non-editable, use: $form[$field_name]['#access'] = FALSE;
+    unset($form[$field_name]);
+  }
+
+  // Build a read-only list from the variation’s current assignments.
+  $items = [];
+  if ($variation && $variation->hasField($field_name) && !$variation->get($field_name)->isEmpty()) {
+    foreach ($variation->get($field_name)->referencedEntities() as $entity) {
+      $items[] = $entity->hasLinkTemplate('canonical')
+        ? $entity->toLink()->toRenderable()
+        : ['#markup' => $entity->label()];
+    }
+  }
+
+  $list_markup = $items
+    ? ['#theme' => 'item_list', '#items' => $items]
+    : ['#markup' => t('No motorcycles are currently assigned to this variation.')];
+
+  // Add a clean read-only panel.
+  $form['drd_fits_motorcycles_readonly'] = [
+    '#type'   => 'details',
+    '#title'  => t('Fits Motorcycles'),
+    '#open'   => TRUE,
+    '#weight' => 90,
+    'list'    => $list_markup,
+  ];
+}

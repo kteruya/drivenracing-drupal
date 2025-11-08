@@ -1,0 +1,5 @@
+name: Driven Fit Bar
+type: module
+description: Adds placeholders and styling classes to the catalog exposed filters (Year/Make/Model).
+core_version_requirement: ^11
+package: Custom

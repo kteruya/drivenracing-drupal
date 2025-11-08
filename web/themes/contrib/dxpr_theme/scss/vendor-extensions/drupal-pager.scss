@@ -1,0 +1,127 @@
+//
+// Author: Jurriaan Roelofs for DXPR. Copyright DXPR.
+//
+
+// Pager
+@import "../includes/variables";
+
+.pager-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  border-radius: 0;
+
+  .pager__item, li {
+    > a,
+    > span {
+      background-color: transparent;
+      border-color: dxpr-color('text');
+      color: dxpr-color('text');
+      padding: 1em 1.4em;
+
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        border-color: dxpr-color('text');
+        color: dxpr-color('text');
+      }
+    }
+
+    &:first-child {
+      > a,
+      > span {
+        border-radius: 0;
+      }
+    }
+
+    &:last-child {
+      > a,
+      > span {
+        border-radius: 0;
+      }
+    }
+
+    &.active > a,
+    &.active > span {
+      &,
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        border-color:  dxpr-color('text');
+        color: dxpr-color('text');
+        text-decoration: underline;
+      }
+    }
+
+    &.disabled {
+      > span,
+      > span:hover,
+      > span:focus,
+      > a,
+      > a:hover,
+      > a:focus {
+        background-color: dxpr-color('text');
+        border-color: transparent;
+        color:  dxpr-color('text');
+      }
+    }
+  }
+
+  .page-item {
+    .page-link {
+      border-radius: 0;
+    }
+
+    &.active {
+      .page-link  {
+        background-color: transparent;
+        border-color: dxpr-color('text');
+        color: dxpr-color('text');
+      }
+    }
+  }
+
+  &.pagination-sm {
+    .page-item {
+      .page-link  {
+        font-size: 12px;
+        padding: 1em 1.4em;
+      }
+
+      &.active {
+        .page-link  {
+          background-color: transparent;
+          border-color: dxpr-color('text');
+          color: dxpr-color('text');
+        }
+      }
+    }
+  }
+
+}
+
+// Mini Pager
+
+.pager {
+  li > a,
+  li > span {
+    background: white;
+    border: 1px solid dxpr-color('text');
+    border-radius: 15px;
+    display: inline-block;
+    font-style: normal;
+    padding: 5px 14px;
+
+    &:hover,
+    &:focus {
+      background: transparent;
+      text-decoration: none;
+    }
+
+    &:active {
+      outline: none;
+    }
+  }
+}

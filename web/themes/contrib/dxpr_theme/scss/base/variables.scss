@@ -1,0 +1,465 @@
+@use "sass:color";
+
+//
+// Predefined color schemes.
+//
+$schemes: (
+  "default": (
+    "base": #284ed9,
+    "basetext": #fff,
+    "link": #284ed9,
+    "accent1": #05e993,
+    "accent1text": #333,
+    "accent2": #284fd8,
+    "accent2text": #fff,
+    "text": #555,
+    "headings": #333,
+    "footer": #21252a,
+    "footertext": #747a85,
+    "secheader": #284fd9,
+    "secheadertext": #fffffe,
+    "card": #eee,
+    "cardtext": #444,
+    "header": #fff,
+    "headertext": #696969,
+    "headerside": #20252a,
+    "headersidetext": #737a85,
+    "pagetitle": #284fdb,
+    "pagetitletext": #fffeff,
+    "graylight": #ccc,
+    "graylighter": #ededed,
+    "silver": #f1f1f1,
+    "body": #efefef,
+  ),
+  "softwarm": (
+    "base": #00aeef,
+    "basetext": #fff,
+    "link": #00aeef,
+    "accent1": #a8e2f7,
+    "accent1text": #333,
+    "accent2": #ffe8e0,
+    "accent2text": #333,
+    "text": #3c4858,
+    "headings": #303273,
+    "footer": #f1f1f1,
+    "footertext": #3c4858,
+    "secheader": #4c805a,
+    "secheadertext": #fff,
+    "card": #ffe8e0,
+    "cardtext": #303273,
+    "header": #fff,
+    "headertext": #303273,
+    "headerside": #fff,
+    "headersidetext": #303273,
+    "pagetitle": #fff,
+    "pagetitletext": #303273,
+    "graylight": #ccc,
+    "graylighter": #ededed,
+    "silver": #f1f1f1,
+    "body": #efefef,
+  ),
+  "powerfulenergetic": (
+    "base": #ef005d,
+    "basetext": #fff,
+    "link": #ef005d,
+    "accent1": #ffbc00,
+    "accent1text": #333,
+    "accent2": #0085ca,
+    "accent2text": #fff,
+    "text": #333,
+    "headings": #000,
+    "footer": #f2f2f2,
+    "footertext": #333,
+    "secheader": #ffbc00,
+    "secheadertext": #fff,
+    "card": #fffbcc,
+    "cardtext": #c90,
+    "header": #000,
+    "headertext": #fff,
+    "headerside": #efefef,
+    "headersidetext": #333,
+    "pagetitle": #fff,
+    "pagetitletext": #000,
+    "graylight": #bbb,
+    "graylighter": #f2f2f2,
+    "silver": #f2f2f2,
+    "body": #efefef,
+  ),
+  "brighthealthy": (
+    "base": #30c7a5,
+    "basetext": #fff,
+    "link": #30c7a5,
+    "accent1": #d2f5e9,
+    "accent1text": #333,
+    "accent2": #f0f7fc,
+    "accent2text": #333,
+    "text": #3c4858,
+    "headings": #1e4a4c,
+    "footer": #f5f5f5,
+    "footertext": #3c4858,
+    "secheader": #3d7c88,
+    "secheadertext": #fff,
+    "card": #f0f7fc,
+    "cardtext": #1e4a4c,
+    "header": #fff,
+    "headertext": #1e4a4c,
+    "headerside": #fff,
+    "headersidetext": #1e4a4c,
+    "pagetitle": #fff,
+    "pagetitletext": #1e4a4c,
+    "graylight": #ccc,
+    "graylighter": #ededed,
+    "silver": #f5f5f5,
+    "body": #fff,
+  ),
+  "calmapproachable": (
+    "base": #3a6e8c,
+    "basetext": #fff,
+    "link": #3a6e8c,
+    "accent1": #a8d6e7,
+    "accent1text": #333,
+    "accent2": #e9f5f9,
+    "accent2text": #333,
+    "text": #3c4858,
+    "headings": #2b4d66,
+    "footer": #f1f1f1,
+    "footertext": #3c4858,
+    "secheader": #a8d6e7,
+    "secheadertext": #fff,
+    "card": #e9f5f9,
+    "cardtext": #2b4d66,
+    "header": #fff,
+    "headertext": #2b4d66,
+    "headerside": #fff,
+    "headersidetext": #2b4d66,
+    "pagetitle": #fff,
+    "pagetitletext": #2b4d66,
+    "graylight": #ccc,
+    "graylighter": #ededed,
+    "silver": #f5f5f5,
+    "body": #fff,
+  ),
+  "neon": (
+    "base": #ff3ea5,
+    "basetext": #fff,
+    "link": #18dcff,
+    "accent1": #ff3ea5,
+    "accent1text": #fff,
+    "accent2": #18dcff,
+    "accent2text": #333,
+    "text": #fff,
+    "headings": #fff,
+    "footer": #0f0f0f,
+    "footertext": #fff,
+    "secheader": #fff,
+    "secheadertext": #0f0f0f,
+    "card": #404040,
+    "cardtext": #fff,
+    "header": #18dcff,
+    "headertext": #fff,
+    "headerside": #181818,
+    "headersidetext": #fff,
+    "pagetitle": #fff,
+    "pagetitletext": #181818,
+    "graylight": #808080,
+    "graylighter": #404040,
+    "silver": #0f0f0f,
+    "body": #0f0f0f,
+  ),
+  "earthy": (
+    "base": #8b5f32,
+    "basetext": #fff,
+    "link": #8b5f32,
+    "accent1": #b2a89d,
+    "accent1text": #333,
+    "accent2": #00a86b,
+    "accent2text": #fff,
+    "text": #333,
+    "headings": #222,
+    "footer": #f0f0f0,
+    "footertext": #333,
+    "secheader": #4c805a,
+    "secheadertext": #fff,
+    "card": #f5f5dc,
+    "cardtext": #333,
+    "header": #fff,
+    "headertext": #333,
+    "headerside": #f5f5dc,
+    "headersidetext": #333,
+    "pagetitle": #8b5f32,
+    "pagetitletext": #fff,
+    "graylight": #aaa,
+    "graylighter": #f2f2f2,
+    "silver": #f0f0f0,
+    "body": #fff,
+  ),
+  "minimalistmonochrome": (
+    "base": #3a3a3a,
+    "basetext": #fff,
+    "link": #606060,
+    "accent1": #808080,
+    "accent1text": #333,
+    "accent2": #c0c0c0,
+    "accent2text": #333,
+    "text": #3c3c3c,
+    "headings": #1a1a1a,
+    "footer": #3a3a3a,
+    "footertext": #fff,
+    "secheader": #606060,
+    "secheadertext": #fff,
+    "card": #fff,
+    "cardtext": #3c3c3c,
+    "header": #fff,
+    "headertext": #3a3a3a,
+    "headerside": #f2f2f2,
+    "headersidetext": #3a3a3a,
+    "pagetitle": #606060,
+    "pagetitletext": #fff,
+    "graylight": #8c8c8c,
+    "graylighter": #ebebeb,
+    "silver": #d7d7d7,
+    "body": #f6f6f6,
+  ),
+  "darkmode": (
+    "base": #4675ff,
+    "basetext": #fff,
+    "link": #4675ff,
+    "accent1": #4675ff,
+    "accent1text": #fff,
+    "accent2": #4675ff,
+    "accent2text": #fff,
+    "text": #b0b0b0,
+    "headings": #d0d0d0,
+    "footer": #181818,
+    "footertext": #808a95,
+    "secheader": #181818,
+    "secheadertext": #d0d0d0,
+    "card": #1a1a1a,
+    "cardtext": #b0b0b0,
+    "header": #181818,
+    "headertext": #d0d0d0,
+    "headerside": #1a1a1a,
+    "headersidetext": #808a95,
+    "pagetitle": #181818,
+    "pagetitletext": #d0d0d0,
+    "graylight": #404040,
+    "graylighter": #606060,
+    "silver": #3e3e3e,
+    "body": #0a0a0a,
+  ),
+  "aivibe": (
+    "base": #6366f1,
+    "basetext": #fff,
+    "link": #8b5cf6,
+    "accent1": #a855f7,
+    "accent1text": #fff,
+    "accent2": #3b82f6,
+    "accent2text": #fff,
+    "text": #1e293b,
+    "headings": #0f172a,
+    "footer": #1e1b4b,
+    "footertext": #c7d2fe,
+    "secheader": #4338ca,
+    "secheadertext": #fff,
+    "card": #f3e8ff,
+    "cardtext": #4c1d95,
+    "header": #fff,
+    "headertext": #1e293b,
+    "headerside": #312e81,
+    "headersidetext": #e0e7ff,
+    "pagetitle": #4c1d95,
+    "pagetitletext": #fff,
+    "graylight": #94a3b8,
+    "graylighter": #e2e8f0,
+    "silver": #f1f5f9,
+    "body": #fefefe,
+  ),
+  "oceanblue": (
+    "base": #284ed9,
+    "basetext": #fff,
+    "link": #284ed9,
+    "accent1": #dfe6ff,
+    "accent1text": #333,
+    "accent2": #dfe6ff,
+    "accent2text": #333,
+    "text": #3c3c3c,
+    "headings": #1a1a1a,
+    "footer": #3a3a3a,
+    "footertext": #fff,
+    "secheader": #3a3a3a,
+    "secheadertext": #fff,
+    "card": #e8ecfd,
+    "cardtext": #1e3ba8,
+    "header": #fff,
+    "headertext": #3a3a3a,
+    "headerside": #f2f2f2,
+    "headersidetext": #3a3a3a,
+    "pagetitle": #3a3a3a,
+    "pagetitletext": #fff,
+    "graylight": #8c8c8c,
+    "graylighter": #ebebeb,
+    "silver": #d7d7d7,
+    "body": #f6f6f6,
+  ),
+);
+
+:root {
+  // Theme settings variables.
+  --dxt-setting-background-image-attachment: fixed;
+  --dxt-setting-background-image-position: center center;
+  --dxt-setting-background-image-style: cover;
+  --dxt-setting-block-background: transparent;
+  --dxt-setting-block-border-color: var(--bs-card-border-color);
+  --dxt-setting-block-border-radius: 0px;
+  --dxt-setting-block-border: 0px;
+  --dxt-setting-block-divider-color: var(--dxt-color-cardtext);
+  --dxt-setting-block-divider-length: 0px;
+  --dxt-setting-block-divider-spacing: 0px;
+  --dxt-setting-block-divider-thickness: 0px;
+  --dxt-setting-block-padding: 0px;
+  --dxt-setting-blockquote-font-face: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --dxt-setting-blockquote-font-size: 20px;
+  --dxt-setting-blockquote-line-height: 1.5;
+  --dxt-setting-blockquote-mobile-font-size: 18px;
+  --dxt-setting-body-font-face:  -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --dxt-setting-body-font-size: 16px;
+  --dxt-setting-body-line-height: 1.6;
+  --dxt-setting-body-mobile-font-size: 14px;
+  --dxt-setting-box-max-width: 1580px;
+  --dxt-setting-boxed-layout-boxbg: #fff;
+  --dxt-setting-divider-color: var(--dxt-color-cardtext);
+  --dxt-setting-divider-length: 100%;
+  --dxt-setting-divider-position: auto;
+  --dxt-setting-divider-position-block: auto;
+  --dxt-setting-divider-thickness: 4px;
+  --dxt-setting-dropdown-background: var(--dxt-color-header);
+  --dxt-setting-dropdown-hover-background: var(--dxt-color-header);
+  --dxt-setting-dropdown-hover-text-color: var(--dxt-color-base);
+  --dxt-setting-dropdown-text-color: var(--dxt-color-text);
+  --dxt-setting-dropdown-width: 285px;
+  --dxt-setting-gutter-container-mobile: 30px;
+  --dxt-setting-gutter-container: 60px;
+  --dxt-setting-gutter-horizontal-mobile: 30px;
+  --dxt-setting-gutter-horizontal: 30px;
+  --dxt-setting-gutter-vertical-mobile: 30px;
+  --dxt-setting-gutter-vertical: 30px;
+  --dxt-setting-h1-font-size: 52px;
+  --dxt-setting-h1-mobile-font-size: 52px;
+  --dxt-setting-h2-font-size: 38px;
+  --dxt-setting-h2-mobile-font-size: 38px;
+  --dxt-setting-h3-font-size: 29px;
+  --dxt-setting-h3-mobile-font-size: 29px;
+  --dxt-setting-h4-font-size: 21px;
+  --dxt-setting-h4-mobile-font-size: 24px;
+  --dxt-setting-header-block-background: inherit;
+  --dxt-setting-header-block-text-color: inherit;
+  --dxt-setting-header-mobile-breakpoint: 1200px;
+  --dxt-setting-header-mobile-height: 60px;
+  --dxt-setting-header-top-bg-opacity-scroll: 1;
+  --dxt-setting-header-top-bg-opacity: 1;
+  --dxt-setting-header-top-height-scroll: 50px;
+  --dxt-setting-header-top-height-sticky-offset: 60px;
+  --dxt-setting-header-top-height: 100px;
+  --dxt-setting-headings-bold: normal;
+  --dxt-setting-headings-font-face: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --dxt-setting-headings-letter-spacing: 0em;
+  --dxt-setting-headings-line-height: 1.1;
+  --dxt-setting-headings-uppercase: none;
+  --dxt-setting-layout-max-width: 1320px;
+  --dxt-setting-logo-height: 35%;
+  --dxt-setting-menu-background: var(--dxt-color-header);
+  --dxt-setting-menu-border-color: var(--dxt-color-header);
+  --dxt-setting-menu-border-position-offset-sticky: 0px;
+  --dxt-setting-menu-border-position-offset: 0px;
+  --dxt-setting-menu-border-size: 2px;
+  --dxt-setting-menu-hover-background: var(--dxt-color-basesubtle);
+  --dxt-setting-menu-hover-text-color: var(--dxt-color-base);
+  --dxt-setting-menu-text-color: var(--dxt-color-text);
+  --dxt-setting-nav-font-face: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --dxt-setting-nav-font-size: 16px;
+  --dxt-setting-nav-mobile-font-size: 14px;
+  --dxt-setting-navbar-background: var(--dxt-color-header);
+  --dxt-setting-page-title-align: left;
+  --dxt-setting-page-title-breadcrumbs-align: right;
+  --dxt-setting-page-title-breadcrumbs-separator: "/";
+  --dxt-setting-page-title-height: 120px;
+  --dxt-setting-page-title-image-opacity: 1;
+  --dxt-setting-page-title-image-position: center center;
+  --dxt-setting-page-title-image-style: cover;
+  --dxt-setting-scale-factor: 1.34;
+  --dxt-setting-sitename-font-face: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --dxt-setting-title-align: left;
+  --dxt-setting-title-background: transparent;
+  --dxt-setting-title-border-color: transparent;
+  --dxt-setting-title-border-radius: 0px;
+  --dxt-setting-title-border: 0px;
+  --dxt-setting-title-font-size: var(--dxt-setting-h3-font-size);
+  --dxt-setting-title-font-size-mobile: var(--dxt-setting-h3-mobile-font-size);
+  --dxt-setting-title-padding: 0px;
+  --dxt-setting-title-sticker: block;
+  --dxt-setting-title-type-uppercase: uppercase;
+  --dxt-setting-title-type-bold: bold;
+  --dxt-setting-title-type-italic: italic;
+
+  // Iterate schemes and create color variables.
+  @each $name, $scheme in $schemes {
+    &.dxpr-scheme- {
+      &#{$name} {
+        @each $key, $color in $scheme {
+          --dxt-color-#{$key}:#{$color};
+
+          @if $key == "header" {
+            --dxt-color-#{$key}-rgb:#{color.red($color),color.green($color),color.blue($color)};
+          }
+        }
+
+        // Base color variants
+        --dxt-color-basesubtle: color-mix(in srgb, white 80%, var(--dxt-color-base));
+        --dxt-color-basesubtletext: color-mix(in srgb, black 60%, var(--dxt-color-base));
+
+        // Accent1 color variants
+        --dxt-color-accent1subtle: color-mix(in srgb, white 80%, var(--dxt-color-accent1));
+        --dxt-color-accent1subtletext: color-mix(in srgb, black 60%, var(--dxt-color-accent1));
+
+        // Accent2 color variants
+        --dxt-color-accent2subtle: color-mix(in srgb, white 80%, var(--dxt-color-accent2));
+        --dxt-color-accent2subtletext: color-mix(in srgb, black 60%, var(--dxt-color-accent2));
+
+        // Headings color variants
+        --dxt-color-headingssubtle: color-mix(in srgb, white 80%, var(--dxt-color-headings));
+        --dxt-color-headingssubtletext: color-mix(in srgb, black 60%, var(--dxt-color-headings));
+
+        // Bootstrap 5 CSS custom property overrides
+        --bs-primary: var(--dxt-color-base);
+        --bs-secondary: var(--dxt-color-accent1);
+        --bs-primary-text-emphasis: color-mix(in srgb, black 60%, var(--dxt-color-base));
+        --bs-secondary-text-emphasis: color-mix(in srgb, black 60%, var(--dxt-color-accent1));
+        --bs-primary-bg-subtle: color-mix(in srgb, white 80%, var(--dxt-color-base));
+        --bs-secondary-bg-subtle: color-mix(in srgb, white 80%, var(--dxt-color-accent1));
+        --bs-primary-border-subtle: color-mix(in srgb, white 60%, var(--dxt-color-base));
+        --bs-secondary-border-subtle: color-mix(in srgb, white 60%, var(--dxt-color-accent1));
+        --bs-body-color: var(--dxt-color-text);
+        --bs-body-bg: var(--dxt-color-body);
+        --bs-heading-color: var(--dxt-color-headings);
+        --bs-link-color: var(--dxt-color-link);
+        --bs-link-hover-color: var(--dxt-color-accent1);
+        --bs-code-color: var(--dxt-color-base);
+        --bs-border-color: var(--dxt-color-graylighter);
+        --bs-border-color-translucent: rgb(0 0 0 / 17.5%);
+        --bs-light: var(--dxt-color-silver);
+        --bs-dark: var(--dxt-color-headings);
+        --bs-light-text-emphasis: var(--dxt-color-text);
+        --bs-dark-text-emphasis: var(--dxt-color-headings);
+        --bs-light-bg-subtle: var(--dxt-color-silver);
+        --bs-dark-bg-subtle: color-mix(in srgb, white 80%, var(--dxt-color-headings));
+        --bs-light-border-subtle: var(--dxt-color-graylighter);
+        --bs-dark-border-subtle: var(--dxt-color-headings);
+        --bs-emphasis-color: var(--dxt-color-headings);
+        --bs-secondary-color: var(--dxt-color-text);
+        --bs-secondary-bg: var(--dxt-color-card);
+        --bs-tertiary-color: var(--dxt-color-text);
+        --bs-tertiary-bg: var(--dxt-color-silver);
+      }
+    }
+  }
+}

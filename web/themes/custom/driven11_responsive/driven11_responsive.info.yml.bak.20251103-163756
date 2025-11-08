@@ -1,0 +1,24 @@
+name: 'Driven 11 (Custom Responsive Theme)'
+type: theme
+'base theme': stable9
+version: 1.0.0
+libraries:
+  - driven11_responsive/base
+  - driven11_responsive/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - driven11_responsive/user
+  core/drupal.dropbutton:
+    - driven11_responsive/dropbutton
+  core/drupal.dialog:
+    - driven11_responsive/dialog
+  file/drupal.file:
+    - driven11_responsive/file
+  core/drupal.progress:
+    - driven11_responsive/progress
+  core/drupal.tablesort:
+    - driven11_responsive/drupal.tablesort
+description: ''
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.2.5'

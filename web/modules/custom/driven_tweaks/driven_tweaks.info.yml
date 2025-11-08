@@ -1,0 +1,5 @@
+name: Driven Tweaks
+type: module
+description: Site-wide tweaks (menu styling, etc.)
+core_version_requirement: ^10 || ^11
+package: Custom

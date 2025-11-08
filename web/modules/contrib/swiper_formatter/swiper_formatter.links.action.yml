@@ -1,0 +1,5 @@
+entity.swiper_formatter.add_form:
+  route_name: 'entity.swiper_formatter.add_form'
+  title: 'Add Swiper'
+  appears_on:
+    - entity.swiper_formatter.collection

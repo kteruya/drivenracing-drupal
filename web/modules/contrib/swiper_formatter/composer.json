@@ -1,0 +1,25 @@
+{
+  "name": "drupal/swiper_formatter",
+  "description": "Integration of Swiper as a configuration entity, with a couple of field formatters and views style.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/swiper_formatter",
+  "authors": [
+    {
+      "name": "nk_",
+      "homepage": "https://www.drupal.org/u/nk_",
+      "role": "Maintainer"
+    }
+  ],
+
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/core": "^10.3 || ^11",
+    "drupal/token": "*",
+    "php": ">=8.1"
+  },
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/swiper_formatter",
+    "source": "https://git.drupalcode.org/project/swiper_formatter"
+  }
+}

@@ -1,0 +1,394 @@
+swiper_formatter.swiper_formatter.*:
+  type: config_entity
+  label: Add Swiper template
+  mapping:
+    id:
+      type: string
+      label: ID
+    label:
+      type: label
+      label: Label
+    uuid:
+      type: string
+      label: Unique uuid
+    description:
+      type: string
+      label: Description
+    enabled:
+      type: boolean
+      label: Enabled or Disabled
+    source:
+      type: string
+      label: Swiper library source
+    breakpoint:
+      type: boolean
+      label: Template serves as Breakpoint
+    swiper_options:
+      type: mapping
+      mapping:
+        enabled:
+          type: boolean
+          label: Enabled
+        source:
+          type: string
+          label: Swiper library source
+        autoHeight:
+          type: boolean
+          label: Auto height
+        width:
+          type: integer
+          label: Fixed width
+        height:
+          type: integer
+          label: Fixed height
+        breakpointsBase:
+          type: string
+          label: Breakpoint base, window or container
+        observer:
+          type: boolean
+          label: Mutation Observer on Swiper and its elements
+        updateOnWindowResize:
+          type: boolean
+          label: Update on window resize
+        resizeObserver:
+          type: boolean
+          label: Use ResizeObserver
+        direction:
+          type: string
+          label: Swiping direction
+        effect:
+          type: string
+          label: Swiper transition effect
+        loop:
+          type: boolean
+          label: Continuous loop mode
+        rewind:
+          type: boolean
+          label: Rewind when click on first or last nav button
+        centeredSlides:
+          type: boolean
+          label: Center active slide
+        speed:
+          type: integer
+          label: Duration in ms of transition between slides
+        slidesPerView:
+          type: float
+          label: Number of slides per view
+        spaceBetween:
+          type: integer
+          label: Space between slides
+        slidesPerGroup:
+          type: integer
+          label: Number of slides per group
+        loopedSlides:
+          type: integer
+          label: Number of slides looped at once
+        noSwipingSelector:
+          type: string
+          label: Exclude selectors, no swipe
+        mousewheel:
+          type: boolean
+          label: Enable navigation through slides using mouse wheel
+        grabCursor:
+          type: boolean
+          label: Set grab cursor over slide
+        cssMode:
+          type: boolean
+          label: Use modern CSS Scroll Snap API
+        grid:
+          type: mapping
+          label: Grid settings
+          mapping:
+            enabled:
+              type: boolean
+              label: Enable/disable grid
+            rows:
+              type: integer
+              label: Number of rows
+            fill:
+              type: string
+              label: Fill mode
+        autoplay:
+          type: mapping
+          label: Autoplay settings
+          mapping:
+            enabled:
+              type: boolean
+              label: Enable/disable autoplay
+            delay:
+              type: integer
+              label: Autoplay delay in milliseconds
+            disableOnInteraction:
+              type: boolean
+              label: Enable/disable autoplay on user interaction
+            pauseOnMouseEnter:
+              type: boolean
+              label: Pause autoplay on mouse enter
+            reverseDirection:
+              type: boolean
+              label: Enables autoplay in reverse direction
+            stopOnLastSlide:
+              type: boolean
+              label: Stop autoplay when last slide is reached
+            waitForTransition:
+              type: boolean
+              label: Waits for transition to continue autoplay
+        navigation:
+          type: mapping
+          label: Navigation settings
+          mapping:
+            enabled:
+              type: boolean
+              label: Enable/disable navigation
+            hideOnClick:
+              type: boolean
+              label: Toggle visibility after click on Swiper container
+        pagination:
+          type: mapping
+          label: Pagination settings
+          mapping:
+            enabled:
+              type: boolean
+              label: Enable/disable pagination
+            type:
+              type: string
+              label: Pagination type
+            dynamicBullets:
+              type: boolean
+              label: Dynamic pagination bullets
+            clickable:
+              type: boolean
+              label: Bullets clickable
+        scrollbar:
+          type: mapping
+          label: Scrollbar settings
+          mapping:
+            enabled:
+              type: boolean
+              label: Enable/disable scrollbar
+            draggable:
+              type: boolean
+              label: Draggable
+            dragSize:
+              type: string
+              label: Drag size
+            hide:
+              type: boolean
+              label: Hide scrollbar automatically after user interaction
+            snapOnRelease:
+              type: boolean
+              label: Snap slider position to slides on release
+
+        breakpoints:
+          type: sequence
+          label: Breakpoints
+          sequence:
+            type: mapping
+            label: Breakpoints
+            mapping:
+              breakpoint:
+                type: string
+                label: Breakpoint
+              swiper_template:
+                type: string
+                label: Swiper template
+              weight:
+                type: integer
+                label: Weight
+        lazy:
+          type: mapping
+          label: Navigation settings
+          mapping:
+            enabled:
+              type: boolean
+              label: Enable/disable lazy load
+            checkInView:
+              type: boolean
+              label: Check for Swiper to be in view before lazy loading images
+            loadOnTransitionStart:
+              type: boolean
+              label: Start loading of new image in the beginning of transition
+            loadPrevNext:
+              type: boolean
+              label: Enable lazy loading for the closest prev and next slides images
+            loadPrevNextAmount:
+              type: integer
+              label: Amount of next and prev slides to preload lazy images in
+            scrollingElement:
+              type: string
+              label: CSS selector for element to check scrolling on for checkInView
+
+# Field formatter settings.
+field.formatter.settings.swiper_formatter_entity:
+  type: field.formatter.settings.entity_reference_revisions_entity_view
+  label: 'Swiper entity formatter settings'
+  mapping:
+    template:
+      type: string
+      label: 'Swiper template'
+    caption:
+      type: string
+      label: 'Caption field'
+field.formatter.settings.swiper_formatter_entity_dialog:
+  type: field.formatter.settings.swiper_formatter_entity
+  label: 'Swiper dialog entity formatter settings'
+  mapping:
+    dialog_target:
+      type: string
+      label: 'Dialog target entity'
+    dialog_view_mode:
+      type: string
+      label: 'Dialog view mode'
+    dialog_view_item:
+      type: string
+      label: 'Dialog view item'
+    dialog_type:
+      type: string
+      label: 'Dialog type'
+    dialog_title_hide:
+      type: boolean
+      label: 'Hide title'
+    dialog_title:
+      type: string
+      label: 'Dialog title'
+    dialog_autoresize:
+      type: boolean
+      label: 'Dialog auto resize'
+    dialog_width:
+      type: string
+      label: 'Dialog width'
+    dialog_height:
+      type: string
+      label: 'Dialog height'
+    'ui-dialog':
+      type: string
+      label: 'UI dialog class'
+    'ui-dialog-titlebar':
+      type: string
+      label: 'UI dialog title bar class'
+    'ui-dialog-title':
+      type: string
+      label: 'UI dialog title class'
+    'ui-dialog-titlebar-close':
+      type: string
+      label: 'UI dialog close class'
+    'ui-dialog-content':
+      type: string
+      label: 'UI dialog content class'
+
+field.formatter.settings.swiper_formatter_image:
+  type: field.formatter.settings.image
+  label: 'Swiper images formatter settings'
+  mapping:
+    template:
+      type: string
+      label: 'Swiper template'
+    caption:
+      type: string
+      label: 'Caption field'
+    custom_link:
+      type: string
+      label: 'Image link'
+field.formatter.settings.swiper_formatter_image_dialog:
+  type: swiper_formatter_dialog
+  label: 'Swiper dialog images formatter settings'
+  mapping:
+    dialog_target:
+      type: string
+      label: 'Dialog target entity'
+    dialog_view_mode:
+      type: string
+      label: 'Dialog view mode'
+    dialog_view_item:
+      type: string
+      label: 'Dialog view item'
+    dialog_type:
+      type: string
+      label: 'Dialog type'
+    dialog_title_hide:
+      type: boolean
+      label: 'Hide title'
+    dialog_title:
+      type: string
+      label: 'Dialog title'
+    dialog_autoresize:
+      type: boolean
+      label: 'Dialog auto resize'
+    dialog_width:
+      type: string
+      label: 'Dialog width'
+    dialog_height:
+      type: string
+      label: 'Dialog height'
+    'ui-dialog':
+      type: string
+      label: 'UI dialog class'
+    'ui-dialog-titlebar':
+      type: string
+      label: 'UI dialog title bar class'
+    'ui-dialog-title':
+      type: string
+      label: 'UI dialog title class'
+    'ui-dialog-titlebar-close':
+      type: string
+      label: 'UI dialog close class'
+    'ui-dialog-content':
+      type: string
+      label: 'UI dialog content class'
+
+field.formatter.swiper_formatter_text:
+  type: field.formatter.settings.text_trimmed
+  label: 'Swiper text formatter settings'
+  mapping:
+    template:
+      type: string
+      label: 'Swiper template'
+    caption:
+      type: string
+      label: 'Caption field'
+field.formatter.settings.swiper_formatter_text_dialog:
+  type: field.formatter.swiper_formatter_text
+  label: 'Swiper dialog text formatter settings'
+  mapping:
+    dialog_target:
+      type: string
+      label: 'Dialog target entity'
+    dialog_view_mode:
+      type: string
+      label: 'Dialog view mode'
+    dialog_view_item:
+      type: string
+      label: 'Dialog view item'
+    dialog_type:
+      type: string
+      label: 'Dialog type'
+    dialog_title_hide:
+      type: boolean
+      label: 'Hide title'
+    dialog_title:
+      type: string
+      label: 'Dialog title'
+    dialog_autoresize:
+      type: boolean
+      label: 'Dialog auto resize'
+    dialog_width:
+      type: string
+      label: 'Dialog width'
+    dialog_height:
+      type: string
+      label: 'Dialog height'
+    'ui-dialog':
+      type: string
+      label: 'UI dialog class'
+    'ui-dialog-titlebar':
+      type: string
+      label: 'UI dialog title bar class'
+    'ui-dialog-title':
+      type: string
+      label: 'UI dialog title class'
+    'ui-dialog-titlebar-close':
+      type: string
+      label: 'UI dialog close class'
+    'ui-dialog-content':
+      type: string
+      label: 'UI dialog content class'

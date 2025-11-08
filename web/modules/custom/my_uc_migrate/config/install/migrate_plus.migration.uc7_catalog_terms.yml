@@ -1,0 +1,32 @@
+id: uc7_catalog_terms
+label: "D7 → D11 catalog terms (table source via DB view)"
+migration_group: default
+migration_tags: [Drupal 7, Taxonomy]
+
+source:
+  plugin: table
+  key: migrate
+  table_name: view_d7_catalog_terms
+  fields: [tid, name, description, weight]
+  id_fields:
+    tid: { type: integer }
+
+process:
+  vid:
+    plugin: default_value
+    default_value: catalog
+  name: name
+  description/value: description
+  description/format:
+    plugin: default_value
+    default_value: basic_html
+  weight: weight
+  langcode:
+    plugin: default_value
+    default_value: und   # use 'und' or your site default
+
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: catalog
+
+migration_dependencies: { }

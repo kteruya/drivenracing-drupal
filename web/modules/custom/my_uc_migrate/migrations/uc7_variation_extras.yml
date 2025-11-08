@@ -1,0 +1,69 @@
+id: uc7_variation_extras
+label: "UC7 → variation extras from uc_products"
+migration_group: default
+source:
+  plugin: sql
+  key: migrate            # your D7 connection key
+  query: >
+    SELECT up.nid, up.model AS sku,
+           up.list_price, up.cost,
+           up.weight, up.weight_units,
+           up.length, up.width, up.height, up.length_units,
+           up.shippable, up.pkg_qty, up.default_qty
+    FROM uc_products up
+  ids:
+    nid:
+      type: integer
+
+process:
+  # find target variation by SKU
+  _target:
+    plugin: entity_lookup
+    entity_type: commerce_product_variation
+    value_key: sku
+    source: sku
+
+  field_msrp/number: list_price
+  field_msrp/currency_code:
+    plugin: default_value
+    default_value: 'USD'
+
+  # choose one: if field_cost is decimal
+  field_cost: cost
+  # or as price:
+  # field_cost/number: cost
+  # field_cost/currency_code:
+  #   plugin: default_value
+  #   default_value: 'USD'
+
+  field_weight: weight
+  field_shippable:
+    plugin: callback
+    callable: intval
+    source: shippable
+  field_pkg_qty: pkg_qty
+  field_default_qty: default_qty
+
+  # dimensions – either into separate decimal fields or your single map field
+  field_dimensions/length: length
+  field_dimensions/width: width
+  field_dimensions/height: height
+  field_dimensions/unit:
+    plugin: static_map
+    source: length_units
+    map: { in: in, cm: cm, mm: mm }
+    bypass: true
+
+destination:
+  plugin: 'entity:commerce_product_variation'
+  overwrite_properties:
+    - field_msrp
+    - field_cost
+    - field_weight
+    - field_shippable
+    - field_pkg_qty
+    - field_default_qty
+    - field_dimensions
+migration_dependencies:
+  required:
+    - uc7_product_variation

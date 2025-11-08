@@ -1,0 +1,21 @@
+id: uc7_product_variation
+label: 'UC7 → Commerce: Product variations'
+migration_group: default
+migration_tags: [Drupal 7, Ubercart]
+source:
+  plugin: uc7_product
+  key: migrate
+process:
+  type:
+    plugin: default_value
+    default_value: default      # variation type machine name (change if needed)
+  sku: model
+  title: title
+  status: status
+  price:
+    plugin: commerce_price
+    source: sell_price
+    currency_code: 'USD'
+destination:
+  plugin: 'entity:commerce_product_variation'
+  default_bundle: default

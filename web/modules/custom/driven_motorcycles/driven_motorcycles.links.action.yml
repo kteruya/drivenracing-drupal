@@ -1,0 +1,5 @@
+driven_motorcycles.add:
+  route_name: entity.driven_motorcycle.add_form
+  title: 'Add driven motorcycle'
+  appears_on:
+    - entity.driven_motorcycle.collection

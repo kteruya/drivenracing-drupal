@@ -1,0 +1,221 @@
+<?php
+
+/**
+ * @file
+ * Requirements check, mostly for local Swiper files existence.
+ */
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Swiper formatter module.
+ */
+
+use Drupal\swiper_formatter\Entity\SwiperFormatter;
+
+/**
+ * Implements hook_requirements().
+ */
+function swiper_formatter_requirements(string $phase): array {
+  if ($phase != 'runtime') {
+    return [];
+  }
+
+  // Collect all available swiper entities.
+  $swipers = SwiperFormatter::getSwipers();
+
+  if (empty($swipers)) {
+    return [];
+  }
+
+  $requirements = [];
+  $has_local = FALSE;
+  foreach ($swipers as $swiper_id => $swiper_data) {
+    if (isset($swiper_data['properties']) && isset($swiper_data['properties']['swiper_options'])) {
+      if (strpos($swiper_data['properties']['swiper_options']['source'], 'local') !== FALSE) {
+
+        $has_local = TRUE;
+        $js_library_type = $swiper_data['properties']['swiper_options']['source'] == 'local' ? 'swiper-bundle.js' : 'swiper-bundle.min.js';
+        $css_library_type = $swiper_data['properties']['swiper_options']['source'] == 'local' ? 'swiper-bundle.css' : 'swiper-bundle.min.css';
+
+        $js_path = '/libraries/swiper/' . $js_library_type;
+        $css_path = '/libraries/swiper/' . $css_library_type;
+
+        if (!file_exists(DRUPAL_ROOT . $js_path) || !file_exists(DRUPAL_ROOT . $css_path)) {
+          $requirements['swiper_formatter_' . $swiper_id] = [];
+          $requirements['swiper_formatter_' . $swiper_id]['title'] = t('Missing <em>@swiper swiper</em> library source', ['@swiper' => $swiper_data['label']]);
+          $requirements['swiper_formatter_' . $swiper_id]['description'] = t('<p>Swiper @swiper is having "Swiper library source" set to <strong>@local</strong> but no files are present in <strong>/libraries/swiper/</strong>. Either change settings to <strong>Remote</strong> for this entity, or make sure to download <a target="_blank" href=":js_url">@js_name</a>  and css files and place those in the folder and <a target="_blank" href=":css_url">@css_name</a>.</p>', [
+            '@swiper' => $swiper_data['label'],
+            '@local' => ucfirst(str_replace('_', ' ', $swiper_data['properties']['swiper_options']['source'])),
+            '@js_name' => $js_library_type,
+            ':js_url' => 'https://unpkg.com/swiper@11/' . $js_library_type,
+            '@css_name' => $css_library_type,
+            ':css_url' => 'https://unpkg.com/swiper@11/' . $css_library_type,
+          ]);
+          $requirements['swiper_formatter_' . $swiper_id]['severity'] = REQUIREMENT_ERROR;
+        }
+      }
+    }
+  }
+
+  if (empty($requirements)) {
+    $requirements['swiper_formatter'] = [];
+    $requirements['swiper_formatter']['title'] = t('Swiper.js library source');
+    $requirements['swiper_formatter']['description'] = $has_local ? t('Installed in <em>/libraries/swiper</em> folder.') : t('Set to remote cdn <em>//unpkg.com/swiper@11/</em> see <em>swiper_formatter.libraries.yml</em>.');
+    $requirements['swiper_formatter']['severity'] = REQUIREMENT_OK;
+  }
+  return $requirements;
+}
+
+/**
+ * Add "Scrollbar" module, "Breakpoints" feature and several other options.
+ */
+function swiper_formatter_update_8001(array &$sandbox): void {
+
+  $default_options = [
+    'mousewheel' => FALSE,
+    'scrollbar' => [
+      'enabled' => FALSE,
+      'draggable' => FALSE,
+      'dragSize' => 'auto',
+      'hide' => TRUE,
+      'snapOnRelease' => FALSE,
+    ],
+    'slidesPerGroup' => 1,
+    'spaceBetween' => 0,
+    'updateOnWindowResize' => TRUE,
+    'resizeObserver' => TRUE,
+    'breakpoints' => [
+      'breakpoint' => NULL,
+      'swiper_template' => NULL,
+      'weight' => 0,
+    ],
+  ];
+
+  // Update all existing Swipers.
+  $swipers = SwiperFormatter::getSwipers();
+  if (!empty($swipers)) {
+    $options = $default_options;
+    foreach ($swipers as $swiper_id => $swiper_data) {
+
+      $config = \Drupal::service('config.factory')->getEditable('swiper_formatter.swiper_formatter.' . $swiper_id);
+
+      // These three came in the earlier version, but without this update,
+      // so double check if there is custom settings for it already.
+      if (isset($config->get('swiper_options')['mousewheel'])) {
+        $options['mousewheel'] = $config->get('swiper_options')['mousewheel'];
+      }
+
+      if (isset($config->get('swiper_options')['scrollbar'])) {
+        $options['scrollbar'] = $config->get('swiper_options')['scrollbar'];
+      }
+
+      if (isset($config->get('swiper_options')['slidesPerGroup'])) {
+        $options['slidesPerGroup'] = $config->get('swiper_options')['slidesPerGroup'];
+      }
+
+      $swiper_options = array_merge($config->get('swiper_options'), $options);
+      $config->set('swiper_options', $swiper_options);
+
+      $config->set('breakpoint', FALSE);
+      $config->set('breakpointsBase', 'window');
+
+      $config->save();
+    }
+  }
+
+  // Save default settings file.
+  $config_default = \Drupal::service('config.factory')->getEditable('swiper_formatter.settings');
+  foreach ($default_options as $option_key => $option) {
+    $config_default->set($option_key, $option);
+  }
+  $config_default->set('breakpoint', FALSE);
+  $config_default->set('breakpointsBase', 'window');
+  $config_default->save();
+
+}
+
+/**
+ * Updates "slidesPerView" data type, from integer to float.
+ */
+function swiper_formatter_update_10201(): void {
+  /** @var \Drupal\swiper_formatter\SwiperFormatterInterface[] $swipers */
+  $swipers = \Drupal::entityTypeManager()->getStorage('swiper_formatter')->loadMultiple();
+  foreach ($swipers as $swiper) {
+    $swiper_options = $swiper->getSwiperOptions();
+    $swiper_options['slidesPerView'] = isset($swiper_options['slidesPerView']) ? (float) $swiper_options['slidesPerView'] : 1.0;
+    $swiper->setSwiperOptions($swiper_options);
+    $swiper->save();
+  }
+}
+
+/**
+ * Enable the Token module.
+ */
+function swiper_formatter_update_10202(): void {
+  /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
+  $module_installer = \Drupal::service('module_installer');
+  $module_installer->install(['token']);
+}
+
+/**
+ * Fix schema affected fields' type.
+ */
+function swiper_formatter_update_10203(): void {
+  $affected_boolean_values = [
+    'loop',
+    'rewind',
+    'centeredSlides',
+    'mousewheel',
+    'grabCursor',
+    'cssMode',
+  ];
+  $affected_integer_values = ['spaceBetween'];
+  /** @var \Drupal\swiper_formatter\SwiperFormatterInterface[] $swipers */
+  $swipers = \Drupal::entityTypeManager()->getStorage('swiper_formatter')->loadMultiple();
+  foreach ($swipers as $swiper) {
+    $swiper_options = $swiper->getSwiperOptions();
+    // Fix boolean values.
+    foreach ($affected_boolean_values as $key) {
+      $value = $swiper_options[$key];
+      if (gettype($value) == 'integer') {
+        $swiper_options[$key] = boolval($value);
+      }
+    }
+    // Fix integer values.
+    foreach ($affected_integer_values as $key) {
+      $value = $swiper_options[$key];
+      if (gettype($value) == 'string') {
+        $swiper_options[$key] = intval($value);
+      }
+    }
+    $swiper->setSwiperOptions($swiper_options);
+    $swiper->save();
+  }
+}
+
+/**
+ * Permanently delete the existing global configuration.
+ */
+function swiper_formatter_update_10204(): void {
+  \Drupal::configFactory()->getEditable('swiper_formatter.settings')->delete();
+}
+
+/**
+ * Add default grid options to swiper formatters.
+ */
+function swiper_formatter_update_10205(): void {
+  /** @var \Drupal\swiper_formatter\SwiperFormatterInterface[] $swipers */
+  $swipers = \Drupal::entityTypeManager()->getStorage('swiper_formatter')->loadMultiple();
+  foreach ($swipers as $swiper) {
+    $swiper_options = $swiper->getSwiperOptions();
+    $swiper_options['grid'] = [
+      'enabled' => FALSE,
+      'rows' => 1,
+      'fill' => 'column',
+    ];
+    $swiper->setSwiperOptions($swiper_options);
+    $swiper->save();
+  }
+}

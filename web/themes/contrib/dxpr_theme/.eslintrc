@@ -1,0 +1,121 @@
+{
+  "parser": "@babel/eslint-parser",
+  "plugins": [
+    "prettier",
+    "spellcheck"
+  ],
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "rules": {
+    "camelcase": 0,
+    "max-lines": ["error", { "max": 300, "skipBlankLines": true, "skipComments": true }],
+    "capitalized-comments": ["error", "always", {
+      "ignorePattern": "",
+      "ignoreInlineComments": true,
+      "ignoreConsecutiveComments": true
+    }],
+    "class-methods-use-this": 0,
+    "consistent-return": 0,
+    "eqeqeq": [2, "smart"],
+    "guard-for-in": 2,
+    "max-classes-per-file": 0,
+    "func-names": 0,
+    "no-alert": 0,
+    "no-continue": 0,
+    "no-constant-condition": 2,
+    "no-new": 0,
+    "no-param-reassign": 0,
+    "no-shadow": 2,
+    "no-undef": 2,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [2, {"vars": "local", "args": "none"}],
+    "no-use-before-define": 2,
+    "strict": 0,
+    "no-plusplus": 0,
+    "no-restricted-properties": [0, {
+      "object": "window",
+      "property": "isNaN"
+    }],
+    "object-curly-spacing": ["error", "always"],
+    "template-curly-spacing": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80
+      }
+    ],
+    "spellcheck/spell-checker": [
+      "error",
+      {
+        "comments": true,
+        "strings": false,
+        "templates": false,
+        "identifiers": false,
+        "lang": "en_US",
+        "skipWords": [
+          "accessor",
+          "checkbox",
+          "dom",
+          "dropdown",
+          "Dropdowns",
+          "Drupal",
+          "DXPR",
+          "Glyphicons",
+          "jslint",
+          "Jur",
+          "multivar",
+          "namespace",
+          "Pixeden",
+          "plusplus",
+          "undef",
+          "touchstart",
+          "Rect",
+          "Breakpoint",
+          "keyup",
+          "calc",
+          "styleguide",
+          "cheatsheet",
+          "searchable",
+          "Debounced"
+        ],
+        "skipIfMatch": [
+          "{\\w+}", // E.g. "{paramName}"
+          "{^[-\\w]+\\s+<}", // E.g. "<hello> <world>"
+          "{[^s]*.js[^s]*}" // .js file
+        ],
+        "minLength": 3
+      }
+    ]
+  },
+  "globals": {
+    "_": true,
+    "analytics": true,
+    "Backbone": true,
+    "bootstrapVersion": true,
+    "CKEDITOR": true,
+    "document": true,
+    "domready": true,
+    "Drupal": true,
+    "drupalSettings": true,
+    "drupalTranslations": true,
+    "DXPRtheme": true,
+    "dxprTemplates": true,
+    "DXPRTextEditor": true,
+    "fetch": true,
+    "getBootstrapBreakPoints": true,
+    "liveEditingManager": true,
+    "matchMedia": true,
+    "MLMenu": true,
+    "once": true,
+    "preview": true,
+    "Twig": true,
+    "window": true,
+    "WOW": true,
+    "ReinventedColorWheel": true,
+    "requestAnimationFrame": true,
+    "DOMParser": true,
+    "MutationObserver": true
+  }
+}

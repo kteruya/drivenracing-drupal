@@ -1,0 +1,7 @@
+name: 'DRD Variation Fitment Panel'
+type: module
+description: 'Shows a read-only list with remove checkboxes on variation forms.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:commerce_product

@@ -1,0 +1,21 @@
+.ui-dialog-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.ui-dialog .ui-dialog-titlebar.titlebar-hidden {
+  background: transparent;
+  height: 0;
+}
+.ui-dialog .ui-dialog-titlebar-close.titlebar-hidden {
+  position: absolute;
+  z-index: 102;
+  left: auto;
+  top: auto;
+  background: #111111;
+  border-radius: 4px;
+  height: 4rem;
+  width: 4rem;
+  opacity: 0.6;
+}

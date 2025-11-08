@@ -1,0 +1,18 @@
+id: uc7_taxonomy_vocabulary
+label: "UC7 → Taxonomy vocabularies"
+migration_group: default
+source:
+  plugin: sql
+  key: migrate
+  query: >
+    SELECT v.machine_name, v.name, v.description
+    FROM taxonomy_vocabulary v
+  ids:
+    machine_name:
+      type: string
+process:
+  vid: machine_name
+  name: name
+  description: description
+destination:
+  plugin: entity:taxonomy_vocabulary

@@ -1,0 +1,70 @@
+id: d7_file
+label: 'Drupal 7 files (override with base path)'
+status: true
+migration_group: default
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal
+      - migrate_plus
+      - file
+
+source:
+  plugin: d7_file
+  scheme: public
+  constants:
+    source_base_path: /home/drupal11.drivenracing.com/legacy_d7/files
+    strip_scheme_pattern: '#^public://#'
+    strip_scheme_replacement: ''
+
+process:
+  fid:
+    - plugin: get
+      source: fid
+  filename:
+    - plugin: get
+      source: filename
+
+  # Build a relative path by stripping the scheme with preg_replace(pattern, replacement, subject)
+  source_rel_from_uri:
+    - plugin: callback
+      callable: preg_replace
+      source:
+        - constants/strip_scheme_pattern
+        - constants/strip_scheme_replacement
+        - uri
+      unpack_source: true
+
+  # Join base path with that relative path, then urlencode
+  source_full_path:
+    - plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - '@source_rel_from_uri'
+    - plugin: urlencode
+
+  uri:
+    - plugin: file_copy
+      source:
+        - '@source_full_path'
+        - uri
+
+  filemime:
+    - plugin: get
+      source: filemime
+  status:
+    - plugin: get
+      source: status
+  created:
+    - plugin: get
+      source: timestamp
+  changed:
+    - plugin: get
+      source: timestamp
+  uid:
+    - plugin: get
+      source: uid
+
+destination:
+  plugin: 'entity:file'

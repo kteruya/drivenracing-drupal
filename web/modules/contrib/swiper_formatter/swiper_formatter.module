@@ -1,0 +1,242 @@
+<?php
+
+/**
+ * @file
+ * Swiper formatter module, contains help hook and theme hooks.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Component\Render\MarkupInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_help().
+ */
+function swiper_formatter_help(string $route_name, RouteMatchInterface $route_match): string|MarkupInterface|NULL {
+  switch ($route_name) {
+
+    case 'help.page.swiper_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= t('Provides Drupal integration with the one of the most modern swiping/sliding libraries <a target="_blank" href="@url">Swiper.js</a>. Swiper.js is mobile first, layout and gestures wise, and it provides a huge amount of options for designing your own widget.', ['@url' => 'https://swiperjs.com']);
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dt>' . t('<strong>Swiper configuration entity</strong>') . '</dt>';
+      $output .= '<dd>' . t('Add or edit or delete existing <a target="_blank" href="/admin/config/content/swiper-formatter">swipers</a>. Those entities are unique sets of configurations (which become parameters and modules for Swiper.js definition in front-end)
+and there can be unlimited number of these, each ready as a sort of pre-defined template for usage on Field formatter settings or in the Views.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Swiper images</strong> formatter') . '</dt>';
+      $output .= '<dd>' . t('On "Manage display" for any entity bundle assign this field formatter to any image field and configure setting to follow up.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Swiper markup</strong> formatter') . '</dt>';
+      $output .= '<dd>' . t('On "Manage display" for any entity bundle assign this field formatter to any text type of field and configure setting to follow up.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Swiper entity</strong> formatter') . '</dt>';
+      $output .= '<dd>' . t('On "Manage display" for any entity bundle assign this field formatter to any entity reference > media or entity reference > content reference type and configure setting to follow up.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Views style</strong> plugin') . '</dt>';
+      $output .= '<dd>' . t('Most common usage, just any regular View display having "Swiper formatter" set for "Format" whereas both fields and content with a view mode ("Show: Fields" and "Show: Content") will work. Everything that is one view result or #row will become one slide.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Views style</strong> plugin - advanced') . '</dt>';
+      $output .= '<dd>' . t('In case of Content formatted view (with usage of View mode) field enabled in such, with any swiper formatter should work, being part of the result.') . '</dd>';
+      $output .= '<dd>' . t('It is also possible to use a single field, say multiple values field (images or text) belonging to multiple entities returned as a view result to render in Swiper in sequential order - i.e. Node[delta=0] > Image[delta = 0] Image[delta = 1] Image[delta = 2] | Node[delta=1] > Image[delta = 0] Image[delta = 1]. For this you would need to have only one multiple values field (or may be maximum two fields in a View if setting one for Captions) which would have "Display all values in the same row" turned of within "Multiple field settings" for that field.') . '</dd>';
+      return $output;
+
+    case 'entity.swiper_formatter.collection':
+      return '<p>' . t('Here is the list of existing Swiper templates.') . '</p>';
+
+    case 'entity.swiper_formatter.add_form':
+    case 'entity.swiper_formatter.edit_form':
+      return t('Below is a big group of Swiper.js parameters and modules, of course not all of them from such extensive list, but also without "warranty" that all will just work. The latter is especially valid and the case with combining some of the parameters and/or modules. It is all explained on the API page so <strong>please make sure to see guiding here <a target="_blank" href="@api_link">Swiper.js API</a></strong>.', [
+        '@api_link' => 'https://swiperjs.com/swiper-api#parameters',
+      ]);
+
+    case 'entity.swiper_formatter.delete_form':
+      return t('Make sure to double check on Field formatter settings (Manage display) as well as any Views that are using this particular Swiper style.');
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function swiper_formatter_theme(): array {
+
+  return [
+    'swiper_formatter' => [
+      'variables' => [
+        'id' => NULL,
+        'swiper_title' => NULL,
+        'content' => NULL,
+        'object' => NULL,
+        'attributes' => [],
+        'settings' => [],
+        'content_attributes' => [],
+        'pagination_attributes' => [],
+        'scrollbar_attributes' => [],
+        'navigation_attributes' => [
+          'prev' => [],
+          'next' => [],
+        ],
+      ],
+    ],
+
+    // Swiper modal.
+    'swiper_dialog' => [
+      'variables' => [
+        'id' => NULL,
+        'content' => NULL,
+        'entity' => NULL,
+      ],
+    ],
+
+    // Swiper slide item.
+    'swiper_formatter_slide' => [
+      'variables' => [
+        'slide' => NULL,
+        'object' => NULL,
+        'background' => NULL,
+        'caption' => NULL,
+        'slide_url' => NULL,
+        'dialog_attributes' => NULL,
+        'attributes' => [],
+        'settings' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function swiper_formatter_theme_suggestions_swiper_formatter(array $variables): array {
+
+  $suggestions = [];
+
+  /** @var \Drupal\views\ViewExecutable $variables['object'] */
+  if ($variables['object'] instanceof ViewExecutable) {
+    $suggestions[] = 'swiper_formatter__' . $variables['object']->id();
+    $suggestions[] = 'swiper_formatter__' . $variables['object']->id() . '__' . $variables['object']->current_display;
+
+    if (!empty($variables['content'])) {
+      // This must be a View with "Content" Format, not fields.
+      if (isset($variables['content'][0]['#view_mode'])) {
+        $suggestions[] = 'swiper_formatter__' . $variables['object']->id() . '__' . $variables['content'][0]['#view_mode'];
+        $suggestions[] = 'swiper_formatter__' . $variables['object']->id() . '__' . $variables['object']->current_display . '__' . $variables['content'][0]['#view_mode'];
+      }
+      else {
+        // This is a field.
+        $field_name = isset($variables['settings']['field_name']) && !empty($variables['settings']['field_name']) ? $variables['settings']['field_name'] : NULL;
+        if ($field_name) {
+          $suggestions[] = 'swiper_formatter__' . $variables['object']->id() . '__' . $variables['object']->current_display . '__' . $field_name;
+        }
+      }
+    }
+  }
+
+  /** @var \Drupal\node\NodeInterface $variables['object'] */
+  elseif ($variables['object'] instanceof NodeInterface) {
+    $suggestions[] = 'swiper_formatter__' . $variables['object']->getType();
+
+    // This is a field.
+    $field_name = isset($variables['settings']['field_name']) && !empty($variables['settings']['field_name']) ? $variables['settings']['field_name'] : NULL;
+    if ($field_name) {
+      $suggestions[] = 'swiper_formatter__' . $field_name;
+      $suggestions[] = 'swiper_formatter__' . $field_name . '__' . $variables['object']->getType();
+    }
+
+    $suggestions[] = 'swiper_formatter__' . $variables['object']->id();
+
+    if ($field_name) {
+      $suggestions[] = 'swiper_formatter__' . $field_name . '__' . $variables['object']->id();
+    }
+  }
+
+  $suggestions[] = 'swiper_formatter__' . $variables['settings']['template'];
+
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function swiper_formatter_theme_suggestions_swiper_formatter_slide(array $variables): array {
+
+  $suggestions = [];
+  // Twig templates based on Swiper view data.
+  if (isset($variables['slide']) && isset($variables['object'])) {
+
+    /** @var \Drupal\views\ViewExecutable $variables['object'] */
+    if ($variables['object'] instanceof ViewExecutable) {
+      $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->id();
+      $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->id() . '__' . $variables['object']->current_display;
+
+      // This must be a View with "Content" Format, not fields.
+      if (isset($variables['slide']['#view_mode'])) {
+        $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->id() . '__' . $variables['slide']['#view_mode'];
+        $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->id() . '__' . $variables['object']->current_display . '__' . $variables['slide']['#view_mode'];
+      }
+      else {
+        // This is a field.
+        $field_name = isset($variables['settings']['field_name']) && !empty($variables['settings']['field_name']) ? $variables['settings']['field_name'] : NULL;
+        if ($field_name) {
+          $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->id() . '__' . $variables['object']->current_display . '__' . $field_name;
+        }
+      }
+    }
+
+    /** @var \Drupal\node\NodeInterface $variables['object'] */
+    elseif ($variables['object'] instanceof NodeInterface) {
+
+      $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->getType();
+
+      // This is a field.
+      $field_name = isset($variables['settings']['field_name']) && !empty($variables['settings']['field_name']) ? $variables['settings']['field_name'] : NULL;
+      if ($field_name) {
+        $suggestions[] = 'swiper_formatter_slide__' . $field_name;
+        $suggestions[] = 'swiper_formatter_slide__' . $field_name . '__' . $variables['object']->getType();
+      }
+
+      $suggestions[] = 'swiper_formatter_slide__' . $variables['object']->id();
+
+      if ($field_name) {
+        $suggestions[] = 'swiper_formatter_slide__' . $field_name . '__' . $variables['object']->id();
+      }
+
+      if (isset($variables['#view_mode'])) {
+        $suggestions[] = 'swiper_formatter_slide__' . $variables['#view_mode'];
+        $suggestions[] = 'swiper_formatter_slide__' . $variables['#view_mode'] . '__' . $variables['object']->id();
+        $suggestions[] = 'swiper_formatter_slide__' . $variables['#view_mode'] . '__' . $variables['object']->getType();
+        $suggestions[] = 'swiper_formatter_slide__' . $variables['#view_mode'] . '__' . $variables['object']->getType() . '__' . $variables['object']->id();
+      }
+    }
+  }
+  return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function swiper_formatter_theme_suggestions_swiper_formatter_view_modes(array $variables): array {
+  $suggestions = [];
+  if ($variables['object'] instanceof ContentEntityInterface) {
+    $suggestions[] = 'swiper_formatter_view_modes__' . $variables['object']->bundle();
+    $suggestions[] = 'swiper_formatter_view_modes__' . $variables['object']->bundle() . '__' . $variables['field_name'];
+  }
+  return $suggestions;
+}
+
+/**
+ * Implements template_preprocess_hook().
+ */
+function template_preprocess_swiper_formatter(array &$variables): void {
+  // Skip swiper format when number of slides less than two.
+  // @see https://www.drupal.org/project/swiper_formatter/issues/3479245.
+  if (count($variables['content']) < 2) {
+    $current_user = \Drupal::service('current_user');
+    $has_permission = \Drupal::service('permission_checker')->hasPermission('administer swiper_formatter', $current_user);
+    if ($has_permission) {
+      \Drupal::service('messenger')->addWarning(t('The number of slides is less than two, skipping Swiper formatting.'));
+    }
+    // Unset swiper initialization.
+    $variables['drupalSettings']['swiper_formatter']['swipers'] = [];
+  }
+}

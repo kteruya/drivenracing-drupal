@@ -1,0 +1,8 @@
+name: Driven Variation Fit
+type: module
+description: Adds 'Fits Motorcycles' entity reference field to product variations.
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:commerce
+  - drupal:commerce_product

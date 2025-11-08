@@ -1,0 +1,28 @@
+name: 'Driven 11 (Custom Responsive Theme)'
+type: theme
+'base theme': stable9
+version: 1.0.0
+libraries:
+  - driven11_responsive/global
+  - driven11_responsive/base
+  - driven11_responsive/messages
+  - core/normalize
+# removed libraries-extend (unused in this theme)
+
+core_version_requirement: ^11
+
+regions:
+  header_top: 'Header top'
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  hero: 'Hero'              # NEW for slider/banner
+  promo_top: 'Promo top'    # NEW row of promos
+  featured: 'Featured'      # NEW featured listings
+  highlighted: 'Highlighted'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer_top: 'Footer top'
+  footer: 'Footer'
+  footer_bottom: 'Footer bottom'

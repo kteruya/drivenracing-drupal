@@ -1,0 +1,5 @@
+name: 'Migrate UC Products (shim)'
+type: module
+description: 'Temporary shim to satisfy a stale dependency. Safe to remove later.'
+core_version_requirement: ^11
+package: Custom

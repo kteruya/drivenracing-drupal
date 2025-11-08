@@ -1,0 +1,7 @@
+name: 'DRD Fitment Widget'
+type: module
+description: 'Single, composite widget for variation fitment: list, add, remove motorcycles.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:commerce_product

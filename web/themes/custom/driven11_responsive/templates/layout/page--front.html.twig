@@ -1,0 +1,39 @@
+{# Front page layout scaffold (Stability-like classes) #}
+<header class="header-wrapper">
+  <div class="header-top">{{ page.header_top }}</div>
+  <div class="header main-header">
+    <div class="branding">
+      {% if logo %}<a href="{{ path('<front>') }}" class="site-logo"><img src="{{ logo }}" alt="{{ site_name }}" /></a>{% endif %}
+      {% if site_name %}<span class="site-name">{{ site_name }}</span>{% endif %}
+    </div>
+    <nav class="primary-nav">{{ page.primary_menu }}</nav>
+  </div>
+</header>
+
+<section class="hero-wrapper">
+  {{ page.hero }} {# custom region for slider/hero #}
+</section>
+
+<section class="promos-wrapper">
+  <div class="promos container">
+    {{ page.promo_top }}  {# row of 2–4 promo blocks #}
+  </div>
+</section>
+
+<section class="featured-wrapper">
+  <div class="container">
+    {{ page.featured }}  {# featured products/categories view #}
+  </div>
+</section>
+
+<section class="content-wrapper">
+  <div class="container">
+    {{ page.content }}  {# fallback body / node content if using node as front #}
+  </div>
+</section>
+
+<footer class="footer-wrapper">
+  <div class="footer-top">{{ page.footer_top }}</div>
+  <div class="footer">{{ page.footer }}</div>
+  <div class="footer-bottom">{{ page.footer_bottom }}</div>
+</footer>

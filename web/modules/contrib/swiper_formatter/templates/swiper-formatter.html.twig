@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Default output for a Swiper object.
+ *
+ * Available variables:
+ * - object: \Drupal\views\ViewExecutable or \Drupal\node\Entity\Node object.
+ * - attributes: An array of attributes to apply to wrapper element.
+ * - content: A renderable array of the swiper list
+ * - settings: An array with various settings, properties of a chosen swiper configuration entity,
+ *   combined with either Field formatter settings values or with Views style options values.
+ * - swiper_title: Currently not rendered from anywhere.
+ *
+ * @see template_preprocess_swiper_formatter().
+ */
+#}
+{% apply spaceless %}
+  {% if content is not empty %}
+
+   {% if settings.swiper_title %}
+      <h3>{{ settings.swiper_title }}</h3>
+    {% endif %}
+
+    {% 
+      set wrapper_classes = [
+        settings.slidesPerView > 1 or settings.has_breakpoint_slides_per_view > 1 ? 'slides-multiple' : 'slide-single',
+      ]
+    %}
+    <div{{ attributes.addClass(wrapper_classes) }}>
+
+      {# Slides. #}
+      <div{{ content_attributes }}>
+        {{ content }}
+      </div>
+      
+      {# Add Pagination. #}
+      {% if settings.pagination.enabled or settings.has_breakpoint_pagination %}
+        <div{{ pagination_attributes}}></div>
+      {% endif %}
+
+      {# Add Scrollbar. #}
+      {% if settings.scrollbar.enabled %}
+        <div{{ scrollbar_attributes}}></div>
+      {% endif %}
+
+      {# Add navigation buttons. #}
+      {% if settings.navigation.enabled or settings.has_breakpoint_navigation %}
+        <div{{ navigation_attributes.prev }}></div>
+        <div{{ navigation_attributes.next }}></div>
+      {% endif %}
+
+    </div>
+  {% endif %}
+{% endapply %}

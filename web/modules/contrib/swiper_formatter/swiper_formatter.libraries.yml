@@ -1,0 +1,53 @@
+package:
+  version: VERSION
+  js:
+    assets/swiper.bundle.min.js: { minified: true }
+  css:
+    component:
+      assets/swiper.bundle.min.css: { minified: true }
+remote:
+  remote: https://swiperjs.com
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/nolimits4web/swiper/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //unpkg.com/swiper@11.1.0/swiper-bundle.min.js: { type: external, minified: true }
+  css:
+    component:
+      //unpkg.com/swiper@11.1.0/swiper-bundle.min.css: { type: external, minified: true }
+
+local:
+  version: VERSION
+  js:
+    /libraries/swiper/swiper-bundle.js: {}
+  css:
+    component:
+      /libraries/swiper/swiper-bundle.css: {}
+
+local_minified:
+  version: VERSION
+  js:
+    /libraries/swiper/swiper-bundle.min.js: { minified: true }
+  css:
+    component:
+      /libraries/swiper/swiper-bundle.min.css: { minified: true }
+
+swiper_formatter:
+  version: VERSION
+  js:
+    js/swiper_formatter.js: { }
+  css:
+    theme:
+      css/swiper_formatter.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+# Dialog specific.
+dialog:
+  version: VERSION
+  css:
+    component:
+      css/swiper_formatter.dialog.css: { }

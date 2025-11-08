@@ -1,0 +1,78 @@
+/* === Driven Tweaks: Bootstrap Barrio overrides (header/menu) === */
+
+/* Make sure the header/nav stays white in Barrio + Superfish */
+.region-primary-menu,
+.navbar,
+.navbar-nav,
+.block-superfish .sf-menu,
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+}
+
+/* Typography / spacing (keeps your Oswald uppercase look) */
+.block-superfish .sf-menu > li > a,
+.block-superfish .sf-menu li a {
+  font-family: "Oswald", sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  padding: 10px 14px !important; /* a touch more horizontal padding */
+  color: #666 !important;
+}
+
+/* Hover/focus states */
+.block-superfish .sf-menu li a:hover,
+.block-superfish .sfHover > a,
+.block-superfish .sf-menu li a:focus {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+/* --- Superfish sub-indicator (the little chevron/bullet) spacing ---
+   You've noted it's the .sf-sub-indicator, not the arrow psuedo-element.
+   Give it some breathing room to the RIGHT and ensure anchor has space. */
+
+/* Ensure room at the end of top-level anchors for the indicator */
+.block-superfish .sf-menu > li > a.sf-with-ul {
+  padding-right: 26px !important; /* space for indicator */
+  position: relative;
+}
+
+/* Nudge the indicator ~7px farther right from the text */
+.block-superfish .sf-with-ul > .sf-sub-indicator,
+.block-superfish .sf-sub-indicator {
+  position: absolute;
+  right: -7px !important;          /* move ~7px to the right as requested */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;            /* prevent accidental clicks on the indicator */
+}
+
+/* If your Superfish is injecting the indicator as inline element (no absolute),
+   also add a left margin for safety in that case: */
+.block-superfish .sf-sub-indicator:not([style*="position"]) {
+  margin-left: 7px !important;
+}
+
+/* Dropdown panel look */
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+  border: 1px solid #ddd !important;
+}
+
+/* Remove any caret/chevron that Olivero/Barrio may add via ::after */
+.region-primary-menu a.sf-with-ul::after {
+  content: none !important;
+}
+
+/* Force full-width layout across Bootstrap containers */
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

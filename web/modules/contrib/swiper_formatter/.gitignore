@@ -1,0 +1,7 @@
+/*.log
+/*.patch
+/*.lock
+/mix-manifest.json
+/node_modules/
+/assets
+/package-lock.json

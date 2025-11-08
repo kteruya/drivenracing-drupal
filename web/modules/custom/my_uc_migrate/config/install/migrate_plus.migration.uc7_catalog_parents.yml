@@ -1,0 +1,44 @@
+id: uc7_catalog_parents
+label: "D7 → D11 catalog term parents (table source via DB view)"
+migration_group: default
+migration_tags: [Drupal 7, Taxonomy]
+
+source:
+  plugin: table
+  key: migrate
+  table_name: view_d7_catalog_parents
+  fields: [tid, parent]
+  id_fields:
+    tid: { type: integer }           # if multi-parents exist, use composite: tid & parent
+
+process:
+  # Child: resolve to existing D11 term ID from the terms migration map.
+  # If it wasn't migrated (e.g., skipped due to blank name), SKIP the row.
+  tid:
+    - plugin: migration_lookup
+      source: tid
+      migration: uc7_catalog_terms
+      no_stub: true
+    - plugin: skip_on_empty
+      method: row
+      message: 'Child term not migrated; skipping parent link.'
+
+  # Parent: resolve to existing D11 term ID; if not present, SKIP the row.
+  parent/0/target_id:
+    - plugin: migration_lookup
+      source: parent
+      migration: uc7_catalog_terms
+      no_stub: true
+    - plugin: skip_on_empty
+      method: row
+      message: 'Parent term not migrated; skipping parent link.'
+
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: catalog
+  update: true
+  overwrite_properties: [ parent ]
+
+migration_dependencies:
+  required:
+    - uc7_catalog_terms

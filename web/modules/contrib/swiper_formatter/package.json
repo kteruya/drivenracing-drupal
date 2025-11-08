@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "npx webpack --mode development --progress; npx cspell js/*.js; npx prettier js --check; npx prettier css --check; npx eslint js",
+    "build": "npx webpack --mode production --progress; npx cspell js/*.js lint; npx prettier js --write; npx prettier css --write; npx eslint js --fix"
+  },
+  "dependencies": {
+    "cspell": "^8.15.4",
+    "css-loader": "^7.1.2",
+    "cssnano": "^7.0.6",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "mini-css-extract-plugin": "^2.9.1",
+    "postcss": "^8.4.47",
+    "postcss-loader": "^8.1.1",
+    "prettier": "^3.3.3",
+    "raw-loader": "^4.0.2",
+    "style-loader": "^4.0.0",
+    "swiper": "^11.1.14",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "devDependencies": {
+    "eslint-plugin-drupal-contrib": "^2.0.3"
+  }
+}

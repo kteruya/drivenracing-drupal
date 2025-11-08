@@ -1,0 +1,9 @@
+name: 'Ubercart Migrate'
+type: module
+description: 'Migrate Drupal 7 Ubercart products to Drupal 11 Commerce products.'
+core_version_requirement: ^11
+package: 'Migration'
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_plus
+  - drupal:migrate_tools

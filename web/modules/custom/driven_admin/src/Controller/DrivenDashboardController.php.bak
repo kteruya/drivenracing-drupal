@@ -1,0 +1,68 @@
+<?php
+
+namespace Drupal\driven_admin\Controller;
+
+use Drupal\Core\Url;
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Controller for Driven admin pages.
+ */
+class DrivenDashboardController extends ControllerBase {
+
+  /**
+   * Landing dashboard with quick links.
+   */
+  public function dashboard() {
+    $items = [
+      ['title' => $this->t('Manage All Motorcycles'), 'route' => 'driven_admin.motorcycles', 'desc' => $this->t('Motorcycle catalog management')],
+      ['title' => $this->t('Manage Slider(s)'),       'route' => 'driven_admin.sliders',      'desc' => $this->t('Homepage/landing slider management')],
+      ['title' => $this->t('Dealer Applications'),     'route' => 'driven_admin.dealer_apps',  'desc' => $this->t('Review and process dealer apps')],
+      ['title' => $this->t('Contact Form Submissions'),'route' => 'driven_admin.contact_submissions','desc' => $this->t('View messages from contact forms')],
+      ['title' => $this->t('Registration Codes'),      'route' => 'driven_admin.registration_codes','desc' => $this->t('Manage registration codes')],
+      ['title' => $this->t('Import from CSV'),         'route' => 'driven_admin.import_csv',   'desc' => $this->t('Data import tools')],
+      ['title' => $this->t('Server Panel'),            'route' => 'driven_admin.server_panel', 'desc' => $this->t('Environment, cache, and status')],
+    ];
+
+    $build = [
+      '#title' => $this->t('Driven Menu'),
+      'intro' => ['#markup' => '<p>'.$this->t('Quick access to site-specific tools.').'</p>'],
+      'grid' => [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['driven-admin-grid']],
+      ],
+      '#attached' => [],
+    ];
+
+    foreach ($items as $item) {
+      $build['grid'][] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['driven-admin-card']],
+        'title' => [
+          '#type' => 'link',
+          '#title' => $item['title'],
+          '#url' => Url::fromRoute($item['route']),
+          '#attributes' => ['class' => ['driven-admin-card__title']],
+        ],
+        'desc' => [
+          '#markup' => '<div class="driven-admin-card__desc">' . $item['desc'] . '</div>',
+        ],
+      ];
+    }
+
+    return $build;
+  }
+
+  /**
+   * Generic redirect helper for menu items that point to existing pages.
+   *
+   * Looks for a _driven_target default on the route and redirects there.
+   */
+  public function redirectTarget() : RedirectResponse {
+    $route = \Drupal::routeMatch()->getRouteObject();
+    $target = $route ? ($route->getDefault('_driven_target') ?? '/admin/driven') : '/admin/driven';
+    return new RedirectResponse($target);
+  }
+
+}

@@ -1,0 +1,66 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views exposed forms.
+ */
+function driven_fitbar_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  // Try to scope by HTML id: views-exposed-form-<view>-<display>.
+  $apply = FALSE;
+  $view_id = NULL;
+  $display_id = NULL;
+
+  if (!empty($form['#id']) && preg_match('/^views-exposed-form-([a-z0-9_]+)-([a-z0-9_]+)$/', $form['#id'], $m)) {
+    $view_id = $m[1];
+    $display_id = $m[2];
+    // Auto-allow common cases for your catalog page/block.
+    if ($view_id === 'catalog_browser' && in_array($display_id, ['page_1','block_1'], TRUE)) {
+      $apply = TRUE;
+    }
+  }
+
+  // Fallback: apply on /catalog path (when HTML id didn’t match above).
+  if (!$apply) {
+    $current_path = \Drupal::service('path.current')->getPath();
+    if (strpos($current_path, '/catalog') === 0) {
+      $apply = TRUE;
+    }
+  }
+
+  if (!$apply) {
+    return;
+  }
+
+  // Wrapper classes for styling in the dark bar.
+  $form['#attributes']['class'][] = 'fitbar-form';
+  $form['#attributes']['class'][] = 'form--inline';
+
+  // Buttons: APPLY / CLEAR.
+  if (isset($form['actions']['submit'])) {
+    $form['actions']['submit']['#value'] = t('APPLY');
+    $form['actions']['submit']['#attributes']['class'][] = 'button--apply';
+  }
+  if (isset($form['actions']['reset'])) {
+    $form['actions']['reset']['#value'] = t('CLEAR');
+    $form['actions']['reset']['#attributes']['class'][] = 'button--clear';
+  }
+
+  // Add placeholders/compact styling for select elements.
+  foreach ($form as $key => &$element) {
+    if (!is_array($element) || ($element['#type'] ?? NULL) !== 'select') {
+      continue;
+    }
+    // Friendly empty option if missing.
+    if (!isset($element['#empty_option']) && !isset($element['#empty_value'])) {
+      $label = (string) ($element['#title'] ?? '');
+      $placeholder = 'Select';
+      if (stripos($label, 'year') !== FALSE)  { $placeholder = 'Year'; }
+      if (stripos($label, 'make') !== FALSE)  { $placeholder = 'Please choose a make'; }
+      if (stripos($label, 'model') !== FALSE) { $placeholder = 'Please choose a model'; }
+      $element['#empty_option'] = t($placeholder);
+      $element['#empty_value']  = '';
+    }
+    $element['#attributes']['class'][] = 'fitbar-select';
+  }
+}

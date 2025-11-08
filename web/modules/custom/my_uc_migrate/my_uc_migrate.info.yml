@@ -1,0 +1,9 @@
+name: My UC Migrate
+type: module
+description: Custom Ubercart → Commerce 3 migrations (D7 → D11).
+core_version_requirement: ^11
+package: Migration
+dependencies:
+  - drupal:migrate_plus
+  - drupal:migrate_tools
+  - drupal:commerce

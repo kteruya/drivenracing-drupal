@@ -1,0 +1,6 @@
+driven_tweaks/menu:
+  version: 1.x
+  css:
+    theme:
+      css/menu.css: {}
+      css/barrio-overrides.css: {}

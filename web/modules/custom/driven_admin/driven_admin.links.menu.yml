@@ -1,0 +1,66 @@
+# Section root (appears under Manage in Admin Toolbar)
+driven_admin.section:
+  title: 'Driven Menu'
+  description: 'Site-specific tools'
+  route_name: driven_admin.dashboard
+  parent: system.admin
+  weight: -90
+  menu_name: admin
+
+# --- Child links (now using real routes where possible) ---
+
+driven_admin.motorcycles:
+  title: 'Manage All Motorcycles'
+  description: 'Motorcycle catalog management'
+  route_name: entity.driven_motorcycle.collection
+  parent: driven_admin.section
+  weight: 0
+  menu_name: admin
+
+driven_admin.sliders:
+  title: 'Manage Slider(s)'
+  description: 'Homepage/landing slider management'
+  route_name: driven_admin.sliders
+  parent: driven_admin.section
+  weight: 1
+  menu_name: admin
+
+driven_admin.dealer_apps:
+  title: 'Dealer Applications'
+  description: 'View and process dealer applications'
+  route_name: driven_admin.dealer_apps
+  parent: driven_admin.section
+  weight: 2
+  menu_name: admin
+
+driven_admin.contact_submissions:
+  title: 'Contact Form Submissions'
+  description: 'Review site contact messages'
+  route_name: driven_admin.contact_submissions
+  parent: driven_admin.section
+  weight: 3
+  menu_name: admin
+
+driven_admin.registration_codes:
+  title: 'Registration Codes'
+  description: 'Create and manage registration codes'
+  route_name: driven_admin.registration_codes
+  parent: driven_admin.section
+  weight: 4
+  menu_name: admin
+
+driven_admin.import_csv:
+  title: 'Import from CSV'
+  description: 'Data import tools'
+  route_name: driven_admin.import_csv
+  parent: driven_admin.section
+  weight: 5
+  menu_name: admin
+
+driven_admin.server_panel:
+  title: 'Server Panel'
+  description: 'Environment & maintenance shortcuts'
+  route_name: driven_admin.server_panel
+  parent: driven_admin.section
+  weight: 6
+  menu_name: admin

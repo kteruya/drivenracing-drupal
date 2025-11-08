@@ -1,0 +1,32 @@
+/* It seems like swipers may be quite unstable without this two first rules */
+.swiper-container {
+  margin: 1rem auto 1rem auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.swiper-container:not(.slides-multiple) .swiper-slide {
+  width: inherit !important;
+}
+
+/* Special handling for "fade" effect" */
+.swiper-container.swiper-fade .swiper-slide {
+  opacity: 0 !important;
+}
+.swiper-container.swiper-fade .swiper-slide.swiper-slide-active {
+  opacity: 1 !important;
+}
+
+/* An effort to try having slide image feels the whole swiper area */
+.swiper-container .swiper-slide-image img {
+  width: 100%;
+}
+
+/* Some adjusting on "progressbar" type of pagination */
+.swiper-container.swiper-horizontal.progressbar > .swiper-wrapper {
+  padding: 1rem 0;
+}
+
+.swiper-container.swiper-vertical.progressbar > .swiper-wrapper {
+  padding: 0 1rem;
+}

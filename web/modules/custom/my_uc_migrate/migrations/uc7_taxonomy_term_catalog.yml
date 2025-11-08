@@ -1,0 +1,35 @@
+id: uc7_taxonomy_term_catalog
+label: "UC7 → Taxonomy terms (catalog)"
+migration_group: default
+source:
+  plugin: sql
+  key: migrate
+  query: >
+    SELECT td.tid, td.vid, td.name, td.description, td.weight, th.parent
+    FROM taxonomy_term_data td
+    LEFT JOIN taxonomy_term_hierarchy th ON th.tid = td.tid
+    INNER JOIN taxonomy_vocabulary v ON v.vid = td.vid
+    WHERE v.machine_name = 'catalog'    # <-- change if your vocab machine name differs
+  ids:
+    tid:
+      type: integer
+process:
+  vid:
+    plugin: default_value
+    default_value: catalog              # destination vocab machine name
+  name: name
+  description/value: description
+  description/format:
+    plugin: default_value
+    default_value: basic_html
+  weight: weight
+  parent:
+    plugin: migration_lookup
+    source: parent
+    migration: uc7_taxonomy_term_catalog
+    no_stub: true
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: catalog
+migration_dependencies:
+  required: [ uc7_taxonomy_vocabulary ]

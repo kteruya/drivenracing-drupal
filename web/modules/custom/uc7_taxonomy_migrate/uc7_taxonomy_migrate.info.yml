@@ -1,0 +1,11 @@
+name: 'UC7 Taxonomy Migrate'
+type: module
+description: 'D7 → D11 taxonomy terms migration (Ubercart).'
+package: Migrate
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:migrate
+  - drupal:migrate_drupal
+  - drupal:migrate_plus
+  - drupal:migrate_tools
+  - drupal:taxonomy

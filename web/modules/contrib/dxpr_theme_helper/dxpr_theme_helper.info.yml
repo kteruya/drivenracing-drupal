@@ -1,0 +1,23 @@
+name: DXPR Theme Helper
+type: module
+core_version_requirement: ^9.3 || ^10 || ^11
+description: Provides features and tools for DXPR Theme.
+package: DXPR
+dependencies:
+ - drupal:node
+ - drupal:text
+ - drupal:media
+ - drupal:media_library
+ - drupal:media_library_form_element
+config:
+  install:
+    - field.storage.node.field_dth_body_background
+    - field.storage.node.field_dth_hide_regions
+    - field.storage.node.field_dth_main_content_width
+    - field.storage.node.field_dth_page_layout
+    - field.storage.node.field_dth_page_title_backgrou
+
+# Information added by Drupal.org packaging script on 2025-10-01
+version: '2.1.1'
+project: 'dxpr_theme_helper'
+datestamp: 1759322132

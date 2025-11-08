@@ -1,0 +1,7 @@
+<?php
+/**
+ * Attach the menu styling library on every page.
+ */
+function driven_tweaks_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'driven_tweaks/menu';
+}

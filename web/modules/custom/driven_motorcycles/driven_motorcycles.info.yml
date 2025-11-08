@@ -1,0 +1,7 @@
+name: Driven Motorcycles
+type: module
+description: Fieldable content entity for site-wide motorcycle fitment data and admin UI.
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:system

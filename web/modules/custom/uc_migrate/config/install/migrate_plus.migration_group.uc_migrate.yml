@@ -1,0 +1,6 @@
+id: uc_migrate
+label: 'Ubercart Migrate Group'
+description: 'Migration group for Drupal 7 Ubercart to Drupal 11 Commerce.'
+shared_configuration:
+  source:
+    key: migrate

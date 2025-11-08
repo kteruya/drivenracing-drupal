@@ -1,0 +1,13 @@
+block.settings.full_screen_search:
+  type: block_settings
+  label: 'Full Screen Search block settings'
+  mapping:
+    search_provider:
+      type: string
+      label: 'Search provider selection'
+    search_url:
+      type: string
+      label: 'Search URL path'
+    search_parameter:
+      type: string
+      label: 'Search parameter name'

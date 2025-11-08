@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the individual Swiper item/slide template.
+ *
+ * Available variables:
+ * - attributes: An array of attributes to apply to the element.
+ * - background: For images only - url to image instance, used for lazy loading.
+ * - slide: A renderable array representing one slide.
+ * - slide_url: Url string for image slides that have this set.
+ * - caption: A renderable array containing caption fields if provided:
+ * - settings: An array with various settings, properties of a chosen swiper configuration entity,
+ *   combined with either Field formatter settings values or with Views style options values.
+ *
+ * @see template_preprocess_swiper_formatter().
+ */
+#}
+{% apply spaceless %}
+  <div{{ attributes }}>
+    {% if background %}
+      {% if slide_url %}
+        <a href="{{ slide_url }}"><img data-src="{{ background }}" class="swiper-lazy" /></a>
+      {% else %}
+        <img data-src="{{ background }}" class="swiper-lazy" />
+      {% endif %}
+      <div class="swiper-lazy-preloader"></div>
+    {% else %}
+      {# Dialog formatter link.#}
+      {% if dialog_attributes %}
+        <a{{ dialog_attributes }}>{{ slide }}</a>
+      {# Regular slide. #}
+      {% else %}
+        {{ slide }}
+      {%  endif %}
+    {% endif %}
+    {% if caption %}
+      <div class="swiper-caption">
+        {{ caption }}
+      </div>
+    {% endif %}
+  </div>
+{% endapply %}

@@ -1,0 +1,73 @@
+driven_admin.dashboard:
+  path: '/admin/driven'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::dashboard'
+    _title: 'Driven Menu'
+  requirements:
+    _permission: 'access driven admin'
+  options:
+    _admin_route: TRUE
+
+# Redirect routes. Change _driven_target later to point to your real pages/routes.
+driven_admin.motorcycles:
+  path: '/admin/driven/motorcycles'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/content?type=motorcycle'
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
+
+driven_admin.sliders:
+  path: '/admin/driven/sliders'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/content'   # TODO: swap to your real slider route/view
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
+
+driven_admin.dealer_apps:
+  path: '/admin/driven/dealer-applications'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/structure/webform'  # or webform submissions page for that form
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
+
+driven_admin.contact_submissions:
+  path: '/admin/driven/contact-submissions'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/structure/contact/messages'  # requires Contact module
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
+
+driven_admin.registration_codes:
+  path: '/admin/driven/registration-codes'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/content'  # TODO: swap to your real route/view
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
+
+driven_admin.import_csv:
+  path: '/admin/driven/import-csv'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/driven'  # TODO: swap to a custom import form route later
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
+
+driven_admin.server_panel:
+  path: '/admin/driven/server-panel'
+  defaults:
+    _controller: '\Drupal\driven_admin\Controller\DrivenDashboardController::redirectTarget'
+    _driven_target: '/admin/reports/status'
+  requirements:
+    _permission: 'access driven admin'
+  options: { _admin_route: TRUE }
