@@ -34,3 +34,8 @@ Thumbs.db
 .idea/
 .vscode/
 myshop/
+
+# DB dumps / archives
+*.sql
+*.sql.gz
+db-backups/
