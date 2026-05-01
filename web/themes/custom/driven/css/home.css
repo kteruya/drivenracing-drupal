@@ -1,8 +1,11 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.2.5
+ * Version: 2.2.6
  *
  * Changelog:
+ * 2026-05-01 (v2.2.6) EMBRACE width corrected — fills container like D7.
+ *                      D11 container is 1170px, carousel fills it fully.
+ *                      Previous 620px/780px was too narrow.
  * 2026-05-01 (v2.2.5) EMBRACE width increased to 650px, white cell
  *                      backgrounds with border, heading style matches D7.
  * 2026-05-01 (v2.2.4) EMBRACE carousel content width constrained to 780px
@@ -473,8 +476,9 @@ html, body {
  *   Carousel content constrained to 780px centered.
  * ============================================================ */
 
+/* v2.2.6 — width set to 100% of container — see latest rule */
 .embrace-grid {
-  max-width: 780px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -485,9 +489,9 @@ html, body {
  *   Width increased, white cell backgrounds, D7 heading style.
  * ============================================================ */
 
-/* Wider content area */
+/* EMBRACE fills full container width — matches D7 proportion */
 .embrace-grid {
-  max-width: 620px !important;
+  max-width: 100%;
 }
 
 /* White background on each cell — matches D7 */
