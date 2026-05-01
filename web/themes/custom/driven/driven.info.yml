@@ -4,7 +4,7 @@ description: 'Driven Racing custom front-end theme. Bootstrap5 sub-theme. Replac
 # Version: 1.2.0
 #
 # Changelog:
- * 2026-05-01 16:56 (v1.2.0) Add home page section regions: home_slider, home_embrace, home_featured, home_new_products — render outside Bootstrap container for full-width section backgrounds
+# 2026-05-01 16:59 (v1.2.0) Add home page section regions: home_slider, home_embrace, home_featured, home_new_products — outside Bootstrap container for full-width section backgrounds
 # 2026-05-01 17:00 (v1.2.0) Added home page section regions: home_slider,
 #                            home_embrace, home_featured, home_new_products.
 #                            These render outside Bootstrap container to allow
