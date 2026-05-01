@@ -1,8 +1,11 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.2.3
+ * Version: 2.2.4
  *
  * Changelog:
+ * 2026-05-01 (v2.2.4) EMBRACE carousel content width constrained to 780px
+ *                      centered within full-width dark background band.
+ *                      Matches D7 boxed appearance with visible dark margins.
  * 2026-05-01 (v2.2.3) EMBRACE background fix — box-shadow trick for
  *                      full-width dark background without layout impact.
  *                      Removed stale overflow-x/100vw hacks.
@@ -459,5 +462,18 @@ html, body {
   background: #2d2d2d;
   padding: 0;
   margin: 0;
+}
+
+
+/* ============================================================
+ * v2.2.4 — EMBRACE content width matches D7 boxed appearance.
+ *   Dark background fills full width via block background.
+ *   Carousel content constrained to 780px centered.
+ * ============================================================ */
+
+.embrace-grid {
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
