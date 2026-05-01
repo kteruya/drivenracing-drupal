@@ -1,0 +1,201 @@
+<?php
+/**
+ * @file
+ * driven.theme — Driven Racing custom theme functions.
+ * Version: 1.2.0
+ *
+ * Changelog:
+ * 2026-04-29 22:30 (v1.2.0) Removed invalid hook_page_attachments().
+ *                            Consolidated all library attachment into _alter.
+ * 2026-04-29 17:00 (v1.1.0) Added driven_page_attachments_alter() to attach
+ *                            driven/catalog library conditionally on catalog
+ *                            taxonomy term pages only.
+ *                            Added driven_preprocess_taxonomy_term__catalog()
+ *                            to pass hero image URL and products view render
+ *                            array to taxonomy-term--catalog.html.twig.
+ * 2026-04-29 00:00 (v1.0.0) Initial theme file. Migrated preprocess hooks
+ *                            from driven_tweaks custom module.
+ */
+
+/**
+ * @file
+ * driven.theme
+ *
+ * Driven Racing theme functions.
+ * Version: 2.1.0 — 2026-04-28
+ *
+ * Phase 2 restructure: all library attachment moved from
+ * driven_tweaks.module into this file. driven_tweaks retains
+ * only cart form_alter and cart_empty_submit.
+ *
+ * RULE: This file contains only:
+ *   1. Library attachment (page_attachments)
+ *   2. Preprocess hooks that are purely presentational
+ *      and cannot be handled through Drupal UI configuration.
+ * Business logic belongs in driven_tweaks.module, not here.
+ *
+ * Change log:
+ * - 2026-04-28 (v2.1.0) Remove redundant driven_preprocess_page().
+ *                        driven_page_attachments() handles all library
+ *                        attachment reliably. preprocess_page fired
+ *                        too late for CSS attachment in some routes.
+ * - 2026-04-27 (v2.0.0) Initial clean implementation.
+ */
+
+/**
+ * NOTE: hook_page_attachments() is NOT available to themes in Drupal 11.
+ * All library attachment is handled in driven_page_attachments_alter() below.
+ * 2026-04-29 22:30 (v1.2.0)
+ */
+
+
+/**
+ * Implements hook_preprocess_taxonomy_term().
+ *
+ * Passes hero image URL and term metadata to the catalog term template.
+ * Kept here because it is purely presentational.
+ *
+ * Requires:
+ *   - field_header_image on the catalog taxonomy term
+ *   - product_hero image style configured in Drupal UI
+ */
+function driven_preprocess_taxonomy_term(&$variables) {
+  /** @var \Drupal\taxonomy\Entity\Term $term */
+  $term = $variables['term'];
+
+  if ($term->bundle() !== 'catalog') {
+    return;
+  }
+
+  $variables['ct_title']       = $term->getName();
+  $variables['ct_hero_url']    = '';
+  $variables['ct_hero_alt']    = '';
+  $variables['ct_description'] = '';
+
+  // Hero image from field_header_image using product_hero image style.
+  if (!$term->get('field_header_image')->isEmpty()) {
+    $image_item = $term->get('field_header_image')->first();
+    $file = $image_item->entity;
+    if ($file) {
+      $style = \Drupal::entityTypeManager()
+        ->getStorage('image_style')
+        ->load('product_hero');
+      $variables['ct_hero_url'] = $style
+        ? $style->buildUrl($file->getFileUri())
+        : \Drupal::service('file_url_generator')
+            ->generateAbsoluteString($file->getFileUri());
+      $variables['ct_hero_alt'] = $image_item->alt ?: $term->getName();
+    }
+  }
+
+  // Description.
+  if (!$term->get('description')->isEmpty()) {
+    $desc = $term->get('description')->first();
+    $variables['ct_description'] = [
+      '#type'   => 'processed_text',
+      '#text'   => $desc->value,
+      '#format' => $desc->format ?: 'basic_html',
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_taxonomy_term() for catalog vocabulary.
+ * Passes hero image URL and products view to the Twig template.
+ */
+function driven_preprocess_taxonomy_term__catalog(&$variables) {
+  $term = $variables['term'];
+
+  // Hero image URL
+  if (!$term->get('field_header_image')->isEmpty()) {
+    $image = $term->get('field_header_image')->first();
+    $file = $image->entity;
+    if ($file) {
+      $variables['catalog_hero_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($file->getFileUri());
+      $variables['catalog_hero_alt'] = $image->alt ?: $term->label();
+    }
+  }
+
+  // Products view render array
+  $variables['catalog_products'] = [
+    '#type' => 'view',
+    '#name' => 'catalog_products_generic',
+    '#display_id' => 'block_generic',
+    '#embed' => TRUE,
+  ];
+}
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Attaches page-specific libraries based on route and page type.
+ * NOTE: hook_page_attachments() is NOT available to themes — only _alter is.
+ *
+ * 2026-04-29 22:30 (v1.2.0) Consolidated all library attachment here.
+ *                            Removed invalid hook_page_attachments() function.
+ * 2026-04-29 17:00 (v1.1.0) Initial — catalog library conditional attachment.
+ */
+function driven_page_attachments_alter(array &$attachments) {
+  $route = \Drupal::routeMatch()->getRouteName();
+
+  // Font Awesome — every page.
+  $attachments['#attached']['library'][] = 'driven/fontawesome';
+
+  // Home page — front page only.
+  // Use explicit route check as isFrontPage() can be unreliable in _alter.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $front_page = \Drupal::config('system.site')->get('page.front');
+  $is_front = ($current_path === $front_page || $current_path === '/');
+  if ($is_front || \Drupal::service('path.matcher')->isFrontPage()) {
+    $attachments['#attached']['library'][] = 'driven/home';
+  }
+
+  // Taxonomy catalog term pages.
+  if ($route === 'entity.taxonomy_term.canonical') {
+    $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
+    if ($term && $term->bundle() === 'catalog') {
+      $attachments['#attached']['library'][] = 'driven/catalog';
+    }
+  }
+
+  // Individual Commerce product pages.
+  if ($route === 'entity.commerce_product.canonical') {
+    $attachments['#attached']['library'][] = 'driven/product';
+  }
+
+  // Cart page.
+  if (strpos($route, 'commerce_cart') !== FALSE) {
+    $attachments['#attached']['library'][] = 'driven/cart';
+  }
+
+  // Checkout flow.
+  if (strpos($route, 'commerce_checkout') !== FALSE) {
+    $attachments['#attached']['library'][] = 'driven/checkout';
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Attaches the home library on the front page.
+ * hook_page_attachments_alter() proved unreliable for front page detection.
+ * hook_preprocess_html() fires reliably with full page context.
+ *
+ * 2026-04-29 23:00 (v1.3.0) Added as reliable alternative for home library.
+ */
+function driven_preprocess_html(&$variables) {
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $variables['#attached']['library'][] = 'driven/home';
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ * Attaches home library on front page.
+ * 2026-04-29 23:15 (v1.3.1)
+ */
+function driven_preprocess_page(&$variables) {
+  if ($variables['is_front']) {
+    $variables['#attached']['library'][] = 'driven/home';
+  }
+}
+

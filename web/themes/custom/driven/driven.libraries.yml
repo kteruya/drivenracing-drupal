@@ -1,0 +1,94 @@
+# =============================================================================
+# Driven Racing — Library definitions
+# Version: 2.1.0
+#
+# Changelog:
+# 2026-04-29 17:00 (v2.1.0) Removed catalog.css from global library.
+#                            catalog library now attached conditionally
+#                            via driven_page_attachments_alter() in driven.theme.
+# 2026-04-29 00:00 (v2.0.0) Phase 2 restructure — migrated from driven_tweaks
+#                            module. Defines global, home, catalog, product,
+#                            cart, checkout, pages, fontawesome libraries.
+#
+# All CSS and JS for the front-end is declared here.
+# CSS/JS from driven_tweaks has been migrated here.
+# Libraries are attached via driven.theme preprocess_page()
+# or via driven.info.yml (global only).
+# =============================================================================
+
+# ── Loaded on every page via driven.info.yml ──────────────────────────────────
+global:
+  css:
+    theme:
+      css/global.css: { weight: 999 }
+  dependencies:
+    - core/drupal
+
+# ── Home page ─────────────────────────────────────────────────────────────────
+home:
+  css:
+    theme:
+      css/home.css: { weight: 200 }
+  js:
+    js/home-slider.js: {}
+    js/embrace-carousel.js: {}
+  dependencies:
+    - driven/global
+    - core/drupal
+    - core/once
+
+# ── Taxonomy catalog term pages (/catalog/pizza-cutter etc.) ──────────────────
+catalog:
+  css:
+    theme:
+      css/catalog.css: { weight: 200 }
+  js:
+    js/qty-buttons.js: {}
+  dependencies:
+    - driven/global
+    - core/drupal
+
+# ── Individual Commerce product pages ─────────────────────────────────────────
+product:
+  css:
+    theme:
+      css/product.css: { weight: 200 }
+  js:
+    js/qty-buttons.js: {}
+  dependencies:
+    - driven/global
+    - core/drupal
+
+# ── Cart page ─────────────────────────────────────────────────────────────────
+cart:
+  css:
+    theme:
+      css/cart.css: { weight: 200 }
+  js:
+    js/cart-stepper.js: {}
+  dependencies:
+    - driven/global
+    - core/jquery
+    - core/drupal
+
+# ── Checkout flow ─────────────────────────────────────────────────────────────
+checkout:
+  css:
+    theme:
+      css/checkout.css: { weight: 200 }
+  dependencies:
+    - driven/global
+
+# ── Non-commerce pages (dealer app, racer support, about, etc.) ───────────────
+pages:
+  css:
+    theme:
+      css/pages.css: { weight: 200 }
+  dependencies:
+    - driven/global
+
+# ── Font Awesome (global icon font — used in header, footer, nav) ─────────────
+fontawesome:
+  css:
+    theme:
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css: { type: external }

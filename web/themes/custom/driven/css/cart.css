@@ -1,0 +1,608 @@
+/* ========================================================================
+ * Driven Racing – Drupal 11 Commerce eCommerce Styles
+ * File:    web/modules/custom/driven_tweaks/css/commerce-ecommerce-1.1.3.css
+ * Version: 1.1.3
+ *
+ * Change log:
+ * - 2026-03-06  (v1.1.3)  Qty centering: target input[type=number] directly
+ *                            with stronger Bootstrap override; add margin-bottom
+ *                            to Continue Shopping link for more space below it.
+ * - 2026-03-06  (v1.1.2)  Corrections from v14 review:
+ *                            1. Total column restored (th + td visible).
+ *                               Only the order summary "Total" line below
+ *                               Subtotal is hidden (order-total-line__total).
+ *                            2. Subtotal label: font-weight bold to match D7.
+ *                            3. More space above action buttons (padding-top
+ *                               increased from 12px to 20px, margin-top 16px).
+ *                            4. Qty input: explicit text-align center with
+ *                               -webkit- and -moz- prefixes for cross-browser,
+ *                               box-sizing border-box, no padding override
+ *                               conflict.
+ * - 2026-03-06  (v1.1.1)  Column headers dark gray #555; Total column hidden
+ *                          (incorrect – restored in v1.1.2); Update Cart
+ *                          visible button; subtotal plain body text.
+ * - 2026-03-05  (v1.1.0)  Product title body font 13px #3a87ad; thumbnail
+ *                          65px; stepper auto-submits Update Cart.
+ * - 2026-03-05  (v1.0.9)  Quantity stepper button styles.
+ * - 2026-03-05  (v1.0.8)  Fine-tune: thin border, column labels, #3a87ad.
+ * - 2026-03-05  (v1.0.7)  Full D7 match: white header, × remove, buttons.
+ * - 2026-03-05  (v1.0.0 – v1.0.6)  Initial through gap/box/thumbnail fixes.
+ * ======================================================================== */
+
+/* -----------------------------------------------------------------------
+   1. PRODUCT PAGE – Title
+   ----------------------------------------------------------------------- */
+.page-node-type-product h1.page-title,
+.node--type-product h1.page-title {
+  color: #222;
+  font-family: "Oswald", sans-serif;
+  font-size: 2em;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------
+   2. PRODUCT PAGE – Image
+   ----------------------------------------------------------------------- */
+.page-node-type-product .field--name-field-images,
+.node--type-product .field--name-field-images {
+  clear: left;
+  float: left;
+  margin: 0 20px 20px 0;
+  max-width: 280px;
+}
+.page-node-type-product .field--name-field-images img,
+.node--type-product .field--name-field-images img {
+  border: 2px solid #d6d6d6;
+  height: auto;
+  max-width: 100%;
+}
+
+/* -----------------------------------------------------------------------
+   3. PRODUCT PAGE – Price
+   ----------------------------------------------------------------------- */
+.page-node-type-product .field--name-price,
+.node--type-product .field--name-price {
+  color: #333;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.page-node-type-product .field--name-price .field__label,
+.node--type-product .field--name-price .field__label {
+  color: #666;
+  display: inline-block;
+  font-size: 13px;
+  margin-right: 6px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* -----------------------------------------------------------------------
+   4. PRODUCT PAGE – Add to Cart form
+   ----------------------------------------------------------------------- */
+.commerce-order-item-add-to-cart-form .form-select {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 0.95em;
+  margin-bottom: 10px;
+  min-width: 120px;
+  padding: 6px 10px;
+}
+.commerce-order-item-add-to-cart-form input[type="number"] {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 1em;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+  width: 65px;
+}
+.commerce-order-item-add-to-cart-form .form-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+.commerce-order-item-add-to-cart-form input[type="submit"],
+.commerce-order-item-add-to-cart-form button[type="submit"] {
+  background-image: linear-gradient(to bottom, #3498db 0%, #258cd1 100%) !important;
+  border: 1px solid #258cd1 !important;
+  border-radius: 4px;
+  box-shadow: 0 -3px 0 rgba(0,0,0,0.06) inset !important;
+  color: #fff !important;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 10px 24px;
+  text-transform: uppercase;
+}
+.commerce-order-item-add-to-cart-form input[type="submit"]:hover,
+.commerce-order-item-add-to-cart-form button[type="submit"]:hover {
+  background: #258cd1 !important;
+  color: #fff !important;
+}
+
+/* -----------------------------------------------------------------------
+   5. CART PAGE – Outer container
+   ----------------------------------------------------------------------- */
+.path-cart .view-id-commerce_cart_form,
+.path-cart .views-element-container {
+  background: #fff;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin: 0 auto 20px auto;
+  max-width: 900px;
+  padding: 20px 25px;
+  width: 100%;
+}
+.path-cart .view-commerce-cart-form {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* -----------------------------------------------------------------------
+   6. CART – Item count header
+   ----------------------------------------------------------------------- */
+.path-cart .view-header,
+.view-commerce-cart-form .view-header {
+  color: #333;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.05em;
+  font-weight: normal;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* -----------------------------------------------------------------------
+   7. CART TABLE
+   ----------------------------------------------------------------------- */
+table.views-view-table.views-table {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+/* Column headers: dark gray #555, uppercase, 11px – matches D7 */
+table.views-view-table.views-table > thead > tr > th {
+  background-color: #fff !important;
+  border-bottom: 1px solid #d6d6d6 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  color: #555 !important;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: normal;
+  letter-spacing: 0.5px;
+  padding: 8px 12px;
+  text-align: left;
+  text-transform: uppercase;
+}
+table.views-view-table.views-table > thead > tr
+  th.views-field-unit-price__number,
+table.views-view-table.views-table > thead > tr
+  th.views-field-total-price__number {
+  text-align: right;
+}
+table.views-view-table.views-table > thead > tr
+  th.views-field-edit-quantity {
+  text-align: center;
+}
+table.views-view-table.views-table > thead > tr
+  th.views-field-remove-button {
+  padding: 0;
+  width: 30px;
+}
+
+/* Body rows */
+table.views-view-table.views-table > tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+  border-left: none;
+  border-right: none;
+  color: #555;
+  font-size: 13px;
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+/* Remove Bootstrap zebra striping */
+table.views-view-table.views-table > tbody > tr:nth-of-type(odd) {
+  background-color: #fff !important;
+}
+table.views-view-table.views-table > tbody > tr:hover {
+  background-color: #fafafa !important;
+}
+
+/* -----------------------------------------------------------------------
+   8. CART – Item column: thumbnail 65px, title body font 13px #3a87ad
+   ----------------------------------------------------------------------- */
+table.views-view-table.views-table td.views-field-purchased-entity {
+  min-width: 150px;
+}
+table.views-view-table.views-table td.views-field-purchased-entity
+  .cart-item-thumb {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+table.views-view-table.views-table td.views-field-purchased-entity
+  .cart-item-thumb img {
+  border: 1px solid #d6d6d6;
+  display: block;
+  height: 65px;
+  object-fit: contain;
+  width: 65px;
+}
+table.views-view-table.views-table td.views-field-purchased-entity
+  .field--name-title.field__item,
+table.views-view-table.views-table td.views-field-purchased-entity
+  .field--name-title .field__item {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: normal;
+  text-transform: none;
+  vertical-align: middle;
+}
+table.views-view-table.views-table td.views-field-purchased-entity
+  .field--name-title a {
+  color: #3a87ad;
+  text-decoration: none;
+}
+table.views-view-table.views-table td.views-field-purchased-entity
+  .field--name-title a:hover {
+  color: #2a6496;
+  text-decoration: underline;
+}
+table.views-view-table.views-table td.views-field-purchased-entity
+  .field--name-price {
+  display: none;
+}
+
+/* -----------------------------------------------------------------------
+   9. CART – Price column
+   ----------------------------------------------------------------------- */
+table.views-view-table.views-table td.views-field-unit-price__number {
+  color: #555;
+  font-size: 13px;
+  min-width: 65px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* -----------------------------------------------------------------------
+   10. CART – Total column (per-row) – VISIBLE, matches D7
+   ----------------------------------------------------------------------- */
+table.views-view-table.views-table td.views-field-total-price__number {
+  color: #555;
+  display: table-cell;
+  font-size: 13px;
+  min-width: 65px;
+  text-align: right;
+  white-space: nowrap;
+}
+table.views-view-table.views-table > thead > tr
+  th.views-field-total-price__number {
+  display: table-cell;
+}
+
+/* -----------------------------------------------------------------------
+   11. CART – Quantity stepper
+   ----------------------------------------------------------------------- */
+table.views-view-table.views-table td.views-field-edit-quantity {
+  text-align: center;
+  white-space: nowrap;
+}
+.qty-stepper {
+  align-items: center;
+  display: inline-flex;
+  vertical-align: middle;
+}
+.qty-btn {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  color: #555;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  height: 28px;
+  line-height: 1;
+  padding: 0 8px;
+  vertical-align: middle;
+}
+.qty-btn:hover {
+  background: #e8e8e8;
+  border-color: #aaa;
+  color: #333;
+}
+.qty-minus {
+  border-radius: 3px 0 0 3px;
+  border-right: none;
+}
+.qty-plus {
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Qty input: centered, cross-browser.
+   Target both class and input type to override Bootstrap form-control. */
+table.views-view-table.views-table td.views-field-edit-quantity
+  input.quantity-edit-input,
+table.views-view-table.views-table td.views-field-edit-quantity
+  input[type="number"].quantity-edit-input,
+table.views-view-table.views-table td.views-field-edit-quantity
+  input.form-control.quantity-edit-input {
+  -moz-text-align-last: center !important;
+  -webkit-appearance: textfield !important;
+  border: 1px solid #ccc !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  color: #555 !important;
+  display: inline-block !important;
+  font-size: 13px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  margin: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
+  text-align: center !important;
+  text-align-last: center !important;
+  vertical-align: middle !important;
+  width: 40px !important;
+}
+/* Remove number input spinner arrows (Chrome/Safari/Firefox) */
+table.views-view-table.views-table td.views-field-edit-quantity
+  input[type="number"].quantity-edit-input::-webkit-inner-spin-button,
+table.views-view-table.views-table td.views-field-edit-quantity
+  input[type="number"].quantity-edit-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+table.views-view-table.views-table td.views-field-edit-quantity
+  input[type="number"].quantity-edit-input {
+  -moz-appearance: textfield;
+}
+
+/* -----------------------------------------------------------------------
+   12. CART – Remove column: × symbol
+   ----------------------------------------------------------------------- */
+table.views-view-table.views-table td.views-field-remove-button {
+  padding: 0 8px 0 4px;
+  text-align: center;
+  width: 30px;
+}
+table.views-view-table.views-table td.views-field-remove-button
+  input.delete-order-item {
+  background: none !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #3a87ad !important;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0 2px;
+  text-shadow: none !important;
+}
+table.views-view-table.views-table td.views-field-remove-button
+  input.delete-order-item:hover {
+  color: #c0392b !important;
+}
+
+/* -----------------------------------------------------------------------
+   13. CART – Order summary: Subtotal bold, Total line hidden
+   D7 shows only "Subtotal: $x.xx" – no separate Total line below it.
+   ----------------------------------------------------------------------- */
+.view-commerce-cart-form .field--name-total-price,
+.view-commerce-cart-form .field--type-commerce-price,
+.view-commerce-cart-form .field__item {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+[data-drupal-selector="order-total-summary"] {
+  margin: 6px 0 0 0 !important;
+  padding: 4px 0 2px 0 !important;
+  text-align: right;
+}
+
+/* All summary lines: plain body 13px #555 */
+.order-total-line {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1.8;
+  text-align: right;
+}
+.order-total-line-label {
+  color: #555;
+  display: inline;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: normal;
+  margin-right: 4px;
+  text-transform: none;
+}
+.order-total-line-value {
+  color: #555;
+  display: inline;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+/* Subtotal line: bold label to match D7 */
+.order-total-line__subtotal .order-total-line-label,
+.order-total-line__subtotal .order-total-line-value {
+  font-weight: bold;
+}
+
+/* Hide the "Total" summary line below Subtotal – D7 doesn't show this */
+.order-total-line__total {
+  display: none !important;
+}
+
+/* -----------------------------------------------------------------------
+   14. CART – Continue shopping link
+   ----------------------------------------------------------------------- */
+.view-commerce-cart-form .view-footer {
+  margin-bottom: 18px;
+  margin-top: 10px;
+  padding-top: 2px;
+}
+a.cart-continue-shopping {
+  color: #3a87ad;
+  font-size: 13px;
+  text-decoration: none;
+}
+a.cart-continue-shopping:hover {
+  color: #2a6496;
+  text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------
+   15. CART – Form action buttons
+   More space above, Update Cart visible, Empty Cart + Checkout
+   ----------------------------------------------------------------------- */
+.views-form,
+.views-form > form {
+  margin-bottom: 0;
+}
+div#edit-actions {
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 16px !important;
+  padding-top: 18px;
+}
+
+/* Update Cart – visible, neutral outline */
+div#edit-actions input#edit-submit {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid #ccc !important;
+  border-radius: 3px;
+  box-shadow: none !important;
+  clip: auto !important;
+  color: #555 !important;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  height: auto !important;
+  left: auto !important;
+  letter-spacing: 0.5px;
+  opacity: 1 !important;
+  padding: 7px 16px;
+  pointer-events: auto !important;
+  position: static !important;
+  text-shadow: none !important;
+  text-transform: uppercase;
+  width: auto !important;
+}
+div#edit-actions input#edit-submit:hover {
+  background: #f5f5f5 !important;
+  border-color: #aaa !important;
+  color: #333 !important;
+}
+
+/* Empty Cart – neutral outline, far left */
+div#edit-actions input#edit-empty-cart {
+  background: #fff !important;
+  background-image: none !important;
+  border: 1px solid #ccc !important;
+  border-radius: 3px;
+  box-shadow: none !important;
+  color: #555 !important;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  order: -1;
+  padding: 8px 18px;
+  text-shadow: none !important;
+  text-transform: uppercase;
+}
+div#edit-actions input#edit-empty-cart:hover {
+  background: #f5f5f5 !important;
+  border-color: #aaa !important;
+  color: #333 !important;
+}
+
+/* Proceed to Checkout → – blue gradient, far right */
+div#edit-actions input#edit-checkout {
+  background-image: linear-gradient(to bottom, #3498db 0%, #258cd1 100%) !important;
+  background-repeat: repeat-x !important;
+  border: 1px solid #258cd1 !important;
+  border-radius: 4px;
+  box-shadow: 0 -3px 0 rgba(0,0,0,0.06) inset !important;
+  color: #fff !important;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  margin-left: auto;
+  padding: 11px 24px;
+  text-shadow: none !important;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+div#edit-actions input#edit-checkout:hover {
+  background: #258cd1 !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+/* -----------------------------------------------------------------------
+   16. CART – Empty state
+   ----------------------------------------------------------------------- */
+.cart-empty-page {
+  color: #666;
+  font-size: 13px;
+  padding: 30px 0;
+  text-align: center;
+}
+
+/* -----------------------------------------------------------------------
+   17. RESPONSIVE
+   ----------------------------------------------------------------------- */
+@media (max-width: 940px) {
+  .path-cart .view-id-commerce_cart_form,
+  .path-cart .views-element-container {
+    margin: 0 10px 20px;
+    width: auto;
+  }
+}
+@media (max-width: 767px) {
+  table.views-view-table.views-table { font-size: 0.85em; }
+  table.views-view-table.views-table > thead > tr > th,
+  table.views-view-table.views-table > tbody > tr > td {
+    padding: 8px 4px;
+  }
+  table.views-view-table.views-table td.views-field-purchased-entity
+    .cart-item-thumb { display: none; }
+  .qty-btn { padding: 0 5px; }
+  div#edit-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  div#edit-actions input#edit-checkout,
+  div#edit-actions input#edit-empty-cart,
+  div#edit-actions input#edit-submit {
+    margin-left: 0;
+    text-align: center;
+    width: 100%;
+  }
+  div#edit-actions input#edit-empty-cart { order: 1; }
+}

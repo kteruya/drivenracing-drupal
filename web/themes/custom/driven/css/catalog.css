@@ -1,0 +1,216 @@
+/**
+ * catalog.css — Driven Racing catalog term page
+ * Version: 2.0.3
+ *
+ * Changelog:
+ * 2026-04-29 15:30 (v2.0.3) Fix grid — target direct children with :nth-child()
+ *                            because all fields are wrapped in anonymous <div>
+ *                            elements that are the actual grid children. Inner
+ *                            named classes are not direct children of the grid.
+ *                            DOM child order: 1=title, 2=body, 3=thumb,
+ *                            4=price, 5=cart.
+ * 2026-04-29 14:19 (v2.0.2) Fix grid layout — use explicit grid-column/row
+ *                            instead of named areas to match actual DOM order.
+ * 2026-04-29 14:00 (v2.0.1) Add grid-area named layout — swapped thumb/body
+ *                            visually, needed explicit placement instead.
+ * 2026-04-29 13:30 (v2.0.0) Full rewrite targeting new clean Twig template
+ *                            classes after Layout Builder removal.
+ */
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.catalog-hero {
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.catalog-hero__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.catalog-hero__title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-family: "Oswald", sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
+  line-height: 1;
+  padding: 0 30px 20px 30px;
+  pointer-events: none;
+}
+
+/* ============================================================
+   PRODUCT ROW GRID
+   Direct children of .drd-catalog-product-row are anonymous divs.
+   Grid assignments use :nth-child() on those direct children.
+   Child order: 1=title | 2=body | 3=thumb | 4=price | 5=cart
+   Layout:
+     col1(300px)   col2(1fr)
+     [  title full width  ]   row 1
+     [ thumb  ]  [ body   ]   row 2
+     [ price  ]  [ cart   ]   row 3
+   ============================================================ */
+
+.drd-catalog-product-row {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 20px;
+  row-gap: 10px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+/* Child 1: Title — full width row 1 */
+.drd-catalog-product-row > div:nth-child(1) {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* Child 2: Body — right col row 2 */
+.drd-catalog-product-row > div:nth-child(2) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Child 3: Thumb — left col row 2 */
+.drd-catalog-product-row > div:nth-child(3) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* Child 4: Price — left col row 3 */
+.drd-catalog-product-row > div:nth-child(4) {
+  grid-column: 1;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+}
+
+/* Child 5: Cart — right col row 3 */
+.drd-catalog-product-row > div:nth-child(5) {
+  grid-column: 2;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Child 6: Nothing field — hidden */
+.drd-catalog-product-row > div:nth-child(6) {
+  display: none !important;
+}
+
+/* ── Inner element styles ── */
+
+.catalog-product-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #222222;
+  margin: 0;
+}
+
+.catalog-product-title a {
+  color: #222222;
+  text-decoration: none;
+}
+
+.catalog-product-title a:hover {
+  color: #3498db;
+}
+
+.catalog-product-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.catalog-product-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444444;
+}
+
+.catalog-product-price {
+  font-family: "Oswald", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.catalog-product-cart input[type="submit"],
+.catalog-product-cart .button {
+  background: linear-gradient(to bottom, #3498db 0%, #258cd1 100%);
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.catalog-product-cart input[type="submit"]:hover,
+.catalog-product-cart .button:hover {
+  background: linear-gradient(to bottom, #258cd1 0%, #1a7ab8 100%);
+}
+
+.catalog-product-cart input[type="number"],
+.catalog-product-cart input.form-number {
+  width: 50px;
+  padding: 6px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+/* Hide quantity label, RSS icon */
+.catalog-product-cart label,
+.feed-icons {
+  display: none !important;
+}
+
+
+/**
+ * 2026-04-29 15:55 (v2.0.4) Fix cart qty+button inline alignment.
+ *                            Form elements inside cart span were stacking
+ *                            vertically. Force flex on form and form-item.
+ */
+
+.catalog-product-cart form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.catalog-product-cart .form-item,
+.catalog-product-cart .js-form-item {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.catalog-product-cart .form-item label {
+  display: none !important;
+}

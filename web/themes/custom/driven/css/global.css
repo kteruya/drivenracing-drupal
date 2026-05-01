@@ -1,0 +1,1810 @@
+/**
+ * global.css — Driven Racing base styles
+ * Version: 1.3.0
+ *
+ * Loaded on every page via driven.info.yml.
+ * Values ported from D7 driven/templates/custom.css and D7 custom.css.
+ *
+ * Changelog:
+ * 2026-05-01 (v1.3.0) Front page body background #e8e8e8 to show boxed
+ *                      layout matching D7 side margins.
+ *                      Removed Phase 6 100vw breakout block that was
+ *                      expanding page to 3880px width.
+ *                      Added catalog-term negative margin hero fix.
+ * 2026-04-29 17:45 (v1.2.0) Footer inner content styles — column headers,
+ *                            links, contact block, copyright bar.
+ *                            Hero left gap fix — negative margin breakout
+ *                            to escape Bootstrap container padding.
+ * 2026-04-29 16:30 (v1.1.0) Add header white background and footer dark
+ *                            background to match D7. Override Bootstrap
+ *                            navbar bg. Style footer contentinfo region.
+ * 2026-04-29 14:00 (v1.0.1) Remove full-width container override block
+ *                            (lines 606-613). Restore max-width: 1170px
+ *                            for boxed layout matching D7.
+ * 2026-04-29 00:00 (v1.0.0) Initial migration from driven_tweaks module.
+ *                            Ported from D7 custom.css and template CSS.
+ *
+ * Contents:
+ *   1. CSS custom properties (variables)
+ *   2. Typography — body, headings
+ *   3. Header
+ *   4. Navigation
+ *   5. Motorcycle selector bar
+ *   6. Footer
+ *   7. Utility classes
+ *   8. Responsive
+ */
+
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  /* Brand colours — from D7 source */
+  --driven-blue:        #3498db;
+  --driven-blue-dark:   #258cd1;
+  --driven-dark:        #222222;
+  --driven-charcoal:    #333333;
+  --driven-gray:        #666666;
+  --driven-light-gray:  #f5f5f5;
+  --driven-border:      #dddddd;
+  --driven-white:       #ffffff;
+
+  /* Header */
+  --header-bg:          #1a1a1a;
+  --header-top-bg:      #111111;
+
+  /* Footer */
+  --footer-bg:          #1a1a1a;
+  --footer-text:        #cccccc;
+  --footer-heading:     #ffffff;
+
+  /* Motorcycle selector bar */
+  --moto-bar-bg:        #2c2c2c;
+
+  /* Fonts — loaded via Google Fonts in global CSS import */
+  --font-body:          'Muli', 'Helvetica Neue', Arial, sans-serif;
+  --font-heading:       'Oswald', 'Arial Narrow', Arial, sans-serif;
+  --font-hero:          'Anton', 'Impact', sans-serif;
+  --font-mono:          'Courier New', monospace;
+}
+
+/* ============================================================
+   2. TYPOGRAPHY
+   ============================================================ */
+
+/* Google Fonts — Anton, Muli, Oswald (matches D7 font stack) */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Muli:wght@300;400&family=Oswald:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--driven-charcoal);
+  background: var(--driven-white);
+}
+
+/* Headings — Oswald uppercase, matching D7 stability theme */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--driven-dark);
+  margin-top: 0;
+}
+
+h1 { font-size: 26px; }
+h2 { font-size: 22px; }
+h3 { font-size: 18px; }
+h4 { font-size: 16px; }
+
+/* Links */
+a {
+  color: var(--driven-blue);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--driven-blue-dark);
+  text-decoration: underline;
+}
+
+/* ============================================================
+   3. SITE WRAPPER AND LAYOUT
+   ============================================================ */
+.site-wrapper,
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container,
+#main-wrapper,
+.layout-main-wrapper {
+  flex: 1;
+}
+
+/* Container max-width matching D7 Bootstrap grid */
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl,
+.container-fluid {
+  max-width: 1170px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ============================================================
+   4. HEADER
+   ============================================================ */
+header.header,
+.header,
+#header {
+  background: var(--driven-white);
+  border-bottom: 1px solid var(--driven-border);
+}
+
+/* Top bar — login, register, cart links */
+.header-top,
+.header__top {
+  background: var(--header-top-bg);
+  padding: 6px 0;
+  font-size: 12px;
+}
+
+.header-top a,
+.header__top a {
+  color: #cccccc;
+  text-decoration: none;
+}
+
+.header-top a:hover,
+.header__top a:hover {
+  color: var(--driven-white);
+}
+
+/* Logo */
+.logo img,
+.site-logo img {
+  max-height: 70px;
+  width: auto;
+}
+
+/* ============================================================
+   5. NAVIGATION
+   ============================================================ */
+nav.nav-main ul,
+.navbar-nav,
+.primary-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0;
+}
+
+nav.nav-main ul li a,
+.navbar-nav li a,
+.primary-menu ul li a {
+  display: block;
+  padding: 20px 18px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--driven-dark);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+nav.nav-main ul li a:hover,
+nav.nav-main ul li.active > a,
+.navbar-nav li a:hover,
+.primary-menu ul li a:hover {
+  color: var(--driven-blue);
+}
+
+/* ============================================================
+   6. MOTORCYCLE SELECTOR BAR
+   ============================================================ */
+#my-motorcycle,
+.page-heading,
+section.page-heading {
+  background: var(--moto-bar-bg);
+  padding: 12px 0;
+}
+
+#my-motorcycle h3,
+.page-heading h3 {
+  color: var(--driven-white);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+  display: inline;
+}
+
+.view-motorcycle-selector select {
+  background: #444;
+  border: 1px solid #555;
+  color: var(--driven-white);
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+#vehicle-selected,
+a#vehicle-selected {
+  background: var(--driven-blue);
+  color: var(--driven-white);
+  padding: 5px 14px;
+  border-radius: 3px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+}
+
+#clear-motorcycle,
+a#clear-motorcycle {
+  background: #555;
+  color: var(--driven-white);
+  padding: 5px 14px;
+  border-radius: 3px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* ============================================================
+   7. FOOTER
+   ============================================================ */
+footer,
+.footer,
+#footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 40px 0 0;
+  margin-top: auto;
+}
+
+footer h3.widget-title,
+.footer .widget-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--footer-heading);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #444;
+}
+
+footer ul,
+.footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li,
+.footer ul li {
+  padding: 3px 0;
+}
+
+footer ul li a,
+.footer ul li a {
+  color: var(--footer-text);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+footer ul li a:hover,
+.footer ul li a:hover {
+  color: var(--driven-white);
+}
+
+/* Footer contacts */
+.contacts-info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contacts-info-list li {
+  display: flex;
+  gap: 10px;
+  padding: 4px 0;
+  font-size: 13px;
+  color: var(--footer-text);
+}
+
+.contacts-info-list .fa {
+  color: var(--driven-blue);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Footer copyright bar */
+.footer-copyright {
+  background: #111;
+  color: #888;
+  font-size: 12px;
+  padding: 14px 0;
+  margin-top: 30px;
+}
+
+.footer-copyright a {
+  color: #aaa;
+}
+
+/* Social links */
+.social-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.social-links li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #333;
+  border-radius: 50%;
+  color: #ccc;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.social-links li a:hover {
+  background: var(--driven-blue);
+  color: var(--driven-white);
+}
+
+/* ============================================================
+   8. MESSAGES AND ALERTS
+   ============================================================ */
+.messages,
+.messages--status,
+.messages--warning,
+.messages--error {
+  padding: 12px 16px;
+  margin: 0 0 16px;
+  border-radius: 3px;
+  border-left: 4px solid;
+  font-size: 14px;
+}
+
+.messages--status  { background: #e8f4fd; border-color: var(--driven-blue); color: #1a5276; }
+.messages--warning { background: #fef9e7; border-color: #f39c12; color: #7d6608; }
+.messages--error   { background: #fdecea; border-color: #e74c3c; color: #922b21; }
+
+/* ============================================================
+   9. UTILITY CLASSES
+   ============================================================ */
+.text-uppercase { text-transform: uppercase; }
+.font-oswald    { font-family: var(--font-heading); }
+.font-anton     { font-family: var(--font-hero); }
+.text-blue      { color: var(--driven-blue); }
+.text-dark      { color: var(--driven-dark); }
+.text-muted     { color: var(--driven-gray); }
+
+/* ============================================================
+   10. RESPONSIVE
+   ============================================================ */
+@media (max-width: 992px) {
+  nav.nav-main ul,
+  .navbar-nav,
+  .primary-menu ul {
+    flex-direction: column;
+  }
+
+  nav.nav-main ul li a {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--driven-border);
+  }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 20px; }
+  h2 { font-size: 18px; }
+
+  .logo img,
+  .site-logo img {
+    max-height: 50px;
+  }
+
+  footer {
+    padding: 24px 0 0;
+  }
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/menu.css
+   ============================================================ */
+/* ==== Olivero + Superfish menu hard overrides ==== */
+
+/* Bar & dropdown backgrounds to white */
+.site-header,
+.site-header__inner,
+.region-primary-menu,
+.primary-nav,
+.primary-nav__menu,
+.block-superfish .sf-menu,
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Base link look (desktop) */
+.primary-nav .primary-nav__menu .primary-nav__menu-link,
+.primary-nav__menu-link,
+.region-primary-menu .menu--main a,
+.block-superfish .sf-menu > li > a,
+.block-superfish .sf-menu li a {
+  font-family: "Oswald", sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  padding: 10px 12px !important;
+  background: transparent !important;
+  color: #555 !important;
+  text-decoration: none !important;
+}
+
+/* Hover/active */
+.primary-nav__menu-link:hover,
+.primary-nav__menu-item--active-trail > .primary-nav__menu-link,
+.primary-nav__menu-link.is-active,
+.block-superfish .sfHover > a,
+.block-superfish .sf-menu li a:hover {
+  background: transparent !important;
+  color: #000 !important;
+}
+
+/* Hide Olivero chevron/indicator on items with children */
+.primary-nav__menu-item--has-children > .primary-nav__menu-link::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Hide Superfish arrow indicators if present */
+.block-superfish .sf-arrows .sf-with-ul:after,
+.block-superfish .sf-with-ul:after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Make dropdown panel look clean */
+.block-superfish .sf-menu ul {
+  border: 1px solid #ddd !important;
+}
+
+/* Dropdown link spacing */
+.block-superfish .sf-menu ul li a {
+  padding: 6px 12px !important;
+  color: #555 !important;
+}
+
+/* Accessible focus ring (neutral color) */
+.primary-nav__menu-link:focus,
+.block-superfish .sf-menu li a:focus {
+  outline: 2px solid #777 !important;
+  outline-offset: 2px !important;
+}
+
+.block-superfish .sf-arrows .sf-with-ul:after,
+.block-superfish .sf-with-ul:after { content:none !important; display:none !important; }
+/* Give Superfish chevrons some space from the text */
+.block-superfish .sf-arrows .sf-with-ul {
+  padding-right: 18px !important;   /* room for the chevron */
+}
+.block-superfish .sf-arrows .sf-with-ul:after {
+  margin-left: 8px !important;      /* gap between text and chevron */
+  position: relative;                /* nudge if your skin needs it */
+  top: 1px;                          /* subtle vertical align */
+  right: 0;                          /* don’t crowd text */
+  line-height: 1;
+}
+
+
+/* Move the Superfish sub-indicator right by 7px */
+.block-superfish .sf-sub-indicator,
+.sf-menu .sf-sub-indicator {
+  /*position: absolute !important; */
+  right: -7px !important;   /* negative 'right' moves it to the right */
+}
+
+/* Give the anchor extra room so the indicator doesn't overlap text */
+.block-superfish .sf-with-ul {
+  padding-right: 22px !important; /* adjust if needed */
+}
+
+
+@media (max-width: 767px) {
+  /* Let the selector block use all available width in the header container */
+  #page-title #block-dxpr-theme-motorcycleselector {
+    width: 100%;
+  }
+
+  /* Trim the container padding specifically for the Start Here / selector row */
+  #page-title.page-title-container {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/barrio-overrides.css
+   ============================================================ */
+/* === Driven Tweaks: Bootstrap Barrio overrides (header/menu) === */
+
+/* Make sure the header/nav stays white in Barrio + Superfish */
+.region-primary-menu,
+.navbar,
+.navbar-nav,
+.block-superfish .sf-menu,
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+}
+
+/* Typography / spacing (keeps your Oswald uppercase look) */
+.block-superfish .sf-menu > li > a,
+.block-superfish .sf-menu li a {
+  font-family: "Oswald", sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  padding: 10px 14px !important; /* a touch more horizontal padding */
+  color: #666 !important;
+}
+
+/* Hover/focus states */
+.block-superfish .sf-menu li a:hover,
+.block-superfish .sfHover > a,
+.block-superfish .sf-menu li a:focus {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+/* --- Superfish sub-indicator (the little chevron/bullet) spacing ---
+   You've noted it's the .sf-sub-indicator, not the arrow psuedo-element.
+   Give it some breathing room to the RIGHT and ensure anchor has space. */
+
+/* Ensure room at the end of top-level anchors for the indicator */
+.block-superfish .sf-menu > li > a.sf-with-ul {
+  padding-right: 26px !important; /* space for indicator */
+  position: relative;
+}
+
+/* Nudge the indicator ~7px farther right from the text */
+.block-superfish .sf-with-ul > .sf-sub-indicator,
+.block-superfish .sf-sub-indicator {
+  position: absolute;
+  right: -7px !important;          /* move ~7px to the right as requested */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;            /* prevent accidental clicks on the indicator */
+}
+
+/* If your Superfish is injecting the indicator as inline element (no absolute),
+   also add a left margin for safety in that case: */
+.block-superfish .sf-sub-indicator:not([style*="position"]) {
+  margin-left: 7px !important;
+}
+
+/* Dropdown panel look */
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+  border: 1px solid #ddd !important;
+}
+
+/* Remove any caret/chevron that Olivero/Barrio may add via ::after */
+.region-primary-menu a.sf-with-ul::after {
+  content: none !important;
+}
+
+/* Boxed layout — D7 matched. Hero breakout uses negative margins to escape.
+   Full-width container override removed — max-width: 1170px now active from line ~119. */
+
+/* ============================================================
+   Migrated from driven_tweaks/css/layout-core.css
+   ============================================================ */
+/**
+ * Project: Driven Racing – Drupal 11 tweaks
+ * File: css/layout-core.css
+ *
+ * Version: 2025-12-04 v1.0.1
+ *
+ * Change log:
+ * - 2025-12-04 20:10  (v1.0.1) Reinstate and harden containment for the
+ *                     main menu lane and page title / selector lane so
+ *                     they render inside a centered 1140px box again:
+ *                     add explicit boxing rules with higher specificity
+ *                     for header navbar container and .page-title-
+ *                     container (used by the motorcycle selector bar).
+ * - 2025-12-04 18:20  (v1.0.0) Initial split from home-header-footer.css
+ *                     v1.3.55: move shared layout container, overall
+ *                     background, main content boxing, and selector lane
+ *                     border rules into this core layout file unchanged.
+ */
+
+/******************************
+ * SHARED LAYOUT CONTAINER
+ ******************************/
+
+.driven-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/******************************
+ * OVERALL PAGE BACKGROUND
+ ******************************/
+
+body.path-frontpage {
+  background-color: #2d2f33;
+}
+
+/* Shop pages: solid white background */
+body.path-shop {
+  background-color: #ffffff;
+}
+
+/* Hide default Drupal main content on front page */
+body.path-frontpage .block-system-main-block {
+  display: none;
+}
+
+/******************************
+ * MAIN CONTENT CONTAINER WIDTH (boxed content site-wide)
+ ******************************/
+
+/* Box all primary content lanes (front + interior) */
+.dxpr-theme-fluid.content-container,
+.dxpr-theme-fluid.content-top-container,
+.dxpr-theme-fluid.content-bottom-container,
+header#page-title.page-title-container,
+.page-title-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Remove extra vertical gap between selector lane and main content on all pages */
+#page-title-full-width-container,
+header#page-title.page-title-container {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.dxpr-theme-fluid.content-container,
+.main-container.container {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/******************************
+ * SELECTOR LANE BORDERS (FULL-WIDTH, ALL PAGES)
+ ******************************/
+
+/* Full-width border framing the motorcycle selector lane on all pages */
+#page-title-full-width-container {
+  border-top: 3px solid #d4d4d4;
+  border-bottom: 3px solid #d4d4d4;
+}
+
+/******************************
+ * HEADER + SELECTOR CONTAINMENT REINFORCEMENT
+ *
+ * Ensure the DXPR main navbar and the page title / selector lane content
+ * sit inside the same 1140px boxed lane as the rest of the site, even
+ * if DXPR/theme CSS shifts container rules.
+ ******************************/
+
+/* Main menu inner lane: 1140px centered, with horizontal padding */
+body header.dxpr-theme-header .navbar-container {
+  max-width: 1140px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  box-sizing: border-box;
+}
+
+/* Page title + motorcycle selector content: 1140px centered */
+body header#page-title.page-title-container,
+body .page-title-container {
+  max-width: 1140px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/header.css
+   ============================================================ */
+/**
+ * Project: Driven Racing – Drupal 11 tweaks
+ * File: css/header.css
+ *
+ * Version: 2025-12-04 v1.0.0
+ *
+ * Change log:
+ * - 2025-12-04 18:22  (v1.0.0) Initial split from home-header-footer.css
+ *                     v1.3.55: move top login bar and DXPR main header /
+ *                     main nav rules into this dedicated header stylesheet.
+ */
+
+/******************************
+ * TOP LOGIN BAR (LOGIN / CART)
+ ******************************/
+
+header#secondary-header.dxpr-theme-secondary-header {
+  background: #2f2f2f;
+  margin: 0;
+  padding: 0;
+}
+
+/* Box top login bar lane to 1140px as well */
+header#secondary-header .secondary-header-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header#secondary-header .region-secondary-header {
+  margin: 0;
+  padding: 0;
+}
+
+header#secondary-header .region-secondary-header .container {
+  margin: 0 auto;
+  padding: 14px 0;
+
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: #a3a3a3;
+  position: relative;
+}
+
+header#secondary-header .region-secondary-header .container::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.header-top-left {
+  width: 40%;
+  float: left;
+}
+
+.header-top-right {
+  width: 60%;
+  float: right;
+  text-align: right;
+  padding-right: 3%;
+}
+
+.header-top-right > .header-top-right {
+  display: inline-block;
+  margin-left: 0;
+}
+
+header#secondary-header .region-secondary-header .container a,
+header#secondary-header .region-secondary-header .container span {
+  color: #a3a3a3;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.header-top-right span,
+.header-top-right a {
+  margin-left: 8px;
+}
+
+.header-top-right span:first-child,
+.header-top-right a:first-child {
+  margin-left: 0;
+}
+
+.header-top-right i.fa,
+.header-top-right i.fa-lock,
+.header-top-right i.fa-shopping-cart,
+.header-top-right i.fa-pencil-square-o {
+  margin-right: 4px;
+  font-size: 11px;
+}
+
+header#secondary-header .region-secondary-header .container a {
+  text-decoration: none;
+}
+
+header#secondary-header .region-secondary-header .container a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/******************************
+ * DXPR MAIN HEADER (LOGO + NAV)
+ ******************************/
+
+header.dxpr-theme-header {
+  background: #ffffff;
+  border-bottom: 1px solid #cfcfcf;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Box main nav lane to 1140px */
+header.dxpr-theme-header .navbar-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Inner navbar header gets only vertical padding */
+header.dxpr-theme-header .navbar-header {
+  margin: 0;
+  padding: 6px 0 2px;
+}
+
+@media (min-width: 992px) {
+  header.dxpr-theme-header .navbar-header {
+    display: flex !important;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  header.dxpr-theme-header .navbar-header .wrap-branding {
+    flex: 0 0 auto;
+    margin-right: 24px;
+  }
+
+  header.dxpr-theme-header .navbar-header #block-dxpr-theme-mainnavigation-2 {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-left: 8px;
+  }
+
+  header.dxpr-theme-header .navbar-header .wrap-toggle {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  header.dxpr-theme-header .navbar-header > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/footer.css
+   ============================================================ */
+/**
+ * Project: Driven Racing – Drupal 11 tweaks
+ * File: css/footer.css
+ *
+ * Version: 2025-12-04 v1.0.0
+ *
+ * Change log:
+ * - 2025-12-04 18:24  (v1.0.0) Initial split from home-header-footer.css
+ *                     v1.3.55: move D7-style footer layout and typography
+ *                     into this dedicated footer stylesheet unchanged.
+ */
+
+/******************************
+ * FOOTER (D7 STYLE)
+ ******************************/
+
+#driven-footer {
+  background: #2f2f2f;
+  color: #f0f0f0;
+  font-size: 12px;
+}
+
+#driven-footer .driven-footer-main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#driven-footer .footer-col {
+  flex: 1 1 0;
+  margin-right: 40px;
+}
+
+#driven-footer .footer-col:last-child {
+  margin-right: 0;
+}
+
+#driven-footer .footer-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+}
+
+#driven-footer .footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#driven-footer .footer-links li {
+  margin-bottom: 4px;
+}
+
+#driven-footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#driven-footer a:hover {
+  text-decoration: underline;
+}
+
+#driven-footer .footer-contact-block p {
+  margin: 0 0 8px;
+}
+
+#driven-footer .driven-footer-bottom {
+  border-top: 1px solid #333333;
+  padding: 10px 20px 15px;
+  background: #212121;
+}
+
+#driven-footer .driven-footer-bottom .driven-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 11px;
+  color: #aaaaaa;
+}
+
+@media (max-width: 768px) {
+  #driven-footer .driven-footer-main {
+    flex-direction: column;
+  }
+
+  #driven-footer .footer-col {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  #driven-footer .footer-col:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/menu.css
+   ============================================================ */
+/* ==== Olivero + Superfish menu hard overrides ==== */
+
+/* Bar & dropdown backgrounds to white */
+.site-header,
+.site-header__inner,
+.region-primary-menu,
+.primary-nav,
+.primary-nav__menu,
+.block-superfish .sf-menu,
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Base link look (desktop) */
+.primary-nav .primary-nav__menu .primary-nav__menu-link,
+.primary-nav__menu-link,
+.region-primary-menu .menu--main a,
+.block-superfish .sf-menu > li > a,
+.block-superfish .sf-menu li a {
+  font-family: "Oswald", sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  padding: 10px 12px !important;
+  background: transparent !important;
+  color: #555 !important;
+  text-decoration: none !important;
+}
+
+/* Hover/active */
+.primary-nav__menu-link:hover,
+.primary-nav__menu-item--active-trail > .primary-nav__menu-link,
+.primary-nav__menu-link.is-active,
+.block-superfish .sfHover > a,
+.block-superfish .sf-menu li a:hover {
+  background: transparent !important;
+  color: #000 !important;
+}
+
+/* Hide Olivero chevron/indicator on items with children */
+.primary-nav__menu-item--has-children > .primary-nav__menu-link::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Hide Superfish arrow indicators if present */
+.block-superfish .sf-arrows .sf-with-ul:after,
+.block-superfish .sf-with-ul:after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Make dropdown panel look clean */
+.block-superfish .sf-menu ul {
+  border: 1px solid #ddd !important;
+}
+
+/* Dropdown link spacing */
+.block-superfish .sf-menu ul li a {
+  padding: 6px 12px !important;
+  color: #555 !important;
+}
+
+/* Accessible focus ring (neutral color) */
+.primary-nav__menu-link:focus,
+.block-superfish .sf-menu li a:focus {
+  outline: 2px solid #777 !important;
+  outline-offset: 2px !important;
+}
+
+.block-superfish .sf-arrows .sf-with-ul:after,
+.block-superfish .sf-with-ul:after { content:none !important; display:none !important; }
+/* Give Superfish chevrons some space from the text */
+.block-superfish .sf-arrows .sf-with-ul {
+  padding-right: 18px !important;   /* room for the chevron */
+}
+.block-superfish .sf-arrows .sf-with-ul:after {
+  margin-left: 8px !important;      /* gap between text and chevron */
+  position: relative;                /* nudge if your skin needs it */
+  top: 1px;                          /* subtle vertical align */
+  right: 0;                          /* don’t crowd text */
+  line-height: 1;
+}
+
+
+/* Move the Superfish sub-indicator right by 7px */
+.block-superfish .sf-sub-indicator,
+.sf-menu .sf-sub-indicator {
+  /*position: absolute !important; */
+  right: -7px !important;   /* negative 'right' moves it to the right */
+}
+
+/* Give the anchor extra room so the indicator doesn't overlap text */
+.block-superfish .sf-with-ul {
+  padding-right: 22px !important; /* adjust if needed */
+}
+
+
+@media (max-width: 767px) {
+  /* Let the selector block use all available width in the header container */
+  #page-title #block-dxpr-theme-motorcycleselector {
+    width: 100%;
+  }
+
+  /* Trim the container padding specifically for the Start Here / selector row */
+  #page-title.page-title-container {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/barrio-overrides.css
+   ============================================================ */
+/* === Driven Tweaks: Bootstrap Barrio overrides (header/menu) === */
+
+/* Make sure the header/nav stays white in Barrio + Superfish */
+.region-primary-menu,
+.navbar,
+.navbar-nav,
+.block-superfish .sf-menu,
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+}
+
+/* Typography / spacing (keeps your Oswald uppercase look) */
+.block-superfish .sf-menu > li > a,
+.block-superfish .sf-menu li a {
+  font-family: "Oswald", sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 16px !important;
+  padding: 10px 14px !important; /* a touch more horizontal padding */
+  color: #666 !important;
+}
+
+/* Hover/focus states */
+.block-superfish .sf-menu li a:hover,
+.block-superfish .sfHover > a,
+.block-superfish .sf-menu li a:focus {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+/* --- Superfish sub-indicator (the little chevron/bullet) spacing ---
+   You've noted it's the .sf-sub-indicator, not the arrow psuedo-element.
+   Give it some breathing room to the RIGHT and ensure anchor has space. */
+
+/* Ensure room at the end of top-level anchors for the indicator */
+.block-superfish .sf-menu > li > a.sf-with-ul {
+  padding-right: 26px !important; /* space for indicator */
+  position: relative;
+}
+
+/* Nudge the indicator ~7px farther right from the text */
+.block-superfish .sf-with-ul > .sf-sub-indicator,
+.block-superfish .sf-sub-indicator {
+  position: absolute;
+  right: -7px !important;          /* move ~7px to the right as requested */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;            /* prevent accidental clicks on the indicator */
+}
+
+/* If your Superfish is injecting the indicator as inline element (no absolute),
+   also add a left margin for safety in that case: */
+.block-superfish .sf-sub-indicator:not([style*="position"]) {
+  margin-left: 7px !important;
+}
+
+/* Dropdown panel look */
+.block-superfish .sf-menu ul {
+  background: #fff !important;
+  border: 1px solid #ddd !important;
+}
+
+/* Remove any caret/chevron that Olivero/Barrio may add via ::after */
+.region-primary-menu a.sf-with-ul::after {
+  content: none !important;
+}
+
+/* Boxed layout — D7 matched. Hero breakout uses negative margins to escape.
+   Full-width container override removed — max-width: 1170px now active from line ~119. */
+
+/* ============================================================
+   Migrated from driven_tweaks/css/layout-core.css
+   ============================================================ */
+/**
+ * Project: Driven Racing – Drupal 11 tweaks
+ * File: css/layout-core.css
+ *
+ * Version: 2025-12-04 v1.0.1
+ *
+ * Change log:
+ * - 2025-12-04 20:10  (v1.0.1) Reinstate and harden containment for the
+ *                     main menu lane and page title / selector lane so
+ *                     they render inside a centered 1140px box again:
+ *                     add explicit boxing rules with higher specificity
+ *                     for header navbar container and .page-title-
+ *                     container (used by the motorcycle selector bar).
+ * - 2025-12-04 18:20  (v1.0.0) Initial split from home-header-footer.css
+ *                     v1.3.55: move shared layout container, overall
+ *                     background, main content boxing, and selector lane
+ *                     border rules into this core layout file unchanged.
+ */
+
+/******************************
+ * SHARED LAYOUT CONTAINER
+ ******************************/
+
+.driven-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/******************************
+ * OVERALL PAGE BACKGROUND
+ ******************************/
+
+body.path-frontpage {
+  background-color: #2d2f33;
+}
+
+/* Shop pages: solid white background */
+body.path-shop {
+  background-color: #ffffff;
+}
+
+/* Hide default Drupal main content on front page */
+body.path-frontpage .block-system-main-block {
+  display: none;
+}
+
+/******************************
+ * MAIN CONTENT CONTAINER WIDTH (boxed content site-wide)
+ ******************************/
+
+/* Box all primary content lanes (front + interior) */
+.dxpr-theme-fluid.content-container,
+.dxpr-theme-fluid.content-top-container,
+.dxpr-theme-fluid.content-bottom-container,
+header#page-title.page-title-container,
+.page-title-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Remove extra vertical gap between selector lane and main content on all pages */
+#page-title-full-width-container,
+header#page-title.page-title-container {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.dxpr-theme-fluid.content-container,
+.main-container.container {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/******************************
+ * SELECTOR LANE BORDERS (FULL-WIDTH, ALL PAGES)
+ ******************************/
+
+/* Full-width border framing the motorcycle selector lane on all pages */
+#page-title-full-width-container {
+  border-top: 3px solid #d4d4d4;
+  border-bottom: 3px solid #d4d4d4;
+}
+
+/******************************
+ * HEADER + SELECTOR CONTAINMENT REINFORCEMENT
+ *
+ * Ensure the DXPR main navbar and the page title / selector lane content
+ * sit inside the same 1140px boxed lane as the rest of the site, even
+ * if DXPR/theme CSS shifts container rules.
+ ******************************/
+
+/* Main menu inner lane: 1140px centered, with horizontal padding */
+body header.dxpr-theme-header .navbar-container {
+  max-width: 1140px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  box-sizing: border-box;
+}
+
+/* Page title + motorcycle selector content: 1140px centered */
+body header#page-title.page-title-container,
+body .page-title-container {
+  max-width: 1140px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/header.css
+   ============================================================ */
+/**
+ * Project: Driven Racing – Drupal 11 tweaks
+ * File: css/header.css
+ *
+ * Version: 2025-12-04 v1.0.0
+ *
+ * Change log:
+ * - 2025-12-04 18:22  (v1.0.0) Initial split from home-header-footer.css
+ *                     v1.3.55: move top login bar and DXPR main header /
+ *                     main nav rules into this dedicated header stylesheet.
+ */
+
+/******************************
+ * TOP LOGIN BAR (LOGIN / CART)
+ ******************************/
+
+header#secondary-header.dxpr-theme-secondary-header {
+  background: #2f2f2f;
+  margin: 0;
+  padding: 0;
+}
+
+/* Box top login bar lane to 1140px as well */
+header#secondary-header .secondary-header-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header#secondary-header .region-secondary-header {
+  margin: 0;
+  padding: 0;
+}
+
+header#secondary-header .region-secondary-header .container {
+  margin: 0 auto;
+  padding: 14px 0;
+
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: #a3a3a3;
+  position: relative;
+}
+
+header#secondary-header .region-secondary-header .container::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.header-top-left {
+  width: 40%;
+  float: left;
+}
+
+.header-top-right {
+  width: 60%;
+  float: right;
+  text-align: right;
+  padding-right: 3%;
+}
+
+.header-top-right > .header-top-right {
+  display: inline-block;
+  margin-left: 0;
+}
+
+header#secondary-header .region-secondary-header .container a,
+header#secondary-header .region-secondary-header .container span {
+  color: #a3a3a3;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.header-top-right span,
+.header-top-right a {
+  margin-left: 8px;
+}
+
+.header-top-right span:first-child,
+.header-top-right a:first-child {
+  margin-left: 0;
+}
+
+.header-top-right i.fa,
+.header-top-right i.fa-lock,
+.header-top-right i.fa-shopping-cart,
+.header-top-right i.fa-pencil-square-o {
+  margin-right: 4px;
+  font-size: 11px;
+}
+
+header#secondary-header .region-secondary-header .container a {
+  text-decoration: none;
+}
+
+header#secondary-header .region-secondary-header .container a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/******************************
+ * DXPR MAIN HEADER (LOGO + NAV)
+ ******************************/
+
+header.dxpr-theme-header {
+  background: #ffffff;
+  border-bottom: 1px solid #cfcfcf;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Box main nav lane to 1140px */
+header.dxpr-theme-header .navbar-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Inner navbar header gets only vertical padding */
+header.dxpr-theme-header .navbar-header {
+  margin: 0;
+  padding: 6px 0 2px;
+}
+
+@media (min-width: 992px) {
+  header.dxpr-theme-header .navbar-header {
+    display: flex !important;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  header.dxpr-theme-header .navbar-header .wrap-branding {
+    flex: 0 0 auto;
+    margin-right: 24px;
+  }
+
+  header.dxpr-theme-header .navbar-header #block-dxpr-theme-mainnavigation-2 {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-left: 8px;
+  }
+
+  header.dxpr-theme-header .navbar-header .wrap-toggle {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+
+  header.dxpr-theme-header .navbar-header > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* ============================================================
+   Migrated from driven_tweaks/css/footer.css
+   ============================================================ */
+/**
+ * Project: Driven Racing – Drupal 11 tweaks
+ * File: css/footer.css
+ *
+ * Version: 2025-12-04 v1.0.0
+ *
+ * Change log:
+ * - 2025-12-04 18:24  (v1.0.0) Initial split from home-header-footer.css
+ *                     v1.3.55: move D7-style footer layout and typography
+ *                     into this dedicated footer stylesheet unchanged.
+ */
+
+/******************************
+ * FOOTER (D7 STYLE)
+ ******************************/
+
+#driven-footer {
+  background: #2f2f2f;
+  color: #f0f0f0;
+  font-size: 12px;
+}
+
+#driven-footer .driven-footer-main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#driven-footer .footer-col {
+  flex: 1 1 0;
+  margin-right: 40px;
+}
+
+#driven-footer .footer-col:last-child {
+  margin-right: 0;
+}
+
+#driven-footer .footer-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+}
+
+#driven-footer .footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#driven-footer .footer-links li {
+  margin-bottom: 4px;
+}
+
+#driven-footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#driven-footer a:hover {
+  text-decoration: underline;
+}
+
+#driven-footer .footer-contact-block p {
+  margin: 0 0 8px;
+}
+
+#driven-footer .driven-footer-bottom {
+  border-top: 1px solid #333333;
+  padding: 10px 20px 15px;
+  background: #212121;
+}
+
+#driven-footer .driven-footer-bottom .driven-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 11px;
+  color: #aaaaaa;
+}
+
+@media (max-width: 768px) {
+  #driven-footer .driven-footer-main {
+    flex-direction: column;
+  }
+
+  #driven-footer .footer-col {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  #driven-footer .footer-col:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* ============================================================
+   Header region layout fix — Bootstrap5 theme
+   Stack order:
+     1. Top bar (full width)
+     2. Logo + Nav on same row
+     3. Motorcycle selector (full width)
+   ============================================================ */
+
+.region-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background: #ffffff;
+}
+
+/* Top bar: full width */
+#block-driven-driventopheader {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+/* Logo: left side */
+#block-driven-sitebranding-2 {
+  flex: 0 0 auto;
+  padding: 10px 20px 10px 0;
+}
+
+/* Main nav: takes remaining space, right-aligned */
+#block-driven-mainnavigation-2 {
+  flex: 1 1 auto;
+}
+
+/* Motorcycle selector blocks: full width below logo/nav */
+#block-driven-startheremotorcycleselector,
+#block-driven-mymotorcycle,
+#block-driven-motorcycleselector {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+/* Nav links horizontal */
+#block-driven-mainnavigation-2 .navbar-nav {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+
+/* ============================================================
+   Motorcycle selector bar — D11 block ID fixes
+   (my-motorcycle.css targets DXPR IDs, these target D11 IDs)
+   ============================================================ */
+
+/* Selector bar background */
+#block-driven-startheremotorcycleselector,
+#block-driven-mymotorcycle,
+#block-driven-motorcycleselector {
+  background: #1a1a1a;
+}
+
+/* "Please select your motorcycle" title — fix blue link color */
+#block-driven-mymotorcycle .my-motorcycle-title a {
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+#block-driven-mymotorcycle .my-motorcycle-note {
+  font-family: "Oswald", sans-serif;
+  font-size: 11px;
+  color: #c8c8c8;
+  margin-top: 2px;
+}
+
+/* Start Here GIF spacing */
+#block-driven-startheremotorcycleselector {
+  padding: 6px 24px 6px 10px;
+}
+
+/* Motorcycle selector form inline */
+#block-driven-motorcycleselector {
+  padding: 6px 10px;
+}
+
+/* ============================================================
+   Hero image full-width fix — break out of container
+   ============================================================ */
+
+/* Phase 6 vw breakout removed — hero stays boxed in container */
+
+
+/* ============================================================
+   v1.1.0 — Header white background + footer dark background
+   ============================================================ */
+
+/* Header white background — matches D7 */
+header[role="banner"] {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+header[role="banner"] .navbar {
+  background-color: #ffffff !important;
+}
+
+/* Footer dark background — matches D7 */
+footer[role="contentinfo"] {
+  background-color: #2d2d2d;
+  color: #cccccc;
+  padding: 40px 0 20px;
+  margin-top: 40px;
+}
+
+footer[role="contentinfo"] a {
+  color: #cccccc;
+  text-decoration: none;
+}
+
+footer[role="contentinfo"] a:hover {
+  color: #ffffff;
+}
+
+
+/* ============================================================
+ * 2026-04-29 17:30 (v1.2.0) Footer inner content styles.
+ *   Targets driven-footer block HTML structure:
+ *   #driven-footer > .driven-footer-main > .footer-col
+ *   Fixes invisible headings (dark text on dark bg).
+ *   Adds 3-column layout for footer columns.
+ * ============================================================ */
+
+#driven-footer {
+  color: #cccccc;
+}
+
+.driven-footer-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 30px;
+}
+
+.footer-col p,
+.footer-col .footer-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff !important;
+  margin: 0 0 12px 0;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 6px;
+}
+
+.footer-links a {
+  color: #cccccc !important;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-links a:hover {
+  color: #ffffff !important;
+}
+
+.footer-contact-block {
+  font-size: 13px;
+  color: #cccccc;
+  line-height: 1.6;
+}
+
+.contacts-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contacts-info-list li {
+  margin-bottom: 8px;
+}
+
+.driven-footer-bottom {
+  border-top: 1px solid #444444;
+  padding-top: 15px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: #888888;
+}
+
+.driven-footer-bottom a {
+  color: #cccccc !important;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+ * v1.2.0 — Hero left/right gap fix
+ *   Bootstrap .container has 15px padding on each side.
+ *   The catalog-term article sits inside that container.
+ *   Use negative margins to let hero bleed to container edge.
+ * ============================================================ */
+
+.catalog-term {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.catalog-term .catalog-hero__title,
+.catalog-term .catalog-products {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.catalog-term .catalog-products {
+  padding-top: 10px;
+}
+
+
+/* ============================================================
+ * v1.3.0 — Front page body background to show boxed layout
+ * ============================================================ */
+
+body.path-frontpage {
+  background-color: #e8e8e8;
+}
+

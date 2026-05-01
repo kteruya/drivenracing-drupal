@@ -1,0 +1,8 @@
+{#
+ * Custom commerce-product template — adds 'commerce-product' class to article.
+ #}
+<article class="commerce-product"{{ attributes }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {{- product|without('variation_attributes') -}}
+</article>

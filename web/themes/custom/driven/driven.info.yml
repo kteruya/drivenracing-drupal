@@ -1,0 +1,24 @@
+name: Driven Racing
+type: theme
+description: 'Driven Racing custom front-end theme. Bootstrap5 sub-theme. Replaces DXPR.'
+# Version: 1.1.0
+#
+# Changelog:
+# 2026-04-29 21:00 (v1.1.0) Removed unused regions. Added footer region.
+#                            Cleaned to 5 active regions only.
+# 2026-04-29 00:00 (v1.0.0) Initial theme. Bootstrap5 sub-theme replacing DXPR.
+core_version_requirement: ^10 || ^11
+base theme: bootstrap5
+
+# Global libraries loaded on every page
+libraries:
+  - driven/global
+
+# Regions matching D7 Stability/Driven layout
+regions:
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  header: Header
+  content: Content
+  home_embrace: 'Home Embrace'
+  footer: Footer

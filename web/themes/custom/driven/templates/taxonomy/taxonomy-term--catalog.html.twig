@@ -1,0 +1,35 @@
+{#
+ * @file
+ * taxonomy-term--catalog.html.twig
+ * Version: 1.0.0
+ *
+ * Changelog:
+ * 2026-04-29 19:00 (v1.0.0) Initial template. Replaces Layout Builder for
+ *                            all catalog taxonomy term pages. Renders hero
+ *                            image with title overlay via preprocess hook
+ *                            variables, then embeds catalog_products_generic
+ *                            view via render array passed from driven.theme.
+ * Driven Racing — Catalog taxonomy term page
+ * Variables passed from driven_preprocess_taxonomy_term():
+ *   - catalog_hero_url: hero image URL
+ *   - catalog_hero_alt: hero image alt text
+ *   - catalog_products: rendered products view
+#}
+<article{{ attributes.addClass('catalog-term') }}>
+
+  {# Hero image with title overlay #}
+  {% if catalog_hero_url %}
+    <div class="catalog-hero">
+      <img class="catalog-hero__img" src="{{ catalog_hero_url }}" alt="{{ catalog_hero_alt }}" />
+      <div class="catalog-hero__title">{{ name }}</div>
+    </div>
+  {% endif %}
+
+  {# Products listing #}
+  {% if catalog_products %}
+    <div class="catalog-products">
+      {{ catalog_products }}
+    </div>
+  {% endif %}
+
+</article>

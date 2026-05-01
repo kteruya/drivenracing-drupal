@@ -1,7 +1,121 @@
 <?php
+
 /**
- * Attach the menu styling library on every page.
+ * Project: Driven Racing — Drupal 11
+ * File: driven_tweaks.module
+ *
+ * Version: 3.0.0 — 2026-04-27
+ *
+ * Phase 2 restructure: stripped to cart business logic only.
+ * All CSS/JS library attachment moved to driven.theme.
+ * All preprocess hooks removed:
+ *   - preprocess_html          → fonts now in driven/css/global.css
+ *   - preprocess_taxonomy_term → moved to driven.theme
+ *   - preprocess_commerce_product → Phase 3: Commerce display modes
+ *   - preprocess_field         → Phase 3: Commerce cart view mode
+ *   - page_attachments         → moved to driven.theme preprocess_page()
+ *
+ * Change log:
+ * - 2026-04-27 (v3.0.0) Strip to cart logic only. Phase 2 restructure.
+ * - 2026-04-25 (v2.1.0) Add preprocess_commerce_product.
+ * - 2026-03-07 (v2.0.0) Add commerce_product library attachment.
+ * - 2026-03-07 (v1.9.x) Cart stepper, checkout, ecommerce libraries.
+ * - 2025-11-20 (v1.0.0) Initial release.
  */
-function driven_tweaks_page_attachments(array &$attachments) {
-  $attachments['#attached']['library'][] = 'driven_tweaks/menu';
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Alters the Commerce cart form to match D7 Ubercart appearance:
+ *  1. Remove buttons: "Remove" → "×" symbol
+ *  2. Checkout button: "Checkout" → "Proceed to Checkout →"
+ *  3. Add "Empty Cart" submit button
+ */
+function driven_tweaks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Target the Commerce cart form (Views form).
+  if (strpos($form_id, 'views_form_commerce_cart_form_') !== 0) {
+    return;
+  }
+
+  // 1. Change Remove buttons from "Remove" to "×".
+  foreach ($form as $key => &$element) {
+    if (is_array($element) && isset($element['#type'])) {
+      if ($element['#type'] === 'submit' && isset($element['#value'])) {
+        if ((string) $element['#value'] === 'Remove') {
+          $element['#value'] = '×';
+          $element['#attributes']['class'][] = 'cart-remove-x';
+          $element['#attributes']['title'] = 'Remove item';
+        }
+      }
+    }
+  }
+  unset($element);
+
+  // Also handle remove buttons nested in view rows.
+  if (isset($form['remove_button'])) {
+    foreach ($form['remove_button'] as $key => &$btn) {
+      if (is_array($btn) && isset($btn['#value']) && (string) $btn['#value'] === 'Remove') {
+        $btn['#value'] = '×';
+        $btn['#attributes']['class'][] = 'cart-remove-x';
+      }
+    }
+    unset($btn);
+  }
+
+  // 2. Change Checkout button label.
+  if (isset($form['actions']['checkout'])) {
+    $form['actions']['checkout']['#value'] = 'Proceed to Checkout →';
+  }
+
+  // 3. Add Empty Cart button.
+  if (isset($form['actions']) && !isset($form['actions']['empty_cart'])) {
+    $form['actions']['empty_cart'] = [
+      '#type'                    => 'submit',
+      '#value'                   => 'Empty Cart',
+      '#name'                    => 'empty-cart',
+      '#id'                      => 'edit-empty-cart',
+      '#attributes'              => [
+        'class'   => ['button', 'btn', 'cart-empty-btn'],
+        'onclick' => 'return confirm("Are you sure you want to empty your cart?");',
+      ],
+      '#submit'                  => ['driven_tweaks_cart_empty_submit'],
+      '#weight'                  => -10,
+      '#limit_validation_errors' => [],
+    ];
+  }
+}
+
+/**
+ * Submit handler for the Empty Cart button.
+ * Removes all items from the current user's active carts.
+ */
+function driven_tweaks_cart_empty_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $account       = \Drupal::currentUser();
+  $cart_provider = \Drupal::service('commerce_cart.cart_provider');
+  $cart_manager  = \Drupal::service('commerce_cart.cart_manager');
+  $carts         = $cart_provider->getCarts($account);
+
+  foreach ($carts as $cart) {
+    foreach ($cart->getItems() as $item) {
+      $cart_manager->removeOrderItem($cart, $item);
+    }
+  }
+
+  \Drupal::messenger()->addStatus('Your cart has been emptied.');
+  $form_state->setRedirect('commerce_cart.page');
+}
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * Filters the catalog_children block_1 view to show only the 8 designated
+ * EMBRACE & EXPLORE category terms on the home page.
+ *
+ * 2026-04-30 (v2.0.0) Added for home page EMBRACE grid section.
+ */
+function driven_tweaks_views_query_alter(\Drupal\views\ViewExecutable $view, \Drupal\views\Plugin\views\query\QueryPluginBase $query) {
+  if ($view->id() === 'catalog_children' && $view->current_display === 'block_1') {
+    $embrace_tids = [335, 417, 397, 382, 483, 384, 514, 357];
+    $query->addWhere(0, 'taxonomy_term_field_data.tid', $embrace_tids, 'IN');
+  }
 }
