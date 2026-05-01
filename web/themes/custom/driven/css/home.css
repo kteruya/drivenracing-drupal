@@ -1,8 +1,10 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.2.4
+ * Version: 2.2.5
  *
  * Changelog:
+ * 2026-05-01 (v2.2.5) EMBRACE width increased to 650px, white cell
+ *                      backgrounds with border, heading style matches D7.
  * 2026-05-01 (v2.2.4) EMBRACE carousel content width constrained to 780px
  *                      centered within full-width dark background band.
  *                      Matches D7 boxed appearance with visible dark margins.
@@ -475,5 +477,47 @@ html, body {
   max-width: 780px;
   margin-left: auto;
   margin-right: auto;
+}
+
+
+/* ============================================================
+ * v2.2.5 — EMBRACE style matches D7.
+ *   Width increased, white cell backgrounds, D7 heading style.
+ * ============================================================ */
+
+/* Wider content area */
+.embrace-grid {
+  max-width: 620px !important;
+}
+
+/* White background on each cell — matches D7 */
+.embrace-carousel__slide .views-view-responsive-grid__item {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+}
+
+/* Section heading — EMBRACE bold + smaller subtitle */
+#block-driven-embrace-grid h2 {
+  font-size: 0;
+}
+
+#block-driven-embrace-grid h2::before {
+  content: "EMBRACE";
+  font-family: "Oswald", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+}
+
+#block-driven-embrace-grid h2::after {
+  content: " & explore Driven Products";
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  letter-spacing: 0.05em;
 }
 
