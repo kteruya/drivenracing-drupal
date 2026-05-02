@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.4.0
+ * Version: 2.4.1
  *
  * Changelog:
+ * 2026-05-02 01:11 (v2.4.1) EMBRACE label bar 40px height, pure black #000000 background — matches D7
  * 2026-05-02 01:08 (v2.4.0) EMBRACE label bar — font-weight normal (not bold), line-height 30px — matches D7 pixel measurements
  * 2026-05-02 01:06 (v2.3.9) EMBRACE label bar text 20px Oswald bold white uppercase — corrected from 13px per D7 pixel measurement
  * 2026-05-02 01:01 (v2.3.8) EMBRACE label bar — black #1a1a1a, 32px height, 13px Oswald bold white uppercase — matches D7 pixel measurements
@@ -394,7 +395,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: 100% !important;
-  height: 234px;
+  height: 230px;
   object-fit: cover !important;
   object-position: center top !important;
 }
@@ -405,7 +406,7 @@ body.path-frontpage #block-driven-content {
   bottom: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  background: #1a1a1a !important;
+  background: #000000 !important;
   padding: 6px 8px !important;
   margin: 0 !important;
   z-index: 5;
@@ -437,7 +438,7 @@ body.path-frontpage #block-driven-content {
  * ============================================================ */
 
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
-  height: 234px;
+  height: 230px;
   object-fit: contain !important;
   object-position: center center !important;
   background: #ffffff;
@@ -612,7 +613,7 @@ html, body {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: calc(100% - 16px) !important;
-  height: 234px;
+  height: 230px;
   object-fit: contain !important;
   object-position: center !important;
   padding: 8px !important;
@@ -622,8 +623,8 @@ html, body {
 
 /* Label bar — D7 exact */
 .embrace-carousel__slide .views-field-name {
-  background: #1a1a1a !important;
-  height: 36px;
+  background: #000000 !important;
+  height: 40px;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
