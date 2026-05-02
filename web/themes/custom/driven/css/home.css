@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.6
+ * Version: 2.3.7
  *
  * Changelog:
+ * 2026-05-02 00:59 (v2.3.7) EMBRACE precise D7 dimensions — 1150px carousel, 20px gaps, 272px square cells, 242px image height, 28px label bar
  * 2026-05-02 00:52 (v2.3.6) EMBRACE square cells — 740px carousel, 15px gaps, 173px square cells, 28px label bar matching D7
  * 2026-05-02 00:49 (v2.3.6) EMBRACE carousel width 705px centered — matches D7 proportion (585px/970px scaled to 1170px), texture visible on both sides
  * 2026-05-02 00:42 (v2.3.5) EMBRACE cell gap precision — 8px gap on slide grid, remove redundant item margin, carbon fiber shows between cells
@@ -341,7 +342,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  gap: 20px;
   flex: 0 0 100%;
   min-width: 100%;
   background: transparent;
@@ -390,7 +391,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: 100% !important;
-  height: 143px;
+  height: 242px;
   object-fit: cover !important;
   object-position: center top !important;
 }
@@ -432,7 +433,7 @@ body.path-frontpage #block-driven-content {
  * ============================================================ */
 
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
-  height: 143px;
+  height: 242px;
   object-fit: contain !important;
   object-position: center center !important;
   background: #ffffff;
@@ -474,7 +475,7 @@ html, body {
 
 /* v2.2.6 — width set to 100% of container — see latest rule */
 .embrace-grid {
-  max-width: 740px;
+  max-width: 1150px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -487,7 +488,7 @@ html, body {
 
 /* EMBRACE fills full container width — matches D7 proportion */
 .embrace-grid {
-  max-width: 740px;
+  max-width: 1150px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -585,7 +586,7 @@ html, body {
 
 /* Carousel grid — full container width, no constraints */
 .embrace-grid {
-  max-width: 740px;
+  max-width: 1150px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -607,7 +608,7 @@ html, body {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: calc(100% - 16px) !important;
-  height: 143px;
+  height: 242px;
   object-fit: contain !important;
   object-position: center !important;
   padding: 8px !important;
