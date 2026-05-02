@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.8
+ * Version: 2.3.9
  *
  * Changelog:
+ * 2026-05-02 01:06 (v2.3.9) EMBRACE label bar text 20px Oswald bold white uppercase — corrected from 13px per D7 pixel measurement
  * 2026-05-02 01:01 (v2.3.8) EMBRACE label bar — black #1a1a1a, 32px height, 13px Oswald bold white uppercase — matches D7 pixel measurements
  * 2026-05-02 00:59 (v2.3.7) EMBRACE precise D7 dimensions — 1150px carousel, 20px gaps, 272px square cells, 242px image height, 28px label bar
  * 2026-05-02 00:52 (v2.3.6) EMBRACE square cells — 740px carousel, 15px gaps, 173px square cells, 28px label bar matching D7
@@ -392,7 +393,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: 100% !important;
-  height: 238px;
+  height: 234px;
   object-fit: cover !important;
   object-position: center top !important;
 }
@@ -412,7 +413,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-field-name a,
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
-  font-size: 13px;
+  font-size: 20px;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   color: #ffffff !important;
@@ -434,7 +435,7 @@ body.path-frontpage #block-driven-content {
  * ============================================================ */
 
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
-  height: 238px;
+  height: 234px;
   object-fit: contain !important;
   object-position: center center !important;
   background: #ffffff;
@@ -609,7 +610,7 @@ html, body {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: calc(100% - 16px) !important;
-  height: 238px;
+  height: 234px;
   object-fit: contain !important;
   object-position: center !important;
   padding: 8px !important;
@@ -620,7 +621,7 @@ html, body {
 /* Label bar — D7 exact */
 .embrace-carousel__slide .views-field-name {
   background: #1a1a1a !important;
-  height: 32px;
+  height: 36px;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -635,7 +636,7 @@ html, body {
 .embrace-carousel__slide .views-field-name a,
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
-  font-size: 13px;
+  font-size: 20px;
   font-weight: 700 !important;
   color: #ffffff !important;
   text-transform: uppercase !important;
