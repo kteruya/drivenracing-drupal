@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.2.6
+ * Version: 2.3.0
  *
  * Changelog:
+ * 2026-05-01 23:43 (v2.3.0) EMBRACE precise D7 styling — carbon fiber bg on section wrapper, carousel full container width, cell borders/padding/label bar matching D7 measurements
  * 2026-05-01 (v2.2.6) EMBRACE width corrected — fills container like D7.
  *                      D11 container is 1170px, carousel fills it fully.
  *                      Previous 620px/780px was too narrow.
@@ -492,6 +493,8 @@ html, body {
 /* EMBRACE fills full container width — matches D7 proportion */
 .embrace-grid {
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* White background on each cell — matches D7 */
@@ -523,5 +526,130 @@ html, body {
   text-transform: uppercase;
   color: #aaaaaa;
   letter-spacing: 0.05em;
+}
+
+
+/* ============================================================
+ * v2.3.0 — EMBRACE precise D7 styling.
+ *   D7 measurements from screenshot:
+ *   - bg-roll01.gif carbon fiber texture on section wrapper (full browser width)
+ *   - Carousel fills full 1170px container (same as D7 fills 960px box)
+ *   - Cell: white #fff bg, 1px solid #cccccc border, 8px image padding
+ *   - Image height: 120px, object-fit contain, centered
+ *   - Label bar: #333333 bg, 24px tall, white Oswald 11px bold uppercase centered
+ *   - Heading: EMBRACE 22px bold white + "& explore Driven Products" 12px #aaaaaa
+ *   - Section padding: 15px top, 20px bottom
+ * ============================================================ */
+
+/* Carbon fiber texture on section wrapper — full browser width */
+.home-section--embrace {
+  background-color: #2d2d2d;
+  background-image: url('/themes/custom/driven/images/bg-roll01.gif');
+  background-repeat: repeat;
+  padding: 15px 0 20px;
+}
+
+/* Block background transparent — section handles it */
+#block-driven-embrace-grid {
+  background: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  padding: 0;
+  margin: 0;
+}
+
+/* Section heading */
+#block-driven-embrace-grid h2 {
+  font-size: 0 !important;
+  margin: 0 0 12px 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  line-height: 1 !important;
+}
+
+#block-driven-embrace-grid h2::before {
+  content: "EMBRACE";
+  font-family: "Oswald", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#block-driven-embrace-grid h2::after {
+  content: " \0026 explore Driven Products";
+  font-family: "Oswald", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Carousel grid — full container width, no constraints */
+.embrace-grid {
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Cell styling — D7 exact */
+.embrace-carousel__slide .views-view-responsive-grid__item {
+  background: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  margin: 0 2px !important;
+}
+
+/* Image — contained with padding, 120px tall */
+.embrace-carousel__slide .views-view-responsive-grid__item-inner {
+  position: relative !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+.embrace-carousel__slide .views-view-responsive-grid__item-inner img {
+  display: block !important;
+  width: calc(100% - 16px) !important;
+  height: 120px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  padding: 8px !important;
+  margin: 0 auto !important;
+  background: #ffffff !important;
+}
+
+/* Label bar — D7 exact */
+.embrace-carousel__slide .views-field-name {
+  background: #333333 !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 4px !important;
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: auto !important;
+}
+
+.embrace-carousel__slide .views-field-name a,
+.embrace-carousel__slide .views-field-name span {
+  font-family: "Oswald", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  letter-spacing: 0.06em !important;
+  text-decoration: none !important;
+  display: block !important;
+}
+
+/* Dots — centered below carousel */
+.embrace-carousel__dots {
+  background: transparent !important;
+  padding: 8px 0 !important;
 }
 
