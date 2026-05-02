@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.5
+ * Version: 2.3.6
  *
  * Changelog:
+ * 2026-05-02 00:49 (v2.3.6) EMBRACE carousel width 705px centered — matches D7 proportion (585px/970px scaled to 1170px), texture visible on both sides
  * 2026-05-02 00:42 (v2.3.5) EMBRACE cell gap precision — 8px gap on slide grid, remove redundant item margin, carbon fiber shows between cells
  * 2026-05-02 00:36 (v2.3.4) EMBRACE cells square — image height 268px matches D7 square cell proportions at 292px cell width
  * 2026-05-01 23:51 (v2.3.2) EMBRACE carousel full 1170px container width — remove all width constraints, texture shows outside container at wider viewports
@@ -472,7 +473,7 @@ html, body {
 
 /* v2.2.6 — width set to 100% of container — see latest rule */
 .embrace-grid {
-  max-width: 100%;
+  max-width: 705px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -485,7 +486,7 @@ html, body {
 
 /* EMBRACE fills full container width — matches D7 proportion */
 .embrace-grid {
-  max-width: 100%;
+  max-width: 705px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -583,8 +584,9 @@ html, body {
 
 /* Carousel grid — full container width, no constraints */
 .embrace-grid {
-  max-width: 100%;
-  margin: 0 !important;
+  max-width: 705px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Cell styling — D7 exact */
