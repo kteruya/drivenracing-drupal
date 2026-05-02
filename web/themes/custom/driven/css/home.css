@@ -3,6 +3,7 @@
  * Version: 2.3.6
  *
  * Changelog:
+ * 2026-05-02 00:52 (v2.3.6) EMBRACE square cells — 740px carousel, 15px gaps, 173px square cells, 28px label bar matching D7
  * 2026-05-02 00:49 (v2.3.6) EMBRACE carousel width 705px centered — matches D7 proportion (585px/970px scaled to 1170px), texture visible on both sides
  * 2026-05-02 00:42 (v2.3.5) EMBRACE cell gap precision — 8px gap on slide grid, remove redundant item margin, carbon fiber shows between cells
  * 2026-05-02 00:36 (v2.3.4) EMBRACE cells square — image height 268px matches D7 square cell proportions at 292px cell width
@@ -340,11 +341,11 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 15px;
   flex: 0 0 100%;
   min-width: 100%;
   background: transparent;
-  padding: 0 0 8px 0;
+  padding: 0;
 }
 
 .embrace-carousel__dots {
@@ -389,7 +390,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: 100% !important;
-  height: 200px !important;
+  height: 143px;
   object-fit: cover !important;
   object-position: center top !important;
 }
@@ -409,7 +410,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-field-name a,
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
-  font-size: 12px !important;
+  font-size: 12px;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   color: #ffffff !important;
@@ -431,7 +432,7 @@ body.path-frontpage #block-driven-content {
  * ============================================================ */
 
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
-  height: 260px !important;
+  height: 143px;
   object-fit: contain !important;
   object-position: center center !important;
   background: #ffffff;
@@ -473,7 +474,7 @@ html, body {
 
 /* v2.2.6 — width set to 100% of container — see latest rule */
 .embrace-grid {
-  max-width: 705px;
+  max-width: 740px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -486,7 +487,7 @@ html, body {
 
 /* EMBRACE fills full container width — matches D7 proportion */
 .embrace-grid {
-  max-width: 705px;
+  max-width: 740px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -584,7 +585,7 @@ html, body {
 
 /* Carousel grid — full container width, no constraints */
 .embrace-grid {
-  max-width: 705px;
+  max-width: 740px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -606,7 +607,7 @@ html, body {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: calc(100% - 16px) !important;
-  height: 268px !important;
+  height: 143px;
   object-fit: contain !important;
   object-position: center !important;
   padding: 8px !important;
@@ -617,7 +618,7 @@ html, body {
 /* Label bar — D7 exact */
 .embrace-carousel__slide .views-field-name {
   background: #333333 !important;
-  height: 24px !important;
+  height: 28px;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -632,7 +633,7 @@ html, body {
 .embrace-carousel__slide .views-field-name a,
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
-  font-size: 11px !important;
+  font-size: 12px;
   font-weight: 700 !important;
   color: #ffffff !important;
   text-transform: uppercase !important;
