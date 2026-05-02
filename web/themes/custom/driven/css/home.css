@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.0
+ * Version: 2.3.2
  *
  * Changelog:
+ * 2026-05-01 23:51 (v2.3.2) EMBRACE carousel full 1170px container width — remove all width constraints, texture shows outside container at wider viewports
  * 2026-05-01 23:43 (v2.3.0) EMBRACE precise D7 styling — carbon fiber bg on section wrapper, carousel full container width, cell borders/padding/label bar matching D7 measurements
  * 2026-05-01 (v2.2.6) EMBRACE width corrected — fills container like D7.
  *                      D11 container is 1170px, carousel fills it fully.
@@ -590,7 +591,7 @@ html, body {
 
 /* Carousel grid — full container width, no constraints */
 .embrace-grid {
-  max-width: 100% !important;
+  max-width: 100%;
   margin: 0 !important;
 }
 
