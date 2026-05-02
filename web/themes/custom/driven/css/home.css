@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.2
+ * Version: 2.3.4
  *
  * Changelog:
+ * 2026-05-02 00:36 (v2.3.4) EMBRACE cells square — image height 268px matches D7 square cell proportions at 292px cell width
  * 2026-05-01 23:51 (v2.3.2) EMBRACE carousel full 1170px container width — remove all width constraints, texture shows outside container at wider viewports
  * 2026-05-01 23:43 (v2.3.0) EMBRACE precise D7 styling — carbon fiber bg on section wrapper, carousel full container width, cell borders/padding/label bar matching D7 measurements
  * 2026-05-01 (v2.2.6) EMBRACE width corrected — fills container like D7.
@@ -601,7 +602,7 @@ html, body {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: calc(100% - 16px) !important;
-  height: 120px !important;
+  height: 268px !important;
   object-fit: contain !important;
   object-position: center !important;
   padding: 8px !important;
