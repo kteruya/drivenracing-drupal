@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.9
+ * Version: 2.4.0
  *
  * Changelog:
+ * 2026-05-02 01:08 (v2.4.0) EMBRACE label bar — font-weight normal (not bold), line-height 30px — matches D7 pixel measurements
  * 2026-05-02 01:06 (v2.3.9) EMBRACE label bar text 20px Oswald bold white uppercase — corrected from 13px per D7 pixel measurement
  * 2026-05-02 01:01 (v2.3.8) EMBRACE label bar — black #1a1a1a, 32px height, 13px Oswald bold white uppercase — matches D7 pixel measurements
  * 2026-05-02 00:59 (v2.3.7) EMBRACE precise D7 dimensions — 1150px carousel, 20px gaps, 272px square cells, 242px image height, 28px label bar
@@ -414,7 +415,8 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
   font-size: 20px;
-  font-weight: 700 !important;
+  line-height: 30px;
+  font-weight: 400;
   text-transform: uppercase !important;
   color: #ffffff !important;
   text-decoration: none !important;
@@ -637,7 +639,8 @@ html, body {
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
   font-size: 20px;
-  font-weight: 700 !important;
+  line-height: 30px;
+  font-weight: 400;
   color: #ffffff !important;
   text-transform: uppercase !important;
   text-align: center !important;
