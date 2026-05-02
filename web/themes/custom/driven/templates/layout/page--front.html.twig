@@ -1,0 +1,103 @@
+{#
+ * @file
+ * page--front.html.twig
+ * Version: 1.0.0
+ *
+ * Changelog:
+ * 2026-05-01 17:01 (v1.0.0) Initial front page template — home sections outside container for full-width backgrounds
+ * 2026-05-01 17:30 (v1.0.0) Initial — front page template override.
+ *   Renders home page sections OUTSIDE Bootstrap container so each
+ *   section has full-width background with boxed inner content.
+ *   Sections: home_slider, home_embrace, home_featured, home_new_products.
+ *   All other pages use base Bootstrap5 page.html.twig unmodified.
+ #}
+{%
+set nav_classes = 'navbar navbar-expand-lg' ~
+  (b5_navbar_schema != 'none' ? " navbar-#{b5_navbar_schema}" : ' ') ~
+  (b5_navbar_schema != 'none' ? (b5_navbar_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
+  (b5_navbar_bg_schema != 'none' ? " bg-#{b5_navbar_bg_schema}" : ' ')
+%}
+{%
+set footer_classes = ' ' ~
+  (b5_footer_schema != 'none' ? " footer-#{b5_footer_schema}" : ' ') ~
+  (b5_footer_schema != 'none' ? (b5_footer_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
+  (b5_footer_bg_schema != 'none' ? " bg-#{b5_footer_bg_schema}" : ' ')
+%}
+
+<header role="banner">
+  {{ page.header }}
+  {% if page.nav_branding or page.nav_main or page.nav_additional %}
+  <nav class="{{ nav_classes }}">
+    <div class="{{ b5_top_container }} d-flex">
+      {{ page.nav_branding }}
+      {% if page.nav_main or page.nav_additional %}
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
+          {{ page.nav_main }}
+          {{ page.nav_additional }}
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+  {% endif %}
+</header>
+
+<main role="main">
+  <a id="main-content" tabindex="-1"></a>
+
+  {# Home Slider — full width background #}
+  {% if page.home_slider %}
+    <div class="home-section home-section--slider">
+      <div class="{{ b5_top_container }}">
+        {{ page.home_slider }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# EMBRACE — full width dark background, boxed content inside #}
+  {% if page.home_embrace %}
+    <div class="home-section home-section--embrace">
+      <div class="{{ b5_top_container }}">
+        {{ page.home_embrace }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# FEATURED — full width section #}
+  {% if page.home_featured %}
+    <div class="home-section home-section--featured">
+      <div class="{{ b5_top_container }}">
+        {{ page.home_featured }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# NEW PRODUCTS — full width section #}
+  {% if page.home_new_products %}
+    <div class="home-section home-section--new-products">
+      <div class="{{ b5_top_container }}">
+        {{ page.home_new_products }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Standard content region #}
+  {% if page.content %}
+    <div class="{{ b5_top_container }}">
+      {{ page.content }}
+    </div>
+  {% endif %}
+
+</main>
+
+{% if page.footer %}
+<footer role="contentinfo" class="mt-auto {{ footer_classes }}">
+  <div class="{{ b5_top_container }}">
+    {{ page.footer }}
+  </div>
+</footer>
+{% endif %}
