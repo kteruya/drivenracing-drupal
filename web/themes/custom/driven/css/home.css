@@ -61,12 +61,6 @@
   width: 100%;
 }
 
-/* Remove Bootstrap container constraints on front page */
-body.path-frontpage .container {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
 
 /* The view wrapper */
 .view-driven-home-slider {
@@ -209,11 +203,6 @@ body.path-frontpage #block-driven-views-block-driven-home-slider-block-1 {
   margin: 0;
 }
 
-/* Front page content area needs dark background to show embrace correctly */
-body.path-frontpage .container > .region-content,
-body.path-frontpage .region.region-content {
-  background: #2d2d2d;
-}
 
 /* But main page content block should stay white */
 body.path-frontpage #block-driven-content .block-system-main-block,
