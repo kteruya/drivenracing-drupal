@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.3.7
+ * Version: 2.3.8
  *
  * Changelog:
+ * 2026-05-02 01:01 (v2.3.8) EMBRACE label bar — black #1a1a1a, 32px height, 13px Oswald bold white uppercase — matches D7 pixel measurements
  * 2026-05-02 00:59 (v2.3.7) EMBRACE precise D7 dimensions — 1150px carousel, 20px gaps, 272px square cells, 242px image height, 28px label bar
  * 2026-05-02 00:52 (v2.3.6) EMBRACE square cells — 740px carousel, 15px gaps, 173px square cells, 28px label bar matching D7
  * 2026-05-02 00:49 (v2.3.6) EMBRACE carousel width 705px centered — matches D7 proportion (585px/970px scaled to 1170px), texture visible on both sides
@@ -391,7 +392,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: 100% !important;
-  height: 242px;
+  height: 238px;
   object-fit: cover !important;
   object-position: center top !important;
 }
@@ -402,7 +403,7 @@ body.path-frontpage #block-driven-content {
   bottom: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  background: rgba(0, 0, 0, 0.75) !important;
+  background: #1a1a1a !important;
   padding: 6px 8px !important;
   margin: 0 !important;
   z-index: 5;
@@ -411,7 +412,7 @@ body.path-frontpage #block-driven-content {
 .embrace-carousel__slide .views-field-name a,
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   color: #ffffff !important;
@@ -433,7 +434,7 @@ body.path-frontpage #block-driven-content {
  * ============================================================ */
 
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
-  height: 242px;
+  height: 238px;
   object-fit: contain !important;
   object-position: center center !important;
   background: #ffffff;
@@ -608,7 +609,7 @@ html, body {
 .embrace-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block !important;
   width: calc(100% - 16px) !important;
-  height: 242px;
+  height: 238px;
   object-fit: contain !important;
   object-position: center !important;
   padding: 8px !important;
@@ -618,8 +619,8 @@ html, body {
 
 /* Label bar — D7 exact */
 .embrace-carousel__slide .views-field-name {
-  background: #333333 !important;
-  height: 28px;
+  background: #1a1a1a !important;
+  height: 32px;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -634,7 +635,7 @@ html, body {
 .embrace-carousel__slide .views-field-name a,
 .embrace-carousel__slide .views-field-name span {
   font-family: "Oswald", sans-serif !important;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700 !important;
   color: #ffffff !important;
   text-transform: uppercase !important;
