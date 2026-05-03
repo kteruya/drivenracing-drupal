@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.4
+ * Version: 2.6.6
  *
  * Changelog:
+ * 2026-05-03 00:16 (v2.6.6) NEW PRODUCTS title bar hover only — hidden by default, shows on cell hover, matches D7
  * 2026-05-03 00:10 (v2.6.4) NEW PRODUCTS — square images, no title bar, PRODUCTS subtitle white
  * 2026-05-03 00:04 (v2.6.3) NEW PRODUCTS bg-roll03.jpg background, title hover effect matches D7, section padding
  * 2026-05-02 23:55 (v2.6.2) NEW PRODUCTS image border 7px solid #D9D9D9 matches D7, 12 items per page
@@ -903,8 +904,45 @@ html, body {
   background: #ffffff;
 }
 
-/* Title bar — hidden on new products, D7 shows on hover only */
+/* Title bar — hidden by default, shows on hover — matches D7 */
+.new-products-carousel__slide .views-view-responsive-grid__item {
+  position: relative;
+  overflow: hidden;
+}
+
 .new-products-carousel__slide .views-field-title {
-  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #000000;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 5;
+}
+
+.new-products-carousel__slide .views-view-responsive-grid__item:hover .views-field-title {
+  opacity: 1;
+}
+
+.new-products-carousel__slide .views-field-title a {
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  line-height: 30px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
