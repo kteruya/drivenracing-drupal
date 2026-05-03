@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.2
+ * Version: 2.6.3
  *
  * Changelog:
+ * 2026-05-03 00:04 (v2.6.3) NEW PRODUCTS bg-roll03.jpg background, title hover effect matches D7, section padding
  * 2026-05-02 23:55 (v2.6.2) NEW PRODUCTS image border 7px solid #D9D9D9 matches D7, 12 items per page
  * 2026-05-02 23:40 (v2.6.1) NEW PRODUCTS carousel CSS — matches EMBRACE carousel pattern, D7 styling
  * 2026-05-02 23:20 (v2.6.0) NEW PRODUCTS section — dark background, NEW PRODUCTS heading matching D7, product grid styling
@@ -749,7 +750,11 @@ html, body {
  * ============================================================ */
 
 .home-section--new-products {
-  background: #2d2d2d;
+  background-color: #1a1a1a;
+  background-image: url('/themes/custom/driven/images/bg-roll03.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   padding: 15px 0 20px;
 }
 
