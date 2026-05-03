@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.4.4
+ * Version: 2.4.5
  *
  * Changelog:
+ * 2026-05-02 22:03 (v2.4.5) EMBRACE heading padding — 12px above, 10px below matches D7
  * 2026-05-02 22:01 (v2.4.4) EMBRACE heading larger — EMBRACE 28px bold, subtitle 14px regular gray — matches D7
  * 2026-05-02 21:56 (v2.4.2) EMBRACE carousel width 100% — container padding handles margins, fixes overflow clipping
  * 2026-05-02 01:11 (v2.4.1) EMBRACE label bar 40px height, pure black #000000 background — matches D7
@@ -229,7 +230,7 @@ body.path-frontpage #block-driven-content {
   text-transform: uppercase;
   color: #ffffff;
   background: #1a1a1a;
-  margin: 0;
+  margin: 12px 0 10px 0 !important;
   padding: 12px 15px;
   letter-spacing: 0.08em;
   border-bottom: 1px solid #444444;
@@ -564,7 +565,7 @@ html, body {
 /* Section heading */
 #block-driven-embrace-grid h2 {
   font-size: 0 !important;
-  margin: 0 0 12px 0 !important;
+  margin: 12px 0 10px 0 !important;
   padding: 0 !important;
   background: transparent !important;
   border: none !important;
