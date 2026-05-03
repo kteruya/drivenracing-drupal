@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.8
+ * Version: 2.6.9
  *
  * Changelog:
+ * 2026-05-03 00:43 (v2.6.9) NEW PRODUCTS title — add visited and hover link states to force white color
  * 2026-05-03 00:28 (v2.6.8) NEW PRODUCTS force square cells with explicit width and height equal values
  * 2026-05-03 00:19 (v2.6.7) NEW PRODUCTS square images aspect-ratio 1:1, title text white
  * 2026-05-03 00:16 (v2.6.6) NEW PRODUCTS title bar hover only — hidden by default, shows on cell hover, matches D7
@@ -954,5 +955,24 @@ html, body {
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
+}
+
+
+/* ============================================================
+ * v2.6.9 — NEW PRODUCTS title force white on all link states.
+ *   Visited links may show purple/dark — override all states.
+ * ============================================================ */
+.new-products-carousel__slide .views-field-title a:link,
+.new-products-carousel__slide .views-field-title a:visited,
+.new-products-carousel__slide .views-field-title a:hover,
+.new-products-carousel__slide .views-field-title a:active {
+  color: #ffffff !important;
+}
+
+.new-products-grid .views-field-title a:link,
+.new-products-grid .views-field-title a:visited,
+.new-products-grid .views-field-title a:hover,
+.new-products-grid .views-field-title a:active {
+  color: #ffffff !important;
 }
 
