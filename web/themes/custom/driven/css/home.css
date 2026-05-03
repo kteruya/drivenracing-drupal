@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.5.3
+ * Version: 2.5.4
  *
  * Changelog:
+ * 2026-05-02 22:29 (v2.5.4) FEATURED label matches EMBRACE title — Oswald 28px bold white, 12px top 20px bottom margin
  * 2026-05-02 22:26 (v2.5.3) FEATURED label — Oswald 14px #aaaaaa regular uppercase, links to /catalog/mantis, matches D7
  * 2026-05-02 22:23 (v2.5.2) FEATURED section background #000000 matches image background for seamless blend
  * 2026-05-02 22:21 (v2.5.1) FEATURED section background #2d2d2d matches D7 page background, image full container width
@@ -719,20 +720,20 @@ html, body {
  * ============================================================ */
 
 .featured-label {
-  padding: 0 0 8px 0;
+  margin: 12px 0 20px 0;
 }
 
 .featured-label a {
   font-family: "Oswald", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #aaaaaa !important;
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff !important;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   text-decoration: none;
 }
 
 .featured-label a:hover {
-  color: #ffffff !important;
+  color: #aaaaaa !important;
 }
 
