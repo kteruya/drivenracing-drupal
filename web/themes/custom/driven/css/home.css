@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.9
+ * Version: 2.7.0
  *
  * Changelog:
+ * 2026-05-03 00:48 (v2.7.0) NEW PRODUCTS title — override field-content color #515151 with white
  * 2026-05-03 00:43 (v2.6.9) NEW PRODUCTS title — add visited and hover link states to force white color
  * 2026-05-03 00:28 (v2.6.8) NEW PRODUCTS force square cells with explicit width and height equal values
  * 2026-05-03 00:19 (v2.6.7) NEW PRODUCTS square images aspect-ratio 1:1, title text white
@@ -973,6 +974,16 @@ html, body {
 .new-products-grid .views-field-title a:visited,
 .new-products-grid .views-field-title a:hover,
 .new-products-grid .views-field-title a:active {
+  color: #ffffff !important;
+}
+
+
+/* ============================================================
+ * v2.7.0 — NEW PRODUCTS title — field-content overrides color.
+ *   .field-content sets #515151 — must target it directly.
+ * ============================================================ */
+.new-products-carousel__slide .views-field-title .field-content a,
+.new-products-carousel__slide .views-field-title .field-content {
   color: #ffffff !important;
 }
 
