@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.7
+ * Version: 2.6.8
  *
  * Changelog:
+ * 2026-05-03 00:28 (v2.6.8) NEW PRODUCTS force square cells with explicit width and height equal values
  * 2026-05-03 00:19 (v2.6.7) NEW PRODUCTS square images aspect-ratio 1:1, title text white
  * 2026-05-03 00:16 (v2.6.6) NEW PRODUCTS title bar hover only — hidden by default, shows on cell hover, matches D7
  * 2026-05-03 00:10 (v2.6.4) NEW PRODUCTS — square images, no title bar, PRODUCTS subtitle white
@@ -894,14 +895,22 @@ html, body {
   border: 7px solid #D9D9D9;
 }
 
-.new-products-carousel__slide .views-view-responsive-grid__item-inner img {
+.new-products-carousel__slide .views-view-responsive-grid__item-inner {
   display: block;
-  width: calc(100% - 16px);
-  aspect-ratio: 1 / 1;
+  padding-bottom: 100%;
+  position: relative;
+  background: #ffffff;
+}
+
+.new-products-carousel__slide .views-view-responsive-grid__item-inner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   object-position: center;
   padding: 8px;
-  margin: 0 auto;
   background: #ffffff;
 }
 
