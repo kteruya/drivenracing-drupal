@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.1
+ * Version: 2.6.2
  *
  * Changelog:
+ * 2026-05-02 23:55 (v2.6.2) NEW PRODUCTS image border 7px solid #D9D9D9 matches D7, 12 items per page
  * 2026-05-02 23:40 (v2.6.1) NEW PRODUCTS carousel CSS — matches EMBRACE carousel pattern, D7 styling
  * 2026-05-02 23:20 (v2.6.0) NEW PRODUCTS section — dark background, NEW PRODUCTS heading matching D7, product grid styling
  * 2026-05-02 22:29 (v2.5.4) FEATURED label matches EMBRACE title — Oswald 28px bold white, 12px top 20px bottom margin
@@ -882,7 +883,7 @@ html, body {
 /* Cell styling matches EMBRACE */
 .new-products-carousel__slide .views-view-responsive-grid__item {
   background: #ffffff;
-  border: 1px solid #cccccc;
+  border: 7px solid #D9D9D9;
 }
 
 .new-products-carousel__slide .views-view-responsive-grid__item-inner img {
