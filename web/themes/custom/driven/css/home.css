@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.4.6
+ * Version: 2.5.0
  *
  * Changelog:
+ * 2026-05-02 22:18 (v2.5.0) FEATURED section — Mantis banner, full container width, dark background, FEATURED label matching D7
  * 2026-05-02 22:05 (v2.4.6) EMBRACE heading margin-bottom 20px — extra 10px between title and carousel
  * 2026-05-02 22:03 (v2.4.5) EMBRACE heading padding — 12px above, 10px below matches D7
  * 2026-05-02 22:01 (v2.4.4) EMBRACE heading larger — EMBRACE 28px bold, subtitle 14px regular gray — matches D7
@@ -658,5 +659,53 @@ html, body {
 .embrace-carousel__dots {
   background: transparent !important;
   padding: 8px 0 !important;
+}
+
+
+/* ============================================================
+ * v2.5.0 — FEATURED section styles.
+ *   Dark background full browser width.
+ *   Banner image fills full 1170px container.
+ *   Small "FEATURED" label above image matching D7.
+ * ============================================================ */
+
+.home-section--featured {
+  background: #1a1a1a;
+  padding: 15px 0 0 0;
+}
+
+#block-driven-home-featured {
+  padding: 0;
+  margin: 0;
+}
+
+#block-driven-home-featured h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 10px 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.featured-banner {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.featured-banner a {
+  display: block;
+  width: 100%;
+}
+
+.featured-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
