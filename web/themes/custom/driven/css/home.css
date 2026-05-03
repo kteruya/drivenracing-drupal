@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.4.2
+ * Version: 2.4.4
  *
  * Changelog:
+ * 2026-05-02 22:01 (v2.4.4) EMBRACE heading larger — EMBRACE 28px bold, subtitle 14px regular gray — matches D7
  * 2026-05-02 21:56 (v2.4.2) EMBRACE carousel width 100% — container padding handles margins, fixes overflow clipping
  * 2026-05-02 01:11 (v2.4.1) EMBRACE label bar 40px height, pure black #000000 background — matches D7
  * 2026-05-02 01:08 (v2.4.0) EMBRACE label bar — font-weight normal (not bold), line-height 30px — matches D7 pixel measurements
@@ -513,7 +514,7 @@ html, body {
 #block-driven-embrace-grid h2::before {
   content: "EMBRACE";
   font-family: "Oswald", sans-serif;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
   text-transform: uppercase;
   color: #ffffff;
@@ -523,7 +524,7 @@ html, body {
 #block-driven-embrace-grid h2::after {
   content: " & explore Driven Products";
   font-family: "Oswald", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
   color: #aaaaaa;
@@ -573,7 +574,7 @@ html, body {
 #block-driven-embrace-grid h2::before {
   content: "EMBRACE";
   font-family: "Oswald", sans-serif;
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
@@ -583,7 +584,7 @@ html, body {
 #block-driven-embrace-grid h2::after {
   content: " \0026 explore Driven Products";
   font-family: "Oswald", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   color: #aaaaaa;
   text-transform: uppercase;
