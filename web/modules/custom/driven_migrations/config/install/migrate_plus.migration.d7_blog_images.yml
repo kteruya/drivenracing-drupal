@@ -1,0 +1,33 @@
+id: d7_blog_images
+label: 'D7 Blog Images'
+migration_group: driven_blog
+source:
+  plugin: d7_file
+  scheme: public
+  key: migrate
+  database:
+    driver: mysql
+    database: driven_d7uc_1
+    username: drupal11_drivenracing_com
+    password: 'Pasadena!0'
+    host: 127.0.0.1
+    port: 3306
+  constants:
+    source_base_path: /home/drupal11.drivenracing.com/d7_public_files
+destination:
+  plugin: 'entity:file'
+process:
+  filename: filename
+  uri:
+    plugin: file_copy
+    source:
+      - filepath
+      - uri
+    move: false
+  status:
+    plugin: default_value
+    default_value: 1
+  created: timestamp
+  changed: timestamp
+  uid: uid
+migration_dependencies: {}

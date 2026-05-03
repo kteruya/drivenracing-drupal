@@ -1,0 +1,26 @@
+id: d7_driven_motorcycle_sprocket_patterns
+label: 'D7 Driven Motorcycles: front/rear sprocket patterns'
+migration_group: driven_d7
+
+source:
+  plugin: d7_driven_motorcycles_sprocket_patterns
+  key: migrate
+  table: driven_motorcycles
+  id_column: id
+
+process:
+  # Destination entity ID, same as D7 "id".
+  id: id
+
+  # D11 (correct spelling) <= D7 (misspelled "sproket").
+  front_sprocket_pattern: front_sproket_pattern
+  rear_sprocket_pattern: rear_sproket_pattern
+
+destination:
+  plugin: 'entity:driven_motorcycle'
+  update: true
+
+dependencies:
+  enforced:
+    module:
+      - driven_migrations

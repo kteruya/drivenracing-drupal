@@ -1,0 +1,8 @@
+id: driven_blog
+label: 'Driven Blog Migration'
+description: 'Migrates D7 blog nodes to D11 Article content type'
+source_type: 'Drupal 7'
+module: ~
+shared_configuration:
+  source:
+    key: migrate

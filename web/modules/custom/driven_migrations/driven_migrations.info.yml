@@ -1,0 +1,13 @@
+name: 'Driven Migrations'
+type: module
+description: 'Custom migrations for Driven Racing D7 to D11 content migration'
+package: 'Driven Racing'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - migrate:migrate
+  - migrate_drupal:migrate_drupal
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - node:node
+  - file:file
+  - image:image

@@ -1,0 +1,43 @@
+id: d7_blog_nodes
+label: 'D7 Blog Nodes to Article'
+migration_group: driven_blog
+source:
+  plugin: d7_node
+  node_type: blog
+  key: migrate
+  database:
+    driver: mysql
+    database: driven_d7uc_1
+    username: drupal11_drivenracing_com
+    password: 'Pasadena!0'
+    host: 127.0.0.1
+    port: 3306
+destination:
+  plugin: 'entity:node'
+  default_bundle: article
+process:
+  title: title
+  status: status
+  created: created
+  changed: changed
+  uid:
+    plugin: default_value
+    default_value: 1
+  body/value:
+    plugin: get
+    source: body
+  body/format:
+    plugin: default_value
+    default_value: basic_html
+  field_blog_type: field_blog_type
+  field_images:
+    plugin: sub_process
+    source: field_images
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: d7_blog_images
+        source: fid
+migration_dependencies:
+  required:
+    - d7_blog_images
