@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.5.1
+ * Version: 2.5.2
  *
  * Changelog:
+ * 2026-05-02 22:23 (v2.5.2) FEATURED section background #000000 matches image background for seamless blend
  * 2026-05-02 22:21 (v2.5.1) FEATURED section background #2d2d2d matches D7 page background, image full container width
  * 2026-05-02 22:18 (v2.5.0) FEATURED section — Mantis banner, full container width, dark background, FEATURED label matching D7
  * 2026-05-02 22:05 (v2.4.6) EMBRACE heading margin-bottom 20px — extra 10px between title and carousel
@@ -671,7 +672,7 @@ html, body {
  * ============================================================ */
 
 .home-section--featured {
-  background: #2d2d2d;
+  background: #000000;
   padding: 15px 0 0 0;
 }
 
