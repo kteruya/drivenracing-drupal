@@ -1,8 +1,9 @@
 /**
  * home.css — Driven Racing home page styles
- * Version: 2.6.3
+ * Version: 2.6.4
  *
  * Changelog:
+ * 2026-05-03 00:10 (v2.6.4) NEW PRODUCTS — square images, no title bar, PRODUCTS subtitle white
  * 2026-05-03 00:04 (v2.6.3) NEW PRODUCTS bg-roll03.jpg background, title hover effect matches D7, section padding
  * 2026-05-02 23:55 (v2.6.2) NEW PRODUCTS image border 7px solid #D9D9D9 matches D7, 12 items per page
  * 2026-05-02 23:40 (v2.6.1) NEW PRODUCTS carousel CSS — matches EMBRACE carousel pattern, D7 styling
@@ -788,7 +789,7 @@ html, body {
   font-family: "Oswald", sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #aaaaaa;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -894,7 +895,7 @@ html, body {
 .new-products-carousel__slide .views-view-responsive-grid__item-inner img {
   display: block;
   width: calc(100% - 16px);
-  height: 230px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
   object-position: center;
   padding: 8px;
@@ -902,28 +903,8 @@ html, body {
   background: #ffffff;
 }
 
-/* Title bar */
+/* Title bar — hidden on new products, D7 shows on hover only */
 .new-products-carousel__slide .views-field-title {
-  background: #000000;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-}
-
-.new-products-carousel__slide .views-field-title a {
-  font-family: "Oswald", sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: #ffffff !important;
-  text-transform: uppercase;
-  text-align: center;
-  text-decoration: none;
-  line-height: 30px;
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: none;
 }
 
