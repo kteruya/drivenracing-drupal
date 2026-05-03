@@ -1,8 +1,9 @@
 # =============================================================================
 # Driven Racing — Library definitions
-# Version: 2.1.0
+# Version: 2.2.0
 #
 # Changelog:
+# 2026-05-02 23:40 (v2.2.0) Add new-products-carousel.js to home library
 # 2026-04-29 17:00 (v2.1.0) Removed catalog.css from global library.
 #                            catalog library now attached conditionally
 #                            via driven_page_attachments_alter() in driven.theme.
@@ -32,6 +33,7 @@ home:
   js:
     js/home-slider.js: {}
     js/embrace-carousel.js: {}
+    js/new-products-carousel.js: {}
   dependencies:
     - driven/global
     - core/drupal

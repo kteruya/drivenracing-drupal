@@ -1,25 +1,21 @@
 /**
- * embrace-carousel.js — Driven Racing EMBRACE & EXPLORE carousel
- * Version: 1.1.0
+ * new-products-carousel.js — Driven Racing NEW PRODUCTS carousel
+ * Version: 1.0.0
  *
  * Changelog:
- * 2026-05-02 23:40 (v1.1.0) Reference version — new-products-carousel.js created from same pattern
- * 2026-05-01 (v1.1.0) Fix — target .views-view-responsive-grid directly
- *                     as item container. Previous v1.0.0 targeted
- *                     .view-content which left 4 items in original grid
- *                     wrapper causing empty slide 2.
- * 2026-04-30 (v1.0.0) Initial — converts responsive grid into 4-up
+ * 2026-05-02 (v1.0.0) Initial — converts new products grid into 4-up
  *                     carousel. Groups 8 items into 2 slides of 4.
+ *                     Matches D7 NEW PRODUCTS carousel behaviour.
+ *                     Based on embrace-carousel.js pattern.
  */
 (function (Drupal, once) {
   'use strict';
 
-  Drupal.behaviors.drivenEmbraceCarousel = {
+  Drupal.behaviors.drivenNewProductsCarousel = {
     attach: function (context) {
-      var grids = once('embrace-carousel', '.embrace-grid .view-content', context);
+      var grids = once('new-products-carousel', '.new-products-grid .view-content', context);
 
       grids.forEach(function (viewContent) {
-        // Target the responsive grid wrapper
         var grid = viewContent.querySelector('.views-view-responsive-grid');
         if (!grid) return;
 
@@ -34,15 +30,15 @@
 
         // Build carousel wrapper
         var carousel = document.createElement('div');
-        carousel.className = 'embrace-carousel';
+        carousel.className = 'new-products-carousel';
 
         var track = document.createElement('div');
-        track.className = 'embrace-carousel__track';
+        track.className = 'new-products-carousel__track';
 
         // Group items into slides
         for (var s = 0; s < totalSlides; s++) {
           var slide = document.createElement('div');
-          slide.className = 'embrace-carousel__slide';
+          slide.className = 'new-products-carousel__slide';
           var slideItems = items.slice(s * itemsPerSlide, (s + 1) * itemsPerSlide);
           slideItems.forEach(function (item) {
             slide.appendChild(item);
@@ -54,7 +50,7 @@
 
         // Build dots
         var dotsContainer = document.createElement('div');
-        dotsContainer.className = 'embrace-carousel__dots';
+        dotsContainer.className = 'new-products-carousel__dots';
         var dots = [];
 
         for (var d = 0; d < totalSlides; d++) {
